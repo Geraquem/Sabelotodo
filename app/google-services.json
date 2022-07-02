@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "597266674105",
+    "project_id": "sabelotodo-410e5",
+    "storage_bucket": "sabelotodo-410e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597266674105:android:d339a158df287ce77e4668",
+        "android_client_info": {
+          "package_name": "com.mmfsin.sabelotodo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597266674105-kskikr4jt3idrcl66jf2rd77jkiaf0t6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mmfsin.sabelotodo",
+            "certificate_hash": "f5bd6c9971b43c591fc3ac406ea0e9de752577a3"
+          }
+        },
+        {
+          "client_id": "597266674105-qr5avct90g801ke6r48ibvceeiu85lnf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRKZ-oGwwiX_ivFatI4nhl0f5IbefymtM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "597266674105-qr5avct90g801ke6r48ibvceeiu85lnf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
