@@ -31,6 +31,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:scrollbars="none"
         app:layout_constraintLeft_toLeftOf="@id/gl_left"
         app:layout_constraintRight_toRightOf="@id/gl_right"
         app:layout_constraintTop_toTopOf="@id/gl_top">
@@ -84,6 +85,13 @@
 
             <include
                 android:id="@+id/card_five"
+                layout="@layout/item_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
+
+            <include
+                android:id="@+id/card_six"
                 layout="@layout/item_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

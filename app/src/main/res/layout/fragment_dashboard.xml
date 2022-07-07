@@ -43,7 +43,7 @@
             android:fontFamily="@font/roboto_regular"
             android:text="¿Qué edad tiene el Pato Lucas?"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
             android:fontFamily="@font/roboto_light"
             android:text="Personaje de Disney pato bimorfo."
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <ImageView
             android:layout_width="wrap_content"

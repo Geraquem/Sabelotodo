@@ -1,19 +1,20 @@
-package com.mmfsin.sabelotodo.presentation.dashboard
+package com.mmfsin.sabelotodo.presentation.category
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.mmfsin.sabelotodo.data.models.DataDTO
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
 
-class Dashboard : Fragment(), DashboardView {
+class CategoryFragment : Fragment(), DashboardView {
 
     private var _bdg: FragmentDashboardBinding? = null
     private val binding get() = _bdg!!
 
-    private val presenter by lazy { DashboardPresenter(this) }
+    private val presenter by lazy { CategoryPresenter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,5 +35,10 @@ class Dashboard : Fragment(), DashboardView {
 
     }
 
-    override fun somethingWentWrong() {}
+    override fun aaa() {
+        Toast.makeText(requireActivity(), " WORKS" , Toast.LENGTH_SHORT).show()
+    }
+    override fun somethingWentWrong() {
+        Toast.makeText(requireActivity(), " NOT WORKS" , Toast.LENGTH_SHORT).show()
+    }
 }

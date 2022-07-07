@@ -1,4 +1,4 @@
-package com.mmfsin.sabelotodo.presentation.dashboard
+package com.mmfsin.sabelotodo.presentation.category
 
 import com.mmfsin.sabelotodo.data.models.DataDTO
 

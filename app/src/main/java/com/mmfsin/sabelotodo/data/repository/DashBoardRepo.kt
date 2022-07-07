@@ -9,9 +9,9 @@ class DashBoardRepo(private var listener: IDashboardRepo) {
 
     fun getData() {
         val asasas = 1
-        Firebase.database.reference.child("hola").get()
-             .addOnSuccessListener {
+        Firebase.database.reference.child("categories").get().addOnSuccessListener {
                 var a = 2
+                 listener.aaa()
 //  s              it.getValue(MusicVideoDTO::class.java)?.let { it1 -> listener.musicVideoData(it1) }
 
             }.addOnFailureListener {
@@ -21,6 +21,7 @@ class DashBoardRepo(private var listener: IDashboardRepo) {
 
     interface IDashboardRepo {
         fun setData(data: DataDTO)
+        fun aaa()
         fun somethingWentWrong()
     }
 }

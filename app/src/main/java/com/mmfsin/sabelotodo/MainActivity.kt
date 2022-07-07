@@ -3,7 +3,7 @@ package com.mmfsin.sabelotodo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
-import com.mmfsin.sabelotodo.presentation.dashboard.Dashboard
+import com.mmfsin.sabelotodo.presentation.dashboard.DashboardFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.cardOne.item.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, Dashboard())
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, DashboardFragment())
                 .commit()
         }
     }

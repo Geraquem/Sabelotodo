@@ -1,4 +1,4 @@
-package com.mmfsin.sabelotodo.presentation.dashboard
+package com.mmfsin.sabelotodo.presentation.category
 
 import com.mmfsin.sabelotodo.data.models.DataDTO
 import com.mmfsin.sabelotodo.data.repository.DashBoardRepo
@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, CoroutineScope {
+class CategoryPresenter(private val view: DashboardView) : IDashboardRepo, CoroutineScope {
 
     override val coroutineContext: CoroutineContext = Dispatchers.Main
 

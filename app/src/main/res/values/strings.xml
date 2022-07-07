@@ -4,6 +4,14 @@
 
     <string name="contentDescription">image</string>
 
+    <!-- Categories -->
+    <string name="spanish_age">spanish-age</string>
+    <string name="global_age">global-age</string>
+    <string name="cartoon_creations">cartoon-creations</string>
+    <string name="important_dates">important-dates</string>
+    <string name="films_series">films-series</string>
+    <string name="creation_objects">creation-objects</string>
+
     <!-- Dashboard -->
     <string name="your_answer">TU RESPUESTA</string>
     <string name="in_the">EN EL AÑO</string>
