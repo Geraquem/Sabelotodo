@@ -18,8 +18,8 @@ class CategoriesPresenter(private val view: CategoriesView) : ICategoriesRepo, C
         launch(Dispatchers.IO) { repo.getCategoriesData() }
     }
 
-    override fun setCategoriesData(data: List<CategoryDTO>) {
-        launch { view.setCategoriesData(data) }
+    override fun setCategoriesData(categories: List<CategoryDTO>) {
+        launch { view.setCategoriesData(categories) }
     }
 
     override fun somethingWentWrong() {

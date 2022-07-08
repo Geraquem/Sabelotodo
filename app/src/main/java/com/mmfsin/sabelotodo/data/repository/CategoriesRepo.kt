@@ -10,8 +10,13 @@ class CategoriesRepo(private var listener: ICategoriesRepo) {
 
     fun getCategoriesData() {
         reference.get().addOnSuccessListener {
-            var a = 2
-//  s              it.getValue(MusicVideoDTO::class.java)?.let { it1 -> listener.musicVideoData(it1) }
+            val categories = mutableListOf<CategoryDTO>()
+            for (child in it.children) {
+                child.getValue(CategoryDTO::class.java)?.let { category ->
+                    categories.add(category)
+                }
+            }
+            listener.setCategoriesData(categories)
 
         }.addOnFailureListener {
             listener.somethingWentWrong()
@@ -19,7 +24,7 @@ class CategoriesRepo(private var listener: ICategoriesRepo) {
     }
 
     interface ICategoriesRepo {
-        fun setCategoriesData(data: List<CategoryDTO>)
+        fun setCategoriesData(categories: List<CategoryDTO>)
         fun somethingWentWrong()
     }
 }
