@@ -1,13 +1,14 @@
 {
   "project_info": {
     "project_number": "597266674105",
+    "firebase_url": "https://sabelotodo-410e5-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "sabelotodo-410e5",
     "storage_bucket": "sabelotodo-410e5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:597266674105:android:d339a158df287ce77e4668",
+        "mobilesdk_app_id": "1:597266674105:android:2c57e19bb61b00207e4668",
         "android_client_info": {
           "package_name": "com.mmfsin.sabelotodo"
         }

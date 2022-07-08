@@ -2,7 +2,10 @@ package com.mmfsin.sabelotodo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
+import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragment
 import com.mmfsin.sabelotodo.presentation.dashboard.DashboardFragment
 
 class MainActivity : AppCompatActivity() {
@@ -14,9 +17,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.cardOne.item.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, DashboardFragment())
-                .commit()
-        }
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, CategoriesFragment())
+            .commit()
     }
 }

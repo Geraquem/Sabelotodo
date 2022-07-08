@@ -27,17 +27,11 @@ class DashboardFragment : Fragment(), DashboardView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.getData()
+        // presenter.getData()
     }
 
 
-    override fun setData(data: DataDTO) {
-
-    }
-
-    override fun aaa() {
-        Toast.makeText(requireActivity(), " WORKS", Toast.LENGTH_SHORT).show()
-    }
+    override fun setData(data: DataDTO) {}
 
     override fun somethingWentWrong() {
         Toast.makeText(requireActivity(), " NOT WORKS", Toast.LENGTH_SHORT).show()
