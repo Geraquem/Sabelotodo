@@ -2,13 +2,13 @@ package com.mmfsin.sabelotodo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
+import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragment
 import com.mmfsin.sabelotodo.presentation.dashboard.DashboardFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ICommunication {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -18,7 +18,38 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, CategoriesFragment())
+            .replace(R.id.fragment_container, CategoriesFragment(this))
+            .addToBackStack(null)
             .commit()
+    }
+
+    override fun navigateToDashboard(category: String) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, DashboardFragment(this, category))
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun somethingWentWrong() {
+        SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+            .setTitleText(getString(R.string.oops))
+            .setContentText(getString(R.string.somethingWentWrong))
+            .show()
+    }
+
+    private fun sweetAlertGoBack() {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText(getString(R.string.wannaExit))
+            .setConfirmText(getString(R.string.yes))
+            .setConfirmClickListener { sDialog ->
+                supportFragmentManager.popBackStack()
+                sDialog.dismissWithAnimation()
+            }
+            .setCancelButton(getString(R.string.no)) { sDialog -> sDialog.dismissWithAnimation() }
+            .show()
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) finish() else sweetAlertGoBack()
     }
 }

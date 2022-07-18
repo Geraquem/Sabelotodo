@@ -6,10 +6,24 @@ import com.mmfsin.sabelotodo.data.models.DataDTO
 
 class DashboardRepo(private var listener: IDashboardRepo) {
 
-    fun getData() {
-        Firebase.database.reference.child("categories").get().addOnSuccessListener {
-            var a = 2
-//  s              it.getValue(MusicVideoDTO::class.java)?.let { it1 -> listener.musicVideoData(it1) }
+    private val reference = Firebase.database.reference.child("questions")
+
+    fun getDataList(category: String) {
+        reference.child(category).get().addOnSuccessListener {
+            val list = mutableListOf<String>()
+            for (child in it.children) {
+                list.add(child.key.toString())
+            }
+            listener.setDataList(list)
+
+        }.addOnFailureListener {
+            listener.somethingWentWrong()
+        }
+    }
+
+    fun getQuestionData(category: String, questionName: String) {
+        reference.child(category).child(questionName).get().addOnSuccessListener {
+            it.getValue(DataDTO::class.java)?.let { data -> listener.setQuestionData(data) }
 
         }.addOnFailureListener {
             listener.somethingWentWrong()
@@ -17,7 +31,8 @@ class DashboardRepo(private var listener: IDashboardRepo) {
     }
 
     interface IDashboardRepo {
-        fun setData(data: DataDTO)
+        fun setDataList(list: List<String>)
+        fun setQuestionData(data: DataDTO)
         fun somethingWentWrong()
     }
 }

@@ -1,5 +1,6 @@
 package com.mmfsin.sabelotodo.presentation.dashboard
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,20 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.mmfsin.sabelotodo.data.models.DataDTO
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
+import com.mmfsin.sabelotodo.presentation.ICommunication
 
-class DashboardFragment : Fragment(), DashboardView {
+class DashboardFragment(private val listener: ICommunication, private val category: String) :
+    Fragment(), DashboardView {
 
     private var _bdg: FragmentDashboardBinding? = null
     private val binding get() = _bdg!!
 
     private val presenter by lazy { DashboardPresenter(this) }
+
+    private lateinit var mContext: Context
+
+    private lateinit var questionNames: List<String>
+    private var pos = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,13 +35,34 @@ class DashboardFragment : Fragment(), DashboardView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // presenter.getData()
+        presenter.getDataList(category)
     }
 
+    override fun setDataList(list: List<String>) {
+        questionNames = list
+        presenter.getQuestionData(category, questionNames[pos])
+    }
 
-    override fun setData(data: DataDTO) {}
+    override fun setQuestionData(data: DataDTO) {
+        val a = 2
+        /**
+         *
+         *
+         *
+         * AQUI
+         *
+         *
+         */
 
-    override fun somethingWentWrong() {
-        Toast.makeText(requireActivity(), " NOT WORKS", Toast.LENGTH_SHORT).show()
+        Toast.makeText(mContext, data.text, Toast.LENGTH_SHORT).show()
+
+        println(" --------------------------- " + data.toString())
+    }
+
+    override fun somethingWentWrong() = listener.somethingWentWrong()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
     }
 }

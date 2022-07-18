@@ -4,6 +4,17 @@
 
     <string name="contentDescription">image</string>
 
+    <!-- Fragments -->
+    <string name="fragment_categories">categories</string>
+    <string name="fragment_dashboard">dashboard</string>
+
+    <!-- Sweet Alert -->
+    <string name="oops">Vaya</string>
+    <string name="somethingWentWrong">Parece que algo ha salido mal</string>
+    <string name="wannaExit">¿Seguro que quieres salir?</string>
+    <string name="yes">SI</string>
+    <string name="no">NO</string>
+
     <!-- Categories -->
     <string name="spanish_age">spanish-age</string>
     <string name="global_age">global-age</string>

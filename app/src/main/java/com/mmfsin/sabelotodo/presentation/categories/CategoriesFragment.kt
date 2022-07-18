@@ -5,15 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.data.models.CategoryDTO
 import com.mmfsin.sabelotodo.databinding.FragmentCategoriesBinding
 import com.mmfsin.sabelotodo.databinding.ItemCategoryBinding
+import com.mmfsin.sabelotodo.presentation.ICommunication
 
-class CategoriesFragment : Fragment(), CategoriesView {
+class CategoriesFragment(val listener: ICommunication) : Fragment(), CategoriesView {
 
     private var _bdg: FragmentCategoriesBinding? = null
     private val binding get() = _bdg!!
@@ -33,6 +33,7 @@ class CategoriesFragment : Fragment(), CategoriesView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /** Loading VISIBLE */
         presenter.getCategoriesData()
     }
 
@@ -50,18 +51,18 @@ class CategoriesFragment : Fragment(), CategoriesView {
                 }
             }
         }
-
+        /** Loading GONE */
     }
 
     private fun setData(category: CategoryDTO, item: ItemCategoryBinding) {
         item.title.text = category.title
         Glide.with(mContext).load(category.image).into(item.image)
         item.description.text = category.description
+
+        item.item.setOnClickListener { listener.navigateToDashboard(category.name) }
     }
 
-    override fun somethingWentWrong() {
-        Toast.makeText(requireActivity(), " NOT WORKS", Toast.LENGTH_SHORT).show()
-    }
+    override fun somethingWentWrong() = listener.somethingWentWrong()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

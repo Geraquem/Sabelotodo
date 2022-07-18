@@ -3,22 +3,34 @@ package com.mmfsin.sabelotodo.presentation.dashboard
 import com.mmfsin.sabelotodo.data.models.DataDTO
 import com.mmfsin.sabelotodo.data.repository.DashboardRepo
 import com.mmfsin.sabelotodo.data.repository.DashboardRepo.IDashboardRepo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
-class DashboardPresenter(private val view: DashboardView) : IDashboardRepo {
+class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, CoroutineScope {
 
+    override val coroutineContext: CoroutineContext = Dispatchers.Main
 
     private val repo by lazy { DashboardRepo(this) }
 
-    fun getData() {
-        repo.getData()
+    fun getDataList(category: String) {
+        launch(Dispatchers.IO) { repo.getDataList(category) }
     }
 
-    override fun setData(data: DataDTO) {
-        view.setData(data)
+    fun getQuestionData(category: String, questionName: String) {
+        launch(Dispatchers.IO) { repo.getQuestionData(category, questionName) }
+    }
+
+    override fun setDataList(list: List<String>) {
+        launch { view.setDataList(list) }
+    }
+
+    override fun setQuestionData(data: DataDTO) {
+        launch { view.setQuestionData(data) }
     }
 
     override fun somethingWentWrong() {
-        view.somethingWentWrong()
+        launch { view.somethingWentWrong() }
     }
-
 }
