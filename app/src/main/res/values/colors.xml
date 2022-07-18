@@ -9,5 +9,19 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#BABABA</color>
-    <color name="light_grey">#EAEAEA</color>
+    <color name="light_grey">#DFDCDC</color>
+
+    <color name="g_1">#B08AED</color>
+    <color name="g_2">#C43BEA</color>
+    <color name="g_3">#E48A46</color>
+    <color name="g_4">#F4D588</color>
+    <color name="g_5">#97EF7F</color>
+    <color name="g_6">#56C161</color>
+    <color name="g_7">#58B5D1</color>
+    <color name="g_8">#3699EF</color>
+    <color name="g_9">#E688B1</color>
+    <color name="g_10">#CB62CF</color>
+    <color name="g_11">#AEB858</color>
+    <color name="g_12">#EA893F</color>
+
 </resources>

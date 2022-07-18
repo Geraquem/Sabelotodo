@@ -39,123 +39,61 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <include
+                android:id="@+id/card_one"
+                layout="@layout/item_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_marginBottom="12dp" />
 
-                <include
-                    android:id="@+id/card_one"
-                    layout="@layout/item_category"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.47" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.05" />
-
-                <include
-                    android:id="@+id/card_two"
-                    layout="@layout/item_category"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.47" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <include
+                android:id="@+id/card_two"
+                layout="@layout/item_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_marginBottom="12dp" />
 
-                <include
-                    android:id="@+id/card_three"
-                    layout="@layout/item_category"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="0.47" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.05" />
-
-                <include
-                    android:id="@+id/card_four"
-                    layout="@layout/item_category"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="0.47" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <include
+                android:id="@+id/card_three"
+                layout="@layout/item_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_marginBottom="12dp" />
 
-                <include
-                    android:id="@+id/card_five"
-                    layout="@layout/item_category"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="0.47" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.05" />
-
-                <include
-                    android:id="@+id/card_six"
-                    layout="@layout/item_category"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="0.47" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <include
+                android:id="@+id/card_four"
+                layout="@layout/item_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_marginBottom="12dp" />
 
-                <include
-                    android:id="@+id/card_seven"
-                    layout="@layout/item_category"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="0.47" />
+            <include
+                android:id="@+id/card_five"
+                layout="@layout/item_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.05" />
+            <include
+                android:id="@+id/card_six"
+                layout="@layout/item_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp" />
 
-                <include
-                    android:id="@+id/card_eight"
-                    layout="@layout/item_category"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="0.47" />
+            <include
+                android:id="@+id/card_seven"
+                layout="@layout/item_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp" />
 
-            </LinearLayout>
+            <include
+                android:id="@+id/card_eight"
+                layout="@layout/item_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp" />
 
         </LinearLayout>
 
