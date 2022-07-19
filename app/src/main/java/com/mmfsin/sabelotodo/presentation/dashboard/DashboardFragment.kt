@@ -2,16 +2,22 @@ package com.mmfsin.sabelotodo.presentation.dashboard
 
 import android.content.Context
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.data.models.DataDTO
+import com.mmfsin.sabelotodo.data.models.DataToDash
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
 
-class DashboardFragment(private val listener: ICommunication, private val category: String) :
+class DashboardFragment(
+    private val listener: ICommunication,
+    private val dataToDash: DataToDash
+) :
     Fragment(), DashboardView {
 
     private var _bdg: FragmentDashboardBinding? = null
@@ -35,12 +41,19 @@ class DashboardFragment(private val listener: ICommunication, private val catego
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.getDataList(category)
+        Glide.with(mContext).load(dataToDash.image).into(binding.image)
+        presenter.getDataList(dataToDash.category)
+        object : CountDownTimer(2000, 100) {
+            override fun onTick(millisUntilFinished: Long) {}
+            override fun onFinish() {
+                binding.initialRL.visibility = View.GONE
+            }
+        }.start()
     }
 
     override fun setDataList(list: List<String>) {
         questionNames = list
-        presenter.getQuestionData(category, questionNames[pos])
+        presenter.getQuestionData(dataToDash.category, questionNames[pos])
     }
 
     override fun setQuestionData(data: DataDTO) {

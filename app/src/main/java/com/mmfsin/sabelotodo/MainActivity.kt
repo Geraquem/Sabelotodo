@@ -3,6 +3,7 @@ package com.mmfsin.sabelotodo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.mmfsin.sabelotodo.data.models.DataToDash
 import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragment
@@ -23,9 +24,9 @@ class MainActivity : AppCompatActivity(), ICommunication {
             .commit()
     }
 
-    override fun navigateToDashboard(category: String) {
+    override fun navigateToDashboard(dataToDash: DataToDash) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, DashboardFragment(this, category))
+            .replace(R.id.fragment_container, DashboardFragment(this, dataToDash))
             .addToBackStack(null)
             .commit()
     }

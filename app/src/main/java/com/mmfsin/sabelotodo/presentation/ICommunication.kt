@@ -1,6 +1,8 @@
 package com.mmfsin.sabelotodo.presentation
 
+import com.mmfsin.sabelotodo.data.models.DataToDash
+
 interface ICommunication {
-    fun navigateToDashboard(category: String)
+    fun navigateToDashboard(dataToDash: DataToDash)
     fun somethingWentWrong()
 }
