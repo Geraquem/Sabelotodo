@@ -1,6 +1,8 @@
 package com.mmfsin.sabelotodo
 
+import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.mmfsin.sabelotodo.data.models.DataToDash
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
 
     override fun navigateToDashboard(dataToDash: DataToDash) {
         supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.enter_left, R.anim.exit_right)
             .replace(R.id.fragment_container, DashboardFragment(this, dataToDash))
             .addToBackStack(null)
             .commit()
@@ -48,6 +51,13 @@ class MainActivity : AppCompatActivity(), ICommunication {
             }
             .setCancelButton(getString(R.string.no)) { sDialog -> sDialog.dismissWithAnimation() }
             .show()
+    }
+
+    override fun closeKeyboard() {
+        this.currentFocus?.let { view ->
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
     override fun onBackPressed() {

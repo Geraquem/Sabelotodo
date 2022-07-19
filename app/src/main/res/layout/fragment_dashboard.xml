@@ -30,78 +30,68 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/next"
         app:layout_constraintLeft_toLeftOf="@id/gl_left"
         app:layout_constraintRight_toRightOf="@id/gl_right"
         app:layout_constraintTop_toTopOf="@id/gl_top">
 
         <TextView
+            android:id="@+id/text"
             android:layout_width="wrap_content"
+            android:textAllCaps="true"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="¿Qué edad tiene el Pato Lucas?"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:text="¿Qué edad tiene el Pato Lucas?" />
 
         <TextView
+            android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto_light"
-            android:text="Personaje de Disney pato bimorfo."
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="Personaje de Disney pato bimorfo." />
 
         <ImageView
+            android:id="@+id/image"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
             android:contentDescription="@string/contentDescription"
             android:src="@color/black" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:hint="@string/your_answer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/response"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginEnd="8dp"
-                android:layout_toStartOf="@id/years"
-                android:hint="@string/your_answer"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/years"
-                app:layout_constraintTop_toTopOf="parent">
+                android:cursorVisible="false"
+                android:fontFamily="@font/roboto_regular"
+                android:inputType="number"
+                android:textColor="@color/black" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:cursorVisible="false"
-                    android:fontFamily="@font/roboto_regular"
-                    android:inputType="number"
-                    android:textColor="@color/black" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/years"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:text="@string/years"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/check"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="16dp"
@@ -115,24 +105,29 @@
             android:id="@+id/result"
             layout="@layout/item_result"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/initialRL"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+    <ImageView
+        android:id="@+id/next"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginVertical="12dp"
+        android:contentDescription="@string/contentDescription"
+        android:src="@drawable/ic_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/gl_right" />
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:layout_centerInParent="true"
-            android:contentDescription="@string/contentDescription"
-            android:src="@color/black" />
+    <include
+        android:id="@+id/loading"
+        layout="@layout/include_loading"
+        android:visibility="gone" />
 
-    </RelativeLayout>
+    <include
+        android:id="@+id/initial_image"
+        layout="@layout/include_image"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

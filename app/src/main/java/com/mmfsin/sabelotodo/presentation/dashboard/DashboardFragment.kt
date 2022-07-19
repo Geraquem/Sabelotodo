@@ -41,14 +41,52 @@ class DashboardFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Glide.with(mContext).load(dataToDash.image).into(binding.image)
+        init()
         presenter.getDataList(dataToDash.category)
+        Glide.with(mContext).load(dataToDash.image).into(binding.initialImage.image)
         object : CountDownTimer(2000, 100) {
             override fun onTick(millisUntilFinished: Long) {}
             override fun onFinish() {
-                binding.initialRL.visibility = View.GONE
+                binding.initialImage.root.visibility = View.GONE
             }
         }.start()
+        onClick()
+    }
+
+    private fun init() {
+        with(binding) {
+            loading.root.visibility = View.VISIBLE
+            initialImage.root.visibility = View.VISIBLE
+        }
+    }
+
+    private fun onClick() {
+        binding.next.setOnClickListener {
+            pos++
+            if (pos < questionNames.size) {
+                binding.loading.root.visibility = View.VISIBLE
+                binding.check.isEnabled = true
+                binding.response.isEnabled = true
+                binding.response.text = null
+                presenter.getQuestionData(dataToDash.category, questionNames[pos])
+            } else {
+                /** sweet alert */
+                Toast.makeText(mContext, "no hay más preguntas", Toast.LENGTH_SHORT).show()
+                binding.next.visibility = View.GONE
+            }
+        }
+
+        binding.check.setOnClickListener {
+            val response = binding.response.text.toString()
+            if (response.isNotEmpty()) {
+                binding.check.isEnabled = false
+                binding.response.isEnabled = false
+                listener.closeKeyboard()
+
+                /** comprobaciones */
+                Toast.makeText(mContext, "Comprobar pulsado", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun setDataList(list: List<String>) {
@@ -57,19 +95,12 @@ class DashboardFragment(
     }
 
     override fun setQuestionData(data: DataDTO) {
-        val a = 2
-        /**
-         *
-         *
-         *
-         * AQUI
-         *
-         *
-         */
-
-        Toast.makeText(mContext, data.text, Toast.LENGTH_SHORT).show()
-
-        println(" --------------------------- " + data.toString())
+        with(binding) {
+            text.text = data.text
+            description.text = data.description
+            Glide.with(mContext).load(data.image).into(image)
+        }
+        binding.loading.root.visibility = View.GONE
     }
 
     override fun somethingWentWrong() = listener.somethingWentWrong()
