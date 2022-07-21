@@ -97,10 +97,17 @@ class DashboardFragment(
     override fun setQuestionData(data: DataDTO) {
         with(binding) {
             text.text = data.text
-            description.text = data.description
+            presenter.checkDescription(data.description)
             Glide.with(mContext).load(data.image).into(image)
         }
         binding.loading.root.visibility = View.GONE
+    }
+
+    override fun handleDescription(enable: Boolean, description: String) {
+        if (enable) {
+            binding.description.text = description
+            binding.description.visibility = View.VISIBLE
+        } else binding.description.visibility = View.GONE
     }
 
     override fun somethingWentWrong() = listener.somethingWentWrong()

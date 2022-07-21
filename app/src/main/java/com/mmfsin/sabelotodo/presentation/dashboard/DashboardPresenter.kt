@@ -22,6 +22,11 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
         launch(Dispatchers.IO) { repo.getQuestionData(category, questionName) }
     }
 
+    fun checkDescription(description: String) {
+        if (description == "null") view.handleDescription(false, "")
+        else view.handleDescription(true, description)
+    }
+
     override fun setDataList(list: List<String>) {
         launch { view.setDataList(list) }
     }
