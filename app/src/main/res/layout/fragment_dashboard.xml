@@ -35,11 +35,12 @@
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
-            android:fontFamily="@font/roboto_regular"
+            android:fontFamily="@font/roboto_bold"
             android:textAllCaps="true"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:textColor="@color/black"
             android:textSize="22sp"
             tools:text="¿Qué edad tiene el Pato Lucas?" />
@@ -49,7 +50,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:visibility="gone"
             android:fontFamily="@font/roboto_light"
             android:textColor="@color/black"
             android:textSize="16sp"

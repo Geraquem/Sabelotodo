@@ -13,6 +13,7 @@ import com.mmfsin.sabelotodo.data.models.DataDTO
 import com.mmfsin.sabelotodo.data.models.DataToDash
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
+import com.squareup.picasso.Picasso
 
 class DashboardFragment(
     private val listener: ICommunication,
@@ -98,7 +99,7 @@ class DashboardFragment(
         with(binding) {
             text.text = data.text
             presenter.checkDescription(data.description)
-            Glide.with(mContext).load(data.image).into(image)
+            Picasso.get().load(data.image).into(image);
         }
         binding.loading.root.visibility = View.GONE
     }
