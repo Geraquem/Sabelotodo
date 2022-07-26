@@ -3,6 +3,8 @@ package com.mmfsin.sabelotodo.presentation.dashboard
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +34,7 @@ class DashboardFragment(
 
     private lateinit var questionNames: List<String>
     private var pos = 0
+    private var longitude = 0
     private lateinit var correctAnswer: String
 
     override fun onCreateView(
@@ -48,7 +51,7 @@ class DashboardFragment(
         init()
         presenter.getDataList(dataToDash.category)
         Glide.with(mContext).load(dataToDash.image).into(binding.initialImage.image)
-        object : CountDownTimer(2000, 100) {
+        object : CountDownTimer(1750, 100) {
             override fun onTick(millisUntilFinished: Long) {}
             override fun onFinish() {
                 binding.initialImage.root.visibility = View.GONE
@@ -58,10 +61,23 @@ class DashboardFragment(
     }
 
     private fun init() {
+        longitude = presenter.checkLongitude(mContext, dataToDash.category)
         with(binding) {
+            response.addTextChangedListener(textWatcher)
+            response.itemCount = longitude
             loading.root.visibility = View.VISIBLE
             initialImage.root.visibility = View.VISIBLE
             solution.root.visibility = View.GONE
+        }
+    }
+
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        override fun afterTextChanged(p0: Editable?) {
+            if (presenter.checkPinViewLongitude(longitude, binding.response.text.toString())) {
+                listener.closeKeyboard()
+            }
         }
     }
 
@@ -99,9 +115,11 @@ class DashboardFragment(
     }
 
     override fun setQuestionData(data: DataDTO) {
-        correctAnswer = data.solution.toString()
+        correctAnswer = presenter.checkSolution(data.solution)
+        val splitText = data.text.split("%%%")
         with(binding) {
-            text.text = data.text
+            text.text = splitText[0]
+            mainText.text = splitText[1]
             presenter.checkDescription(data.description)
             Picasso.get().load(data.image).into(image);
         }
@@ -113,6 +131,11 @@ class DashboardFragment(
             binding.description.text = description
             binding.description.visibility = View.VISIBLE
         } else binding.description.visibility = View.GONE
+    }
+
+    override fun setTwoLongitudePinView() {
+        binding.inThe.visibility = View.GONE
+        binding.years.visibility = View.VISIBLE
     }
 
     override fun showSolution(solution: String, isCorrect: Int) {
@@ -137,7 +160,10 @@ class DashboardFragment(
             }
         }
         binding.solution.root.visibility = View.VISIBLE
-        binding.solution.correctAnswer.text = getString(R.string.was_in, solution)
+        binding.solution.correctAnswer.text = when (longitude) {
+            2 -> getString(R.string.has_years, solution)
+            else -> getString(R.string.was_in, solution)
+        }
     }
 
     override fun somethingWentWrong() = listener.somethingWentWrong()

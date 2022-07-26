@@ -33,7 +33,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
@@ -41,62 +41,106 @@
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_gravity="center"
                 android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                tools:text="¿Qué edad tiene el Pato Lucas?" />
+                tools:text="Qué edad tiene" />
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/main_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/roboto_light"
+                android:layout_gravity="center"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                tools:text="Personaje de Disney pato bimorfo." />
+                android:textSize="26sp"
+                tools:text="el Pato Lucas" />
 
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="12dp"
                 android:contentDescription="@string/contentDescription"
                 android:src="@color/black" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/your_answer"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/roboto_light"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:visibility="visible"
+                tools:text="Personaje de Disney pato bimorfo." />
 
-                <com.google.android.material.textfield.TextInputEditText
+            <TextView
+                android:id="@+id/in_the"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/in_the"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <com.chaos.view.PinView
                     android:id="@+id/response"
-                    android:layout_width="match_parent"
+                    style="@style/PinWidget.PinView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_gravity="center"
                     android:cursorVisible="false"
-                    android:fontFamily="@font/roboto_bold"
-                    android:gravity="center"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:inputType="number"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:cursorWidth="0dp"
+                    app:hideLineWhenFilled="true"
+                    app:itemCount="4"
+                    app:itemRadius="4dp"
+                    app:itemSpacing="0dp"
+                    app:itemWidth="48dp"
+                    app:lineColor="@color/black"
+                    app:lineWidth="2dp"
+                    app:viewType="rectangle" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/years"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/years"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/check"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:backgroundTint="@color/grey"
                 android:fontFamily="@font/roboto_regular"
                 android:paddingVertical="12dp"

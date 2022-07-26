@@ -4,5 +4,5 @@ data class DataDTO(
     var text: String = "",
     var description: String = "",
     var image: String = "",
-    var solution: Long = 0,
+    var solution: String = "",
 )

@@ -32,6 +32,8 @@
     <string name="user_answer">TU RESPUESTA</string>
 
     <string name="was_in">FUE EN EL <b>%1$s</b></string>
+    <string name="has_years">TIENE <b>%1$s</b> AÑOS</string>
+    <string name="with">CON <b>%1$s</b> AÑOS</string>
     <string name="correct_answer">CORRECTÍSIMO</string>
     <string name="almost_answer">CASI CASI CASI</string>
     <string name="bad_answer">FATAL FATAL FATAL</string>
