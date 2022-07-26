@@ -6,5 +6,6 @@ interface DashboardView {
     fun setDataList(list: List<String>)
     fun setQuestionData(data: DataDTO)
     fun handleDescription(enable: Boolean, description: String)
+    fun showSolution(solution: String)
     fun somethingWentWrong()
 }

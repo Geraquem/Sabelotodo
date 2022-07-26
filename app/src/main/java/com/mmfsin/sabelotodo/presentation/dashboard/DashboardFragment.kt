@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.data.models.DataDTO
 import com.mmfsin.sabelotodo.data.models.DataToDash
+import com.mmfsin.sabelotodo.data.models.SolutionDTO
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.squareup.picasso.Picasso
@@ -30,6 +31,7 @@ class DashboardFragment(
 
     private lateinit var questionNames: List<String>
     private var pos = 0
+    private lateinit var correctAnswer: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,6 +60,7 @@ class DashboardFragment(
         with(binding) {
             loading.root.visibility = View.VISIBLE
             initialImage.root.visibility = View.VISIBLE
+            solution.root.visibility = View.GONE
         }
     }
 
@@ -66,6 +69,7 @@ class DashboardFragment(
             pos++
             if (pos < questionNames.size) {
                 binding.loading.root.visibility = View.VISIBLE
+                binding.solution.root.visibility = View.GONE
                 binding.check.isEnabled = true
                 binding.response.isEnabled = true
                 binding.response.text = null
@@ -83,9 +87,7 @@ class DashboardFragment(
                 binding.check.isEnabled = false
                 binding.response.isEnabled = false
                 listener.closeKeyboard()
-
-                /** comprobaciones */
-                Toast.makeText(mContext, "Comprobar pulsado", Toast.LENGTH_SHORT).show()
+                presenter.checkSolution(SolutionDTO(correctAnswer, response))
             }
         }
     }
@@ -96,6 +98,7 @@ class DashboardFragment(
     }
 
     override fun setQuestionData(data: DataDTO) {
+        correctAnswer = data.solution.toString()
         with(binding) {
             text.text = data.text
             presenter.checkDescription(data.description)
@@ -109,6 +112,11 @@ class DashboardFragment(
             binding.description.text = description
             binding.description.visibility = View.VISIBLE
         } else binding.description.visibility = View.GONE
+    }
+
+    override fun showSolution(solution: String) {
+        binding.solution.root.visibility = View.VISIBLE
+        binding.solution.correctAnswer.text = solution
     }
 
     override fun somethingWentWrong() = listener.somethingWentWrong()

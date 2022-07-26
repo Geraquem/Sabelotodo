@@ -29,6 +29,7 @@
     <string name="in_the">EN EL AÑO</string>
     <string name="years">AÑOS</string>
     <string name="check">COMPROBAR</string>
-    <string name="correct_answer">RESPUESTA CORRECTA:</string>
+    <string name="user_answer">TU RESPUESTA</string>
+    <string name="correct_answer">RESPUESTA CORRECTA</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.mmfsin.sabelotodo.presentation.dashboard
 
 import com.mmfsin.sabelotodo.data.models.DataDTO
+import com.mmfsin.sabelotodo.data.models.SolutionDTO
 import com.mmfsin.sabelotodo.data.repository.DashboardRepo
 import com.mmfsin.sabelotodo.data.repository.DashboardRepo.IDashboardRepo
 import kotlinx.coroutines.CoroutineScope
@@ -25,6 +26,11 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
     fun checkDescription(description: String) {
         if (description == "null") view.handleDescription(false, "")
         else view.handleDescription(true, description)
+    }
+
+    fun checkSolution(solution: SolutionDTO){
+        /** comprobaciones */
+        view.showSolution(solution.correctAnswer)
     }
 
     override fun setDataList(list: List<String>) {
