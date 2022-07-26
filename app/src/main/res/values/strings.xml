@@ -30,6 +30,10 @@
     <string name="years">AÑOS</string>
     <string name="check">COMPROBAR</string>
     <string name="user_answer">TU RESPUESTA</string>
-    <string name="correct_answer">RESPUESTA CORRECTA</string>
+
+    <string name="was_in">FUE EN EL <b>%1$s</b></string>
+    <string name="correct_answer">CORRECTÍSIMO</string>
+    <string name="almost_answer">CASI CASI CASI</string>
+    <string name="bad_answer">FATAL FATAL FATAL</string>
 
 </resources>

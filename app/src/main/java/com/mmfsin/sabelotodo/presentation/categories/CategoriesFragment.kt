@@ -47,13 +47,13 @@ class CategoriesFragment(val listener: ICommunication) : Fragment(), CategoriesV
                 when (category.name) {
                     getString(spanish_age) -> setData(category, cardOne, R.color.g_1, R.color.g_2)
                     getString(global_age) -> setData(category, cardTwo, R.color.g_3, R.color.g_4)
-                    getString(cartoon_creations) -> setData(
+                    getString(films_series) -> setData(
                         category,
                         cardThree,
                         R.color.g_5,
                         R.color.g_6
                     )
-                    getString(films_series) -> setData(category, cardFour, R.color.g_7, R.color.g_8)
+                    getString(cartoon_creations) -> setData(category, cardFour, R.color.g_7, R.color.g_8)
                     getString(videogames) -> setData(category, cardFive, R.color.g_9, R.color.g_10)
                     getString(important_dates) -> setData(
                         category,

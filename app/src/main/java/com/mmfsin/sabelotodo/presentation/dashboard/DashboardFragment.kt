@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.data.models.DataDTO
 import com.mmfsin.sabelotodo.data.models.DataToDash
 import com.mmfsin.sabelotodo.data.models.SolutionDTO
@@ -114,9 +115,29 @@ class DashboardFragment(
         } else binding.description.visibility = View.GONE
     }
 
-    override fun showSolution(solution: String) {
+    override fun showSolution(solution: String, isCorrect: Int) {
+        when (isCorrect) {
+            0 -> {
+                binding.solution.typeAnswer.setTextColor(
+                    resources.getColor(R.color.goodPhrase, null)
+                )
+                binding.solution.typeAnswer.text = getString(R.string.correct_answer)
+            }
+            1 -> {
+                binding.solution.typeAnswer.setTextColor(
+                    resources.getColor(R.color.almostPhrase, null)
+                )
+                binding.solution.typeAnswer.text = getString(R.string.almost_answer)
+            }
+            2 -> {
+                binding.solution.typeAnswer.setTextColor(
+                    resources.getColor(R.color.badPhrase, null)
+                )
+                binding.solution.typeAnswer.text = getString(R.string.bad_answer)
+            }
+        }
         binding.solution.root.visibility = View.VISIBLE
-        binding.solution.correctAnswer.text = solution
+        binding.solution.correctAnswer.text = getString(R.string.was_in, solution)
     }
 
     override fun somethingWentWrong() = listener.somethingWentWrong()

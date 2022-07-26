@@ -41,11 +41,11 @@
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/roboto_bold"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/roboto_regular"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 tools:text="¿Qué edad tiene el Pato Lucas?" />
 
             <TextView
@@ -88,7 +88,7 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

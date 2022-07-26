@@ -24,4 +24,8 @@
     <color name="g_11">#AEB858</color>
     <color name="g_12">#EA893F</color>
 
+    <color name="goodPhrase">#6BAF63</color>
+    <color name="almostPhrase">#DCAA13</color>
+    <color name="badPhrase">#B80707</color>
+
 </resources>
