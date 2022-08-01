@@ -24,6 +24,7 @@
     <string name="films_series">films-series</string>
     <string name="creation_objects">creation-objects</string>
     <string name="videogames">videogames</string>
+    <string name="records">Máxima puntuación: %1$s</string>
 
     <!-- Dashboard -->
     <string name="your_answer">TU RESPUESTA</string>
@@ -31,6 +32,7 @@
     <string name="years">AÑOS</string>
     <string name="check">COMPROBAR</string>
     <string name="user_answer">TU RESPUESTA</string>
+    <string name="points">PUNTOS</string>
 
     <string name="was_in">FUE EN EL <b>%1$s</b></string>
     <string name="has_years"><b>%1$s</b> AÑOS</string>

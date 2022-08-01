@@ -37,9 +37,7 @@ class DashboardFragment(
     private var longitude = 0
     private lateinit var correctAnswer: String
 
-    private var goodScore = 0
-    private var almostScore = 0
-    private var badScore = 0
+    private var mPoints = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -146,30 +144,28 @@ class DashboardFragment(
     override fun showSolution(solution: String, isCorrect: Int) {
         when (isCorrect) {
             0 -> {
-                goodScore++
-                binding.scoreBoard.goodScore.text = goodScore.toString()
+                mPoints += 2
                 binding.solution.typeAnswer.setTextColor(
                     resources.getColor(R.color.goodPhrase, null)
                 )
                 binding.solution.typeAnswer.text = getString(R.string.correct_answer)
             }
             1 -> {
-                almostScore++
-                binding.scoreBoard.almostScore.text = almostScore.toString()
+                mPoints += 1
                 binding.solution.typeAnswer.setTextColor(
                     resources.getColor(R.color.almostPhrase, null)
                 )
                 binding.solution.typeAnswer.text = getString(R.string.almost_answer)
             }
             2 -> {
-                badScore++
-                binding.scoreBoard.badScore.text = badScore.toString()
+                mPoints -= 1
                 binding.solution.typeAnswer.setTextColor(
                     resources.getColor(R.color.badPhrase, null)
                 )
                 binding.solution.typeAnswer.text = getString(R.string.bad_answer)
             }
         }
+        binding.scoreBoard.points.text = mPoints.toString()
         binding.solution.root.visibility = View.VISIBLE
         binding.solution.correctAnswer.text = when (longitude) {
             2 -> getString(R.string.has_years, solution)
