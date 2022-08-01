@@ -39,8 +39,17 @@ class MainActivity : AppCompatActivity(), ICommunication {
             .commit()
     }
 
+    override fun getRecord(category: String): Int {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return 1
+        return sharedPref.getInt(category, 0)
+    }
+
     override fun setNewRecord(record: RecordDTO) {
-        TODO("Not yet implemented")
+        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putInt(record.category, record.newRecord)
+            apply()
+        }
     }
 
     override fun somethingWentWrong() {

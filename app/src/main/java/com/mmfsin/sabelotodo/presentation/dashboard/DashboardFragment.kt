@@ -14,10 +14,12 @@ import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.data.models.DataDTO
 import com.mmfsin.sabelotodo.data.models.DataToDashDTO
+import com.mmfsin.sabelotodo.data.models.RecordDTO
 import com.mmfsin.sabelotodo.data.models.SolutionDTO
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.squareup.picasso.Picasso
+import kotlin.properties.Delegates
 
 class DashboardFragment(
     private val listener: ICommunication,
@@ -38,6 +40,7 @@ class DashboardFragment(
     private lateinit var correctAnswer: String
 
     private var mPoints = 0
+    private var actualRecord by Delegates.notNull<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,6 +66,7 @@ class DashboardFragment(
     }
 
     private fun init() {
+        actualRecord = data.actualRecord
         listener.changeToolbarText(data.title)
         longitude = presenter.checkPinViewLongitude(mContext, data.category)
         with(binding) {
@@ -164,6 +168,10 @@ class DashboardFragment(
                 )
                 binding.solution.typeAnswer.text = getString(R.string.bad_answer)
             }
+        }
+        if (mPoints > actualRecord) {
+            actualRecord = mPoints
+            listener.setNewRecord(RecordDTO(data.category, mPoints))
         }
         binding.scoreBoard.points.text = mPoints.toString()
         binding.solution.root.visibility = View.VISIBLE

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.mmfsin.sabelotodo.R
+import com.mmfsin.sabelotodo.R.color
 import com.mmfsin.sabelotodo.R.string.*
 import com.mmfsin.sabelotodo.data.models.CategoryDTO
 import com.mmfsin.sabelotodo.data.models.DataToDashDTO
@@ -45,32 +45,54 @@ class CategoriesFragment(private val listener: ICommunication) : Fragment(), Cat
         with(binding) {
             for (category in categories) {
                 when (category.name) {
-                    getString(spanish_age) -> setData(category, cardOne, R.color.g_1, R.color.g_2)
-                    getString(global_age) -> setData(category, cardTwo, R.color.g_3, R.color.g_4)
+                    getString(spanish_age) -> setData(
+                        category,
+                        listener.getRecord(category.name),
+                        cardOne,
+                        color.g_1,
+                        color.g_2
+                    )
+                    getString(global_age) -> setData(
+                        category,
+                        listener.getRecord(category.name),
+                        cardTwo,
+                        color.g_3,
+                        color.g_4
+                    )
                     getString(films_series) -> setData(
                         category,
+                        listener.getRecord(category.name),
                         cardThree,
-                        R.color.g_5,
-                        R.color.g_6
+                        color.g_5,
+                        color.g_6
                     )
                     getString(cartoon_creations) -> setData(
                         category,
+                        listener.getRecord(category.name),
                         cardFour,
-                        R.color.g_7,
-                        R.color.g_8
+                        color.g_7,
+                        color.g_8
                     )
-                    getString(videogames) -> setData(category, cardFive, R.color.g_9, R.color.g_10)
+                    getString(videogames) -> setData(
+                        category,
+                        listener.getRecord(category.name),
+                        cardFive,
+                        color.g_9,
+                        color.g_10
+                    )
                     getString(important_dates) -> setData(
                         category,
+                        listener.getRecord(category.name),
                         cardSix,
-                        R.color.g_11,
-                        R.color.g_12
+                        color.g_11,
+                        color.g_12
                     )
                     getString(creation_objects) -> setData(
                         category,
+                        listener.getRecord(category.name),
                         cardSeven,
-                        R.color.g_5,
-                        R.color.g_6
+                        color.g_5,
+                        color.g_6
                     )
                 }
             }
@@ -80,6 +102,7 @@ class CategoriesFragment(private val listener: ICommunication) : Fragment(), Cat
 
     private fun setData(
         category: CategoryDTO,
+        actualRecord: Int,
         item: ItemCategoryBinding,
         color1: Int,
         color2: Int
@@ -87,6 +110,7 @@ class CategoriesFragment(private val listener: ICommunication) : Fragment(), Cat
         item.title.text = category.title
         Glide.with(mContext).load(category.image).into(item.image)
         item.description.text = category.description
+        item.actualRecord.text = getString(records, actualRecord.toString())
 
         item.item.background = GradientDrawable().apply {
             colors = intArrayOf(getColor(mContext, color1), getColor(mContext, color2))
@@ -95,8 +119,7 @@ class CategoriesFragment(private val listener: ICommunication) : Fragment(), Cat
             cornerRadius = 48f
         }
 
-        /** actual record  ???????????????????????? **/
-        val data = DataToDashDTO(category.name, category.name, category.image, 0)
+        val data = DataToDashDTO(category.title, category.name, category.image, actualRecord)
         item.item.setOnClickListener { listener.navigateToDashboard(data) }
     }
 
