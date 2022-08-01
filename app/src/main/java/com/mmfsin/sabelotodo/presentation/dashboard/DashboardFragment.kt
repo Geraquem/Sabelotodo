@@ -75,6 +75,8 @@ class DashboardFragment(
             loading.root.visibility = View.VISIBLE
             initialImage.root.visibility = View.VISIBLE
             solution.root.visibility = View.GONE
+            scoreBoard.actualRecord.text =
+                getString(R.string.actualRecord, data.actualRecord.toString())
         }
     }
 
@@ -171,6 +173,8 @@ class DashboardFragment(
         }
         if (mPoints > actualRecord) {
             actualRecord = mPoints
+            binding.scoreBoard.actualRecord.text =
+                getString(R.string.actualRecord, actualRecord.toString())
             listener.setNewRecord(RecordDTO(data.category, mPoints))
         }
         binding.scoreBoard.points.text = mPoints.toString()
