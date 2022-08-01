@@ -12,11 +12,12 @@ import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.R.string.*
 import com.mmfsin.sabelotodo.data.models.CategoryDTO
+import com.mmfsin.sabelotodo.data.models.DataToDashDTO
 import com.mmfsin.sabelotodo.databinding.FragmentCategoriesBinding
 import com.mmfsin.sabelotodo.databinding.ItemCategoryBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
 
-class CategoriesFragment(val listener: ICommunication) : Fragment(), CategoriesView {
+class CategoriesFragment(private val listener: ICommunication) : Fragment(), CategoriesView {
 
     private var _bdg: FragmentCategoriesBinding? = null
     private val binding get() = _bdg!!
@@ -94,7 +95,9 @@ class CategoriesFragment(val listener: ICommunication) : Fragment(), CategoriesV
             cornerRadius = 48f
         }
 
-        item.item.setOnClickListener { listener.navigateToDashboard(category) }
+        /** actual record  ???????????????????????? **/
+        val data = DataToDashDTO(category.name, category.name, category.image, 0)
+        item.item.setOnClickListener { listener.navigateToDashboard(data) }
     }
 
     override fun somethingWentWrong() = listener.somethingWentWrong()

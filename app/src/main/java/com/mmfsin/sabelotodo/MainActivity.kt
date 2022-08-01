@@ -5,7 +5,8 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.mmfsin.sabelotodo.data.models.CategoryDTO
+import com.mmfsin.sabelotodo.data.models.DataToDashDTO
+import com.mmfsin.sabelotodo.data.models.RecordDTO
 import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragment
@@ -30,12 +31,16 @@ class MainActivity : AppCompatActivity(), ICommunication {
         binding.toolbarText.text = category
     }
 
-    override fun navigateToDashboard(category: CategoryDTO) {
+    override fun navigateToDashboard(data: DataToDashDTO) {
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.enter_left, R.anim.exit_right)
-            .replace(R.id.fragment_container, DashboardFragment(this, category))
+            .replace(R.id.fragment_container, DashboardFragment(this, data))
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun setNewRecord(record: RecordDTO) {
+        TODO("Not yet implemented")
     }
 
     override fun somethingWentWrong() {

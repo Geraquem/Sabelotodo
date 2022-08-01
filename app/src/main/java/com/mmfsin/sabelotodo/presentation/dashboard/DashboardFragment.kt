@@ -12,8 +12,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
-import com.mmfsin.sabelotodo.data.models.CategoryDTO
 import com.mmfsin.sabelotodo.data.models.DataDTO
+import com.mmfsin.sabelotodo.data.models.DataToDashDTO
 import com.mmfsin.sabelotodo.data.models.SolutionDTO
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso
 
 class DashboardFragment(
     private val listener: ICommunication,
-    private val category: CategoryDTO
+    private val data: DataToDashDTO
 ) :
     Fragment(), DashboardView {
 
@@ -51,8 +51,8 @@ class DashboardFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        presenter.getDataList(category.name)
-        Glide.with(mContext).load(category.image).into(binding.initialImage.image)
+        presenter.getDataList(data.category)
+        Glide.with(mContext).load(data.image).into(binding.initialImage.image)
         object : CountDownTimer(1750, 100) {
             override fun onTick(millisUntilFinished: Long) {}
             override fun onFinish() {
@@ -63,8 +63,8 @@ class DashboardFragment(
     }
 
     private fun init() {
-        listener.changeToolbarText(category.title)
-        longitude = presenter.checkPinViewLongitude(mContext, category.name)
+        listener.changeToolbarText(data.title)
+        longitude = presenter.checkPinViewLongitude(mContext, data.category)
         with(binding) {
             response.addTextChangedListener(textWatcher)
             response.itemCount = longitude
@@ -93,7 +93,7 @@ class DashboardFragment(
                 binding.check.isEnabled = true
                 binding.response.isEnabled = true
                 binding.response.text = null
-                presenter.getQuestionData(category.name, questionNames[pos])
+                presenter.getQuestionData(data.category, questionNames[pos])
             } else {
                 /** sweet alert */
                 Toast.makeText(mContext, "no hay más preguntas", Toast.LENGTH_SHORT).show()
@@ -114,7 +114,7 @@ class DashboardFragment(
 
     override fun setDataList(list: List<String>) {
         questionNames = list
-        presenter.getQuestionData(category.name, questionNames[pos])
+        presenter.getQuestionData(data.category, questionNames[pos])
     }
 
     override fun setQuestionData(data: DataDTO) {

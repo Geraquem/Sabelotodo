@@ -1,10 +1,12 @@
 package com.mmfsin.sabelotodo.presentation
 
-import com.mmfsin.sabelotodo.data.models.CategoryDTO
+import com.mmfsin.sabelotodo.data.models.DataToDashDTO
+import com.mmfsin.sabelotodo.data.models.RecordDTO
 
 interface ICommunication {
-    fun navigateToDashboard(category: CategoryDTO)
+    fun navigateToDashboard(data: DataToDashDTO)
     fun changeToolbarText(category: String)
+    fun setNewRecord(record: RecordDTO)
     fun closeKeyboard()
     fun somethingWentWrong()
 }

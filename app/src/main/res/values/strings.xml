@@ -36,8 +36,8 @@
 
     <string name="was_in">FUE EN EL <b>%1$s</b></string>
     <string name="has_years"><b>%1$s</b> AÑOS</string>
-    <string name="correct_answer">CORRECTÍSIMO</string>
-    <string name="almost_answer">CASI CASI CASI</string>
-    <string name="bad_answer">FATAL FATAL FATAL</string>
+    <string name="correct_answer">+2 PUNTOS</string>
+    <string name="almost_answer">+1 PUNTO</string>
+    <string name="bad_answer">-1 PUNTO</string>
 
 </resources>
