@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/goodScore"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:background="@drawable/shape_score_good"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:text="@string/zero"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/almostScore"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/shape_score_almost"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:text="@string/zero"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/badScore"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:background="@drawable/shape_score_bad"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:text="@string/zero"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+</LinearLayout>

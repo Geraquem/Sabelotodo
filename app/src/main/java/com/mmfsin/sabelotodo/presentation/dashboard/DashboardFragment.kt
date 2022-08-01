@@ -37,6 +37,10 @@ class DashboardFragment(
     private var longitude = 0
     private lateinit var correctAnswer: String
 
+    private var goodScore = 0
+    private var almostScore = 0
+    private var badScore = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -101,7 +105,7 @@ class DashboardFragment(
 
         binding.check.setOnClickListener {
             val response = binding.response.text.toString()
-            if (response.isNotEmpty()) {
+            if (response.isNotEmpty() && response.length == longitude) {
                 binding.check.isEnabled = false
                 binding.response.isEnabled = false
                 listener.closeKeyboard()
@@ -142,18 +146,24 @@ class DashboardFragment(
     override fun showSolution(solution: String, isCorrect: Int) {
         when (isCorrect) {
             0 -> {
+                goodScore++
+                binding.scoreBoard.goodScore.text = goodScore.toString()
                 binding.solution.typeAnswer.setTextColor(
                     resources.getColor(R.color.goodPhrase, null)
                 )
                 binding.solution.typeAnswer.text = getString(R.string.correct_answer)
             }
             1 -> {
+                almostScore++
+                binding.scoreBoard.almostScore.text = almostScore.toString()
                 binding.solution.typeAnswer.setTextColor(
                     resources.getColor(R.color.almostPhrase, null)
                 )
                 binding.solution.typeAnswer.text = getString(R.string.almost_answer)
             }
             2 -> {
+                badScore++
+                binding.scoreBoard.badScore.text = badScore.toString()
                 binding.solution.typeAnswer.setTextColor(
                     resources.getColor(R.color.badPhrase, null)
                 )

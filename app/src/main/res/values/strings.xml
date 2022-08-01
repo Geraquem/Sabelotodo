@@ -3,6 +3,7 @@
     <string name="app_name">Sabelotodo</string>
 
     <string name="contentDescription">image</string>
+    <string name="zero">0</string>
 
     <!-- Fragments -->
     <string name="fragment_categories">categories</string>

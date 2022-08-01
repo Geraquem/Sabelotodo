@@ -48,7 +48,7 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
 
         val isCorrect = if (userAnswer == correct) {
             0
-        } else if (userAnswer > (correct - 3) && userAnswer < (correct + 3) && userAnswer != correct) {
+        } else if (userAnswer > (correct - 4) && userAnswer < (correct + 4) && userAnswer != correct) {
             1
         } else {
             2
