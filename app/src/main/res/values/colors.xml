@@ -11,18 +11,18 @@
     <color name="grey">#BABABA</color>
     <color name="light_grey">#DFDCDC</color>
 
-    <color name="g_1">#B08AED</color>
-    <color name="g_2">#C43BEA</color>
+    <color name="g_1">#C43BEA</color>
+    <color name="g_2">#B08AED</color>
     <color name="g_3">#E48A46</color>
-    <color name="g_4">#F4D588</color>
-    <color name="g_5">#97EF7F</color>
-    <color name="g_6">#56C161</color>
-    <color name="g_7">#58B5D1</color>
-    <color name="g_8">#3699EF</color>
-    <color name="g_9">#E688B1</color>
-    <color name="g_10">#CB62CF</color>
-    <color name="g_11">#AEB858</color>
-    <color name="g_12">#EA893F</color>
+    <color name="g_4">#E3C67E</color>
+    <color name="g_5">#56C161</color>
+    <color name="g_6">#8EE177</color>
+    <color name="g_7">#3699EF</color>
+    <color name="g_8">#58B5D1</color>
+    <color name="g_9">#CB62CF</color>
+    <color name="g_10">#E688B1</color>
+    <color name="g_11">#EA893F</color>
+    <color name="g_12">#AEB858</color>
 
     <color name="goodPhrase">#6BAF63</color>
     <color name="almostPhrase">#DCAA13</color>

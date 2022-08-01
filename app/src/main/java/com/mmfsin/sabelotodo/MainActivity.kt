@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.mmfsin.sabelotodo.data.models.DataToDash
+import com.mmfsin.sabelotodo.data.models.CategoryDTO
 import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragment
@@ -26,10 +26,14 @@ class MainActivity : AppCompatActivity(), ICommunication {
             .commit()
     }
 
-    override fun navigateToDashboard(dataToDash: DataToDash) {
+    override fun changeToolbarText(category: String) {
+        binding.toolbarText.text = category
+    }
+
+    override fun navigateToDashboard(category: CategoryDTO) {
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.enter_left, R.anim.exit_right)
-            .replace(R.id.fragment_container, DashboardFragment(this, dataToDash))
+            .replace(R.id.fragment_container, DashboardFragment(this, category))
             .addToBackStack(null)
             .commit()
     }
@@ -46,6 +50,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
             .setTitleText(getString(R.string.wannaExit))
             .setConfirmText(getString(R.string.yes))
             .setConfirmClickListener { sDialog ->
+                changeToolbarText(getString(R.string.app_name))
                 supportFragmentManager.popBackStack()
                 sDialog.dismissWithAnimation()
             }

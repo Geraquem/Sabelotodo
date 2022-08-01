@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.R.string.*
 import com.mmfsin.sabelotodo.data.models.CategoryDTO
-import com.mmfsin.sabelotodo.data.models.DataToDash
 import com.mmfsin.sabelotodo.databinding.FragmentCategoriesBinding
 import com.mmfsin.sabelotodo.databinding.ItemCategoryBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
@@ -53,7 +52,12 @@ class CategoriesFragment(val listener: ICommunication) : Fragment(), CategoriesV
                         R.color.g_5,
                         R.color.g_6
                     )
-                    getString(cartoon_creations) -> setData(category, cardFour, R.color.g_7, R.color.g_8)
+                    getString(cartoon_creations) -> setData(
+                        category,
+                        cardFour,
+                        R.color.g_7,
+                        R.color.g_8
+                    )
                     getString(videogames) -> setData(category, cardFive, R.color.g_9, R.color.g_10)
                     getString(important_dates) -> setData(
                         category,
@@ -90,8 +94,7 @@ class CategoriesFragment(val listener: ICommunication) : Fragment(), CategoriesV
             cornerRadius = 48f
         }
 
-        val dataToDash = DataToDash(category.name, category.image)
-        item.item.setOnClickListener { listener.navigateToDashboard(dataToDash) }
+        item.item.setOnClickListener { listener.navigateToDashboard(category) }
     }
 
     override fun somethingWentWrong() = listener.somethingWentWrong()

@@ -23,6 +23,14 @@ class CategoriesRepo(private var listener: ICategoriesRepo) {
         }
     }
 
+    fun getNumOfQuestionsForEachCategory(categories: List<CategoryDTO>) {
+//        reference.get().addOnSuccessListener {
+//
+//        }.addOnFailureListener {
+//            listener.somethingWentWrong()
+//        }
+    }
+
     interface ICategoriesRepo {
         fun setCategoriesData(categories: List<CategoryDTO>)
         fun somethingWentWrong()

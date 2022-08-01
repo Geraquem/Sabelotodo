@@ -24,7 +24,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="2dp"
             android:fontFamily="@font/roboto_bold"
             android:textAllCaps="true"
             android:textColor="@color/white"
@@ -39,6 +39,16 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             tools:text="Adivina las edadeaAdivina las edadeaAdivadea" />
+
+        <TextView
+            android:id="@+id/numQuestions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            tools:text="100 preguntas" />
 
     </LinearLayout>
 

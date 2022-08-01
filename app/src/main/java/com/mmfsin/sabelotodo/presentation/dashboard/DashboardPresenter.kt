@@ -19,7 +19,7 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
 
     private val repo by lazy { DashboardRepo(this) }
 
-    fun checkLongitude(context: Context, category: String): Int {
+    fun checkPinViewLongitude(context: Context, category: String): Int {
         val longitude = when (category) {
             context.getString(R.string.spanish_age) -> 2
             context.getString(R.string.global_age) -> 2
