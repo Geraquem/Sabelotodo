@@ -2,6 +2,7 @@ package com.mmfsin.sabelotodo
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity(), ICommunication {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.goBack.setOnClickListener { onBackPressed() }
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, CategoriesFragment(this))
             .addToBackStack(null)
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
 
     override fun changeToolbarText(category: String) {
         binding.toolbarText.text = category
+        binding.goBack.visibility = View.VISIBLE
     }
 
     override fun navigateToDashboard(data: DataToDashDTO) {
@@ -65,6 +69,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
             .setConfirmText(getString(R.string.yes))
             .setConfirmClickListener { sDialog ->
                 changeToolbarText(getString(R.string.app_name))
+                binding.goBack.visibility = View.GONE
                 supportFragmentManager.popBackStack()
                 sDialog.dismissWithAnimation()
             }

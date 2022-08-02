@@ -19,12 +19,20 @@
     <!-- Categories -->
     <string name="spanish_age">spanish-age</string>
     <string name="global_age">global-age</string>
-    <string name="cartoon_creations">cartoon-creations</string>
-    <string name="important_dates">important-dates</string>
     <string name="films_series">films-series</string>
-    <string name="creation_objects">creation-objects</string>
+    <string name="cartoon_creations">cartoon-creations</string>
     <string name="videogames">videogames</string>
+    <string name="important_dates">important-dates</string>
+    <string name="creation_objects">creation-objects</string>
     <string name="records">Máxima puntuación: %1$s</string>
+
+    <string name="spanish_age_toolbar">Españoles y latinos</string>
+    <string name="global_age_toolbar">Famos@s mundiales</string>
+    <string name="films_series_toolbar">Pelis y series</string>
+    <string name="cartoon_creations_toolbar">Dibujos y animación</string>
+    <string name="videogames_toolbar">Videojuegos</string>
+    <string name="important_dates_toolbar">Fechas importantes</string>
+    <string name="creation_objects_toolbar">Inventos</string>
 
     <!-- Dashboard -->
     <string name="your_answer">TU RESPUESTA</string>

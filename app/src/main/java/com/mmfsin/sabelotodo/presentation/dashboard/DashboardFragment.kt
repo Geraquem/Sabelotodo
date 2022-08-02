@@ -67,7 +67,7 @@ class DashboardFragment(
 
     private fun init() {
         actualRecord = data.actualRecord
-        listener.changeToolbarText(data.title)
+        listener.changeToolbarText(presenter.toolbarText(mContext, data.category))
         longitude = presenter.checkPinViewLongitude(mContext, data.category)
         with(binding) {
             response.addTextChangedListener(textWatcher)

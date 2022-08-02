@@ -19,6 +19,21 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
 
     private val repo by lazy { DashboardRepo(this) }
 
+    fun toolbarText(context: Context, category: String): String {
+        return with(context) {
+            when (category) {
+                getString(R.string.spanish_age) -> getString(R.string.spanish_age_toolbar)
+                getString(R.string.global_age) -> getString(R.string.global_age_toolbar)
+                getString(R.string.films_series) -> getString(R.string.films_series_toolbar)
+                getString(R.string.cartoon_creations) -> getString(R.string.cartoon_creations_toolbar)
+                getString(R.string.videogames) -> getString(R.string.videogames_toolbar)
+                getString(R.string.important_dates) -> getString(R.string.important_dates_toolbar)
+                getString(R.string.creation_objects) -> getString(R.string.creation_objects_toolbar)
+                else -> getString(R.string.somethingWentWrong)
+            }
+        }
+    }
+
     fun checkPinViewLongitude(context: Context, category: String): Int {
         val longitude = when (category) {
             context.getString(R.string.spanish_age) -> 2
