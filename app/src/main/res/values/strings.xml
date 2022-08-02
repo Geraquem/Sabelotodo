@@ -17,6 +17,8 @@
     <string name="wannaExit">¿Seguro que quieres salir?</string>
     <string name="yes">SI</string>
     <string name="no">NO</string>
+    <string name="noMoreQuestions">De momento no hay más preguntas</string>
+    <string name="ok">OK</string>
 
     <!-- Categories -->
     <string name="spanish_age">spanish-age</string>

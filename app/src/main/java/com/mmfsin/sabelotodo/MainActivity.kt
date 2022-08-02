@@ -56,6 +56,19 @@ class MainActivity : AppCompatActivity(), ICommunication {
         }
     }
 
+    override fun notMoreQuestions() {
+        SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+            .setCustomImage(R.drawable.ic_sad_face)
+            .setTitleText(getString(R.string.noMoreQuestions))
+            .setConfirmText(getString(R.string.ok))
+            .setConfirmClickListener { sDialog ->
+                changeToolbarText(getString(R.string.app_name))
+                binding.goBack.visibility = View.GONE
+                supportFragmentManager.popBackStack()
+                sDialog.dismissWithAnimation()
+            }.show()
+    }
+
     override fun somethingWentWrong() {
         SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
             .setTitleText(getString(R.string.oops))
@@ -72,8 +85,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
                 binding.goBack.visibility = View.GONE
                 supportFragmentManager.popBackStack()
                 sDialog.dismissWithAnimation()
-            }
-            .setCancelButton(getString(R.string.no)) { sDialog -> sDialog.dismissWithAnimation() }
+            }.setCancelButton(getString(R.string.no)) { sDialog -> sDialog.dismissWithAnimation() }
             .show()
     }
 

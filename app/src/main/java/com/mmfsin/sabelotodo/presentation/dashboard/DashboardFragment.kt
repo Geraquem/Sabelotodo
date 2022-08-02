@@ -101,8 +101,7 @@ class DashboardFragment(
                 binding.response.text = null
                 presenter.getQuestionData(data.category, questionNames[pos])
             } else {
-                /** sweet alert */
-                Toast.makeText(mContext, "no hay más preguntas", Toast.LENGTH_SHORT).show()
+                listener.notMoreQuestions()
                 binding.next.visibility = View.GONE
             }
         }
