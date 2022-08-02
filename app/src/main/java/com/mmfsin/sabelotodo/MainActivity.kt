@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
             .replace(R.id.fragment_container, CategoriesFragment(this))
             .addToBackStack(null)
             .commit()
+
     }
 
     override fun changeToolbarText(category: String) {
