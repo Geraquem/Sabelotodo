@@ -5,6 +5,8 @@
     <string name="contentDescription">image</string>
     <string name="zero">0</string>
 
+    <string name="musicMasterUrl">https://play.google.com/store/apps/details?id=com.mmfsin.musicmaster</string>
+
     <!-- Fragments -->
     <string name="fragment_categories">categories</string>
     <string name="fragment_dashboard">dashboard</string>
@@ -24,6 +26,7 @@
     <string name="videogames">videogames</string>
     <string name="important_dates">important-dates</string>
     <string name="creation_objects">creation-objects</string>
+    <string name="music">music</string>
     <string name="records">Máxima puntuación: %1$s</string>
 
     <string name="spanish_age_toolbar">Españoles y latinos</string>

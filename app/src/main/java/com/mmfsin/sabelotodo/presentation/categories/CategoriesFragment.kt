@@ -1,7 +1,9 @@
 package com.mmfsin.sabelotodo.presentation.categories
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.GradientDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -94,6 +96,13 @@ class CategoriesFragment(private val listener: ICommunication) : Fragment(), Cat
                         color.g_5,
                         color.g_6
                     )
+                    getString(music) -> setData(
+                        category,
+                        0,
+                        cardEight,
+                        color.g_7,
+                        color.g_8
+                    )
                 }
             }
         }
@@ -120,7 +129,11 @@ class CategoriesFragment(private val listener: ICommunication) : Fragment(), Cat
         }
 
         val data = DataToDashDTO(category.title, category.name, category.image, actualRecord)
-        item.item.setOnClickListener { listener.navigateToDashboard(data) }
+        item.item.setOnClickListener {
+            if (data.category == getString(music)) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(musicMasterUrl))))
+            } else listener.navigateToDashboard(data)
+        }
     }
 
     override fun somethingWentWrong() = listener.somethingWentWrong()
