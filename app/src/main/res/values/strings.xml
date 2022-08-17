@@ -39,6 +39,16 @@
     <string name="important_dates_toolbar">Fechas importantes</string>
     <string name="creation_objects_toolbar">Inventos</string>
 
+    <!-- Records -->
+    <string name="record_my_records">Mis puntuaciones</string>
+    <string name="record_spanish_age">Españoles y latinos: %1$s</string>
+    <string name="record_global_age">Famos@s mundiales: %1$s</string>
+    <string name="record_films_series">Pelis y series: %1$s</string>
+    <string name="record_cartoon_creations">Dibujos y animación: %1$s</string>
+    <string name="record_videogames">Videojuegos: %1$s</string>
+    <string name="record_important_dates">Fechas importantes: %1$s</string>
+    <string name="record_creation_objects">Inventos: %1$s</string>
+
     <!-- Dashboard -->
     <string name="your_answer">TU RESPUESTA</string>
     <string name="in_the">EN EL AÑO</string>

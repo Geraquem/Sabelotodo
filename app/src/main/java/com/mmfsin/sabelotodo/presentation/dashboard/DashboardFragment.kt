@@ -107,6 +107,11 @@ class DashboardFragment(
         }
 
         binding.check.setOnClickListener {
+
+//            pos--
+//            presenter.getQuestionData(data.category, questionNames[pos])
+
+
             val response = binding.response.text.toString()
             if (response.isNotEmpty() && response.length == longitude) {
                 binding.check.isEnabled = false

@@ -73,14 +73,16 @@
                 layout="@layout/item_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="12dp"
+                android:visibility="gone" />
 
             <include
                 android:id="@+id/card_seven"
                 layout="@layout/item_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="12dp"
+                android:visibility="gone" />
 
             <include
                 android:id="@+id/card_eight"

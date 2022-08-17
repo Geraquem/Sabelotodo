@@ -1,4 +1,4 @@
-package com.mmfsin.sabelotodo
+package com.mmfsin.sabelotodo.presentation.main
 
 import android.content.Context
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.data.models.DataToDashDTO
 import com.mmfsin.sabelotodo.data.models.RecordDTO
 import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
@@ -17,23 +18,26 @@ class MainActivity : AppCompatActivity(), ICommunication {
 
     private lateinit var binding: ActivityMainBinding
 
+    private val helper by lazy { MainHelper(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.goBack.setOnClickListener { onBackPressed() }
+        binding.share.setOnClickListener { startActivity(helper.shareInfo()) }
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, CategoriesFragment(this))
             .addToBackStack(null)
             .commit()
-
     }
 
     override fun changeToolbarText(category: String) {
         binding.toolbarText.text = category
         binding.goBack.visibility = View.VISIBLE
+        binding.share.visibility = View.GONE
     }
 
     override fun navigateToDashboard(data: DataToDashDTO) {
@@ -44,10 +48,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
             .commit()
     }
 
-    override fun getRecord(category: String): Int {
-        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return 1
-        return sharedPref.getInt(category, 0)
-    }
+    override fun getRecord(category: String): Int = helper.getRecord(category)
 
     override fun setNewRecord(record: RecordDTO) {
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
@@ -84,6 +85,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
             .setConfirmClickListener { sDialog ->
                 changeToolbarText(getString(R.string.app_name))
                 binding.goBack.visibility = View.GONE
+                binding.share.visibility = View.VISIBLE
                 supportFragmentManager.popBackStack()
                 sDialog.dismissWithAnimation()
             }.setCancelButton(getString(R.string.no)) { sDialog -> sDialog.dismissWithAnimation() }

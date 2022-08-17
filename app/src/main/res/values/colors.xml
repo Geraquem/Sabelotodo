@@ -28,8 +28,6 @@
     <color name="almostPhrase">#DCAA13</color>
     <color name="badPhrase">#B80707</color>
 
-    <color name="goodPhraseScore">#D96BAF63</color>
-    <color name="almostPhraseScore">#D9DCAA13</color>
-    <color name="badPhraseScore">#D9B80707</color>
+    <color name="button">#CFA466</color>
 
 </resources>
