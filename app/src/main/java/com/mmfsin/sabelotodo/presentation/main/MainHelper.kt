@@ -8,20 +8,27 @@ import com.mmfsin.sabelotodo.R
 class MainHelper(private val context: AppCompatActivity) {
 
     fun shareInfo(): Intent {
-
-        /** FALTA HACER AQUI EL TEXTO QUE SE VA A ENVIAR */
-
         val records = getAllRecords()
+
+        val title = "¡Mis puntuaciones en Sabelotodo!\n\n"
+        val text = "Edades de famosos españoles y latinos: ${records[0]},\n" +
+                "Edades de famosos mundiales: ${records[1]},\n" +
+                "Películas y series: ${records[2]},\n" +
+                "Dibujos y animación: ${records[3]},\n" +
+                "Videojuegos: ${records[4]},\n\n"
+        val url = "https://play.google.com/store/apps/developer?id=mmfsin&hl=es&gl=US"
+
+        val completedMessage = title + text + url
 
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, records.toString())
+            putExtra(Intent.EXTRA_TEXT, completedMessage)
             type = "text/plain"
         }
         return Intent.createChooser(sendIntent, null)
     }
 
-    fun getAllRecords(): List<String> {
+    private fun getAllRecords(): List<String> {
         val categories = mutableListOf<String>().apply {
             add(context.getString(R.string.spanish_age))
             add(context.getString(R.string.global_age))
