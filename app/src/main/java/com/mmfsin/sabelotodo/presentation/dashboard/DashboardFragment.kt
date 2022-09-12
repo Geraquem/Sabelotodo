@@ -1,6 +1,7 @@
 package com.mmfsin.sabelotodo.presentation.dashboard
 
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -8,6 +9,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
@@ -19,6 +21,7 @@ import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.squareup.picasso.Picasso
 import kotlin.properties.Delegates
+
 
 class DashboardFragment(
     private val listener: ICommunication,
@@ -68,7 +71,18 @@ class DashboardFragment(
         actualRecord = data.actualRecord
         listener.changeToolbarText(presenter.toolbarText(mContext, data.category))
         longitude = presenter.checkPinViewLongitude(mContext, data.category)
+        val color_bottom = presenter.getColorByCategory(mContext, data.category)
         with(binding) {
+            bground.background = GradientDrawable().apply {
+                colors = intArrayOf(
+                    getColor(mContext, R.color.color_top),
+                    getColor(mContext, color_bottom)
+                )
+                gradientType = GradientDrawable.LINEAR_GRADIENT
+                orientation = GradientDrawable.Orientation.TOP_BOTTOM
+                cornerRadii = floatArrayOf(0f, 0f, 0f, 0f, 80f, 80f, 80f, 80f)
+            }
+            check.setBackgroundColor(getColor(mContext, color_bottom));
             response.addTextChangedListener(textWatcher)
             response.itemCount = longitude
             loading.root.visibility = View.VISIBLE

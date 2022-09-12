@@ -22,146 +22,194 @@
         app:layout_constraintGuide_percent="0.05" />
 
     <ScrollView
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@id/rl_bottom"
-        app:layout_constraintLeft_toLeftOf="@id/gl_left"
-        app:layout_constraintRight_toRightOf="@id/gl_right"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/text"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl2_right"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                tools:text="Qué edad tiene" />
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
 
-            <TextView
-                android:id="@+id/main_text"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl2_left"
                 android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <View
+                android:id="@+id/bground"
+                android:elevation="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="-32dp"
+                android:background="@drawable/bg_dashboard"
+                app:layout_constraintBottom_toBottomOf="@id/cardView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="12dp"
-                android:fontFamily="@font/roboto_bold"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="26sp"
-                tools:text="el Pato Lucas" />
+                android:elevation="6dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="@id/gl2_left"
+                app:layout_constraintRight_toRightOf="@id/gl2_right"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/black"/>
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:text="Qué edad tiene" />
 
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/main_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="26sp"
+                    tools:text="el Pato Lucas" />
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="0dp"
                 android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="16dp"
-                android:contentDescription="@string/contentDescription"
-                android:src="@color/black" />
+                android:elevation="6dp"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="16dp"
+                android:backgroundTint="#00FFFFFF"
+                app:layout_constraintLeft_toLeftOf="@id/gl2_left"
+                app:layout_constraintRight_toRightOf="@id/gl2_right"
+                app:layout_constraintTop_toBottomOf="@id/ll_title">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/contentDescription"
+                    android:src="@color/black" />
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/description"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="@id/gl2_left"
+                app:layout_constraintRight_toRightOf="@id/gl2_right"
+                app:layout_constraintTop_toBottomOf="@id/cardView"
                 tools:text="Personaje de Disney pato bimorfo." />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/black"/>
-
-            <TextView
-                android:id="@+id/in_the"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="6dp"
-                android:fontFamily="@font/roboto_regular"
-                android:text="@string/in_the"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:visibility="visible" />
-
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
-
-                <com.chaos.view.PinView
-                    android:id="@+id/response"
-                    style="@style/PinWidget.PinView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:cursorVisible="false"
-                    android:fontFamily="sans-serif-condensed-medium"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:cursorWidth="0dp"
-                    app:hideLineWhenFilled="true"
-                    app:itemCount="4"
-                    app:itemRadius="4dp"
-                    app:itemSpacing="6dp"
-                    app:itemWidth="48dp"
-                    app:lineColor="@color/black"
-                    app:lineWidth="2dp"
-                    app:viewType="rectangle" />
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="@id/gl2_left"
+                app:layout_constraintRight_toRightOf="@id/gl2_right"
+                app:layout_constraintTop_toBottomOf="@id/bground">
 
                 <TextView
-                    android:id="@+id/years"
+                    android:id="@+id/in_the"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginBottom="6dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/years"
+                    android:text="@string/in_the"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
+                    android:textSize="16sp"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal">
+
+                    <com.chaos.view.PinView
+                        android:id="@+id/response"
+                        style="@style/PinWidget.PinView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:cursorVisible="false"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:cursorWidth="0dp"
+                        app:hideLineWhenFilled="true"
+                        app:itemCount="4"
+                        app:itemRadius="4dp"
+                        app:itemSpacing="6dp"
+                        app:itemWidth="48dp"
+                        app:lineColor="@color/black"
+                        app:lineWidth="2dp"
+                        app:viewType="rectangle" />
+
+                    <TextView
+                        android:id="@+id/years"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="@string/years"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/check"
+                    style="@style/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/check"
+                    android:textColor="@color/black" />
+
+                <include
+                    android:id="@+id/solution"
+                    layout="@layout/include_solution" />
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/check"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/button"
-                android:text="@string/check"
-                android:textColor="@color/black" />
-
-            <include
-                android:id="@+id/solution"
-                layout="@layout/include_solution" />
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
