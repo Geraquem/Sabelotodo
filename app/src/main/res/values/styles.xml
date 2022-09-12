@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SplashScreenTheme" parent="Theme.Sabelotodo">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="button">
+        <item name="textAllCaps">true</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:paddingVertical">16dp</item>
+        <item name="elevation">5dp</item>
+        <item name="backgroundTint">@color/button</item>
+    </style>
+
+</resources>

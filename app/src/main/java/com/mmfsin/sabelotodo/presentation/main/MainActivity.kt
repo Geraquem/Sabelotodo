@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity(), ICommunication {
     private val helper by lazy { MainHelper(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Thread.sleep(1500)
+        setTheme(R.style.Theme_Sabelotodo)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
