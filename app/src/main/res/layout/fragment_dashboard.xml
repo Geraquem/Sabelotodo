@@ -129,7 +129,7 @@
                     app:hideLineWhenFilled="true"
                     app:itemCount="4"
                     app:itemRadius="4dp"
-                    app:itemSpacing="0dp"
+                    app:itemSpacing="6dp"
                     app:itemWidth="48dp"
                     app:lineColor="@color/black"
                     app:lineWidth="2dp"

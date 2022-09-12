@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.mmfsin.sabelotodo.R
@@ -13,12 +14,15 @@ import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragment
 import com.mmfsin.sabelotodo.presentation.dashboard.DashboardFragment
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), ICommunication {
 
     private lateinit var binding: ActivityMainBinding
 
     private val helper by lazy { MainHelper(this) }
+
+    private var isDuckButton by Delegates.notNull<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Thread.sleep(1500)
@@ -27,7 +31,14 @@ class MainActivity : AppCompatActivity(), ICommunication {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.goBack.setOnClickListener { onBackPressed() }
+        setToolbarIcon(true)
+        binding.toolbarIcon.setOnClickListener {
+            if (isDuckButton) {
+                Toast.makeText(this, "CUACK", Toast.LENGTH_SHORT).show()
+            } else {
+                onBackPressed()
+            }
+        }
         binding.share.setOnClickListener { startActivity(helper.shareInfo()) }
 
         supportFragmentManager.beginTransaction()
@@ -37,8 +48,8 @@ class MainActivity : AppCompatActivity(), ICommunication {
     }
 
     override fun changeToolbarText(category: String) {
+        setToolbarIcon(false)
         binding.toolbarText.text = category
-        binding.goBack.visibility = View.VISIBLE
         binding.share.visibility = View.GONE
     }
 
@@ -67,7 +78,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
             .setConfirmText(getString(R.string.ok))
             .setConfirmClickListener { sDialog ->
                 changeToolbarText(getString(R.string.app_name))
-                binding.goBack.visibility = View.GONE
+                setToolbarIcon(false)
                 supportFragmentManager.popBackStack()
                 sDialog.dismissWithAnimation()
             }.show()
@@ -86,12 +97,22 @@ class MainActivity : AppCompatActivity(), ICommunication {
             .setConfirmText(getString(R.string.yes))
             .setConfirmClickListener { sDialog ->
                 changeToolbarText(getString(R.string.app_name))
-                binding.goBack.visibility = View.GONE
+                setToolbarIcon(true)
                 binding.share.visibility = View.VISIBLE
                 supportFragmentManager.popBackStack()
                 sDialog.dismissWithAnimation()
-            }.setCancelButton(getString(R.string.no)) { sDialog -> sDialog.dismissWithAnimation() }
+            }
+            .setCancelButton(getString(R.string.no)) { sDialog -> sDialog.dismissWithAnimation() }
             .show()
+    }
+
+    private fun setToolbarIcon(duck: Boolean) {
+        isDuckButton = duck
+        val image =
+            if (duck) R.drawable.ic_pato
+            else R.drawable.ic_return
+
+        binding.toolbarIcon.setImageResource(image)
     }
 
     override fun closeKeyboard() {
