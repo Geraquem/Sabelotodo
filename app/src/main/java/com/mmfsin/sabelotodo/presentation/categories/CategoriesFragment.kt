@@ -39,7 +39,7 @@ class CategoriesFragment(private val listener: ICommunication) : Fragment(), Cat
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /** Loading VISIBLE */
+        binding.loading.root.visibility = View.VISIBLE
         presenter.getCategoriesData()
     }
 
@@ -106,7 +106,7 @@ class CategoriesFragment(private val listener: ICommunication) : Fragment(), Cat
                 }
             }
         }
-        /** Loading GONE */
+        binding.loading.root.visibility = View.GONE
     }
 
     private fun setData(
