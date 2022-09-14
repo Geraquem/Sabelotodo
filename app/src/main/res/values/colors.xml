@@ -11,9 +11,9 @@
     <color name="grey">#BABABA</color>
     <color name="light_grey">#DFDCDC</color>
 
-    <color name="color_top">#EBE6EE</color>
+    <color name="color_top">#FBF4FF</color>
 
-    <color name="g_1">#C43BEA</color>
+    <color name="g_1">#D15DF1</color>
     <color name="g_2">#B08AED</color>
     <color name="g_3">#E48A46</color>
     <color name="g_4">#E3C67E</color>
@@ -25,6 +25,16 @@
     <color name="g_10">#E688B1</color>
     <color name="g_11">#EA893F</color>
     <color name="g_12">#AEB858</color>
+
+    <color name="spa">#D3C1F1</color>
+    <color name="fam">#DFD4B9</color>
+    <color name="film">#C9E3C1</color>
+    <color name="anim">#B6CBD1</color>
+    <color name="video">#CFB8C2</color>
+
+    <color name="test">#B4B4B4</color>
+
+
 
     <color name="goodPhrase">#6BAF63</color>
     <color name="almostPhrase">#DCAA13</color>

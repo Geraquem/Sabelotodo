@@ -58,7 +58,7 @@
     <string name="actualRecord">record actual %1$s</string>
     <string name="points">PUNTOS</string>
 
-    <string name="was_in">FUE EN EL <b>%1$s</b></string>
+    <string name="was_in">EN EL <b>%1$s</b></string>
     <string name="has_years"><b>%1$s</b> AÑOS</string>
     <string name="correct_answer">+2 PUNTOS</string>
     <string name="almost_answer">+1 PUNTO</string>

@@ -80,9 +80,10 @@ class DashboardFragment(
                 )
                 gradientType = GradientDrawable.LINEAR_GRADIENT
                 orientation = GradientDrawable.Orientation.TOP_BOTTOM
-                cornerRadii = floatArrayOf(0f, 0f, 0f, 0f, 80f, 80f, 80f, 80f)
+//                cornerRadii = floatArrayOf(0f, 0f, 0f, 0f, 80f, 80f, 80f, 80f)
             }
-            check.setBackgroundColor(getColor(mContext, color_bottom));
+            check.background.setTint(getColor(mContext, color_bottom))
+            next.setColorFilter(getColor(mContext, color_bottom));
             response.addTextChangedListener(textWatcher)
             response.itemCount = longitude
             loading.root.visibility = View.VISIBLE

@@ -97,14 +97,14 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
 
     fun getColorByCategory(c: Context, category: String): Int {
         return when (category) {
-            c.getString(R.string.spanish_age) -> R.color.g_2
-            c.getString(R.string.global_age) -> R.color.g_4
-            c.getString(R.string.films_series) -> R.color.g_6
-            c.getString(R.string.cartoon_creations) -> R.color.g_8
-            c.getString(R.string.videogames) -> R.color.g_10
-            c.getString(R.string.important_dates) -> R.color.g_12
-            c.getString(R.string.creation_objects) -> R.color.g_6
-            else -> R.color.g_2
+            c.getString(R.string.spanish_age) -> R.color.spa
+            c.getString(R.string.global_age) -> R.color.fam
+            c.getString(R.string.films_series) -> R.color.film
+            c.getString(R.string.cartoon_creations) -> R.color.anim
+            c.getString(R.string.videogames) -> R.color.video
+//            c.getString(R.string.important_dates) -> R.color.g_12
+//            c.getString(R.string.creation_objects) -> R.color.g_6
+            else -> R.color.test
         }
     }
 

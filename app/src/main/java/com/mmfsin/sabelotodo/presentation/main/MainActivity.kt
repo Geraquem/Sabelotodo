@@ -92,7 +92,8 @@ class MainActivity : AppCompatActivity(), ICommunication {
     }
 
     private fun sweetAlertGoBack() {
-        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+        SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+            .setCustomImage(R.drawable.ic_pato_exit)
             .setTitleText(getString(R.string.wannaExit))
             .setConfirmText(getString(R.string.yes))
             .setConfirmClickListener { sDialog ->

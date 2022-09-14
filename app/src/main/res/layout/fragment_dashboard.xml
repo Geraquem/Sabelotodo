@@ -7,21 +7,8 @@
     android:background="@color/light_grey"
     tools:context=".presentation.main.MainActivity">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_right"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_left"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05" />
-
     <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="none"
@@ -35,38 +22,42 @@
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl2_right"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.95" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl2_left"
+                android:id="@+id/gl_left"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.05" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_right"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
             <View
                 android:id="@+id/bground"
-                android:elevation="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginBottom="-32dp"
+                android:layout_marginBottom="-0dp"
                 android:background="@drawable/bg_dashboard"
-                app:layout_constraintBottom_toBottomOf="@id/cardView"
+                android:elevation="8dp"
+                android:visibility="invisible"
+                android:outlineProvider="bounds"
+                app:layout_constraintBottom_toBottomOf="@id/image"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:id="@+id/ll_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:elevation="6dp"
                 android:layout_marginTop="16dp"
+                android:elevation="60dp"
                 android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="@id/gl2_left"
-                app:layout_constraintRight_toRightOf="@id/gl2_right"
+                app:layout_constraintLeft_toLeftOf="@id/gl_left"
+                app:layout_constraintRight_toRightOf="@id/gl_right"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -86,7 +77,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="12dp"
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
                     android:textAllCaps="true"
@@ -96,27 +86,18 @@
 
             </LinearLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
+            <ImageView
+                android:id="@+id/image"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
-                android:elevation="6dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
-                app:cardCornerRadius="16dp"
-                android:backgroundTint="#00FFFFFF"
-                app:layout_constraintLeft_toLeftOf="@id/gl2_left"
-                app:layout_constraintRight_toRightOf="@id/gl2_right"
-                app:layout_constraintTop_toBottomOf="@id/ll_title">
-
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/contentDescription"
-                    android:src="@color/black" />
-
-            </androidx.cardview.widget.CardView>
+                android:contentDescription="@string/contentDescription"
+                android:elevation="12dp"
+                android:src="@color/black"
+                app:layout_constraintLeft_toLeftOf="@id/gl_left"
+                app:layout_constraintRight_toRightOf="@id/gl_right"
+                app:layout_constraintTop_toBottomOf="@id/ll_title" />
 
             <TextView
                 android:id="@+id/description"
@@ -126,9 +107,9 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:visibility="gone"
-                app:layout_constraintLeft_toLeftOf="@id/gl2_left"
-                app:layout_constraintRight_toRightOf="@id/gl2_right"
-                app:layout_constraintTop_toBottomOf="@id/cardView"
+                app:layout_constraintLeft_toLeftOf="@id/gl_left"
+                app:layout_constraintRight_toRightOf="@id/gl_right"
+                app:layout_constraintTop_toBottomOf="@id/image"
                 tools:text="Personaje de Disney pato bimorfo." />
 
             <LinearLayout
@@ -136,8 +117,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="@id/gl2_left"
-                app:layout_constraintRight_toRightOf="@id/gl2_right"
+                app:layout_constraintLeft_toLeftOf="@id/gl_left"
+                app:layout_constraintRight_toRightOf="@id/gl_right"
                 app:layout_constraintTop_toBottomOf="@id/bground">
 
                 <TextView
@@ -175,7 +156,7 @@
                         app:hideLineWhenFilled="true"
                         app:itemCount="4"
                         app:itemRadius="4dp"
-                        app:itemSpacing="6dp"
+                        app:itemSpacing="2dp"
                         app:itemWidth="48dp"
                         app:lineColor="@color/black"
                         app:lineWidth="2dp"
@@ -195,14 +176,6 @@
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/check"
-                    style="@style/button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/check"
-                    android:textColor="@color/black" />
-
                 <include
                     android:id="@+id/solution"
                     layout="@layout/include_solution" />
@@ -217,41 +190,87 @@
         android:id="@+id/rl_bottom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/gl_left"
-        app:layout_constraintRight_toRightOf="@id/gl_right">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl2_left"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl2_right"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <TextView
+            android:id="@+id/check"
+            style="@style/button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_button"
+            android:elevation="5dp"
+            android:gravity="center"
+            android:text="@string/check"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@id/gl2_left"
+            app:layout_constraintRight_toRightOf="@id/gl2_right"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/bg_score"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_view_score"
+            android:elevation="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/check" />
 
         <include
             android:id="@+id/score_board"
             layout="@layout/include_score_board"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginVertical="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/bg_score"
+            app:layout_constraintLeft_toLeftOf="@id/gl2_left"
             app:layout_constraintRight_toLeftOf="@id/next"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/bg_score" />
 
         <ImageView
             android:id="@+id/next"
             android:layout_width="65dp"
             android:layout_height="65dp"
+            android:layout_marginVertical="8dp"
             android:contentDescription="@string/contentDescription"
+            android:elevation="5dp"
             android:src="@drawable/ic_next"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@id/bg_score"
+            app:layout_constraintRight_toRightOf="@id/gl2_right"
+            app:layout_constraintTop_toTopOf="@id/bg_score" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         android:id="@+id/loading"
         layout="@layout/include_loading"
+        android:elevation="10dp"
         android:visibility="gone" />
 
     <include
         android:id="@+id/initial_image"
         layout="@layout/include_image"
+        android:elevation="10dp"
         android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
