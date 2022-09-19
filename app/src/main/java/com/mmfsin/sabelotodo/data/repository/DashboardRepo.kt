@@ -14,7 +14,7 @@ class DashboardRepo(private var listener: IDashboardRepo) {
             for (child in it.children) {
                 list.add(child.key.toString())
             }
-//            list.shuffle()
+            list.shuffle()
             listener.setDataList(list)
 
         }.addOnFailureListener {
