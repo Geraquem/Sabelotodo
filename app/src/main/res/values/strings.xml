@@ -27,7 +27,6 @@
     <string name="cartoon_creations">cartoon-creations</string>
     <string name="videogames">videogames</string>
     <string name="important_dates">important-dates</string>
-    <string name="creation_objects">creation-objects</string>
     <string name="music">music</string>
     <string name="records">Máxima puntuación: %1$s</string>
 
@@ -37,7 +36,6 @@
     <string name="cartoon_creations_toolbar">Dibujos y animación</string>
     <string name="videogames_toolbar">Videojuegos</string>
     <string name="important_dates_toolbar">Fechas importantes</string>
-    <string name="creation_objects_toolbar">Inventos</string>
 
     <!-- Records -->
     <string name="record_my_records">Mis puntuaciones</string>
@@ -47,7 +45,6 @@
     <string name="record_cartoon_creations">Dibujos y animación: %1$s</string>
     <string name="record_videogames">Videojuegos: %1$s</string>
     <string name="record_important_dates">Fechas importantes: %1$s</string>
-    <string name="record_creation_objects">Inventos: %1$s</string>
 
     <!-- Dashboard -->
     <string name="your_answer">TU RESPUESTA</string>
@@ -57,6 +54,7 @@
     <string name="user_answer">TU RESPUESTA</string>
     <string name="actualRecord">record actual %1$s</string>
     <string name="points">PUNTOS</string>
+    <string name="next">SIGUIENTE</string>
 
     <string name="was_in">EN EL <b>%1$s</b></string>
     <string name="has_years"><b>%1$s</b> AÑOS</string>

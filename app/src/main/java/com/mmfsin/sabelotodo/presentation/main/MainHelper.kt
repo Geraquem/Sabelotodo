@@ -11,11 +11,12 @@ class MainHelper(private val context: AppCompatActivity) {
         val records = getAllRecords()
 
         val title = "¡Mis puntuaciones en Sabelotodo!\n\n"
-        val text = "Edades de famosos españoles y latinos: ${records[0]},\n" +
-                "Edades de famosos mundiales: ${records[1]},\n" +
-                "Películas y series: ${records[2]},\n" +
-                "Dibujos y animación: ${records[3]},\n" +
-                "Videojuegos: ${records[4]},\n\n"
+        val text = "Edades de famosos españoles y latinos: ${records[0]}\n" +
+                "Edades de famosos mundiales: ${records[1]}\n" +
+                "Películas y series: ${records[2]}\n" +
+                "Dibujos y animación: ${records[3]}\n" +
+                "Videojuegos: ${records[4]}\n" +
+                "Ferchas importantes: ${records[5]}\n\n"
         val url = "https://play.google.com/store/apps/developer?id=mmfsin&hl=es&gl=US"
 
         val completedMessage = title + text + url
@@ -35,6 +36,7 @@ class MainHelper(private val context: AppCompatActivity) {
             add(context.getString(R.string.films_series))
             add(context.getString(R.string.cartoon_creations))
             add(context.getString(R.string.videogames))
+            add(context.getString(R.string.important_dates))
         }
         val records = mutableListOf<String>()
         for (category in categories) {

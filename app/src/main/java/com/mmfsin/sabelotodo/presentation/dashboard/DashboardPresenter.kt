@@ -28,7 +28,6 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
                 getString(R.string.cartoon_creations) -> getString(R.string.cartoon_creations_toolbar)
                 getString(R.string.videogames) -> getString(R.string.videogames_toolbar)
                 getString(R.string.important_dates) -> getString(R.string.important_dates_toolbar)
-                getString(R.string.creation_objects) -> getString(R.string.creation_objects_toolbar)
                 else -> getString(R.string.somethingWentWrong)
             }
         }
@@ -102,8 +101,7 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
             c.getString(R.string.films_series) -> R.color.film
             c.getString(R.string.cartoon_creations) -> R.color.anim
             c.getString(R.string.videogames) -> R.color.video
-//            c.getString(R.string.important_dates) -> R.color.g_12
-//            c.getString(R.string.creation_objects) -> R.color.g_6
+            c.getString(R.string.important_dates) -> R.color.g_12
             else -> R.color.test
         }
     }

@@ -89,17 +89,11 @@ class CategoriesFragment(private val listener: ICommunication) : Fragment(), Cat
                         color.g_11,
                         color.g_12
                     )
-                    getString(creation_objects) -> setData(
-                        category,
-                        listener.getRecord(category.name),
-                        cardSeven,
-                        color.g_5,
-                        color.g_6
-                    )
+
                     getString(music) -> setData(
                         category,
                         0,
-                        cardEight,
+                        cardSeven,
                         color.g_7,
                         color.g_8
                     )

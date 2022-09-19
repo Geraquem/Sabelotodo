@@ -1,7 +1,6 @@
 package com.mmfsin.sabelotodo.presentation.dashboard
 
 import android.content.Context
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -72,15 +71,15 @@ class DashboardFragment(
         longitude = presenter.checkPinViewLongitude(mContext, data.category)
         val color_bottom = presenter.getColorByCategory(mContext, data.category)
         with(binding) {
-            bground.background = GradientDrawable().apply {
-                colors = intArrayOf(
-                    getColor(mContext, R.color.color_top),
-                    getColor(mContext, color_bottom)
-                )
-                gradientType = GradientDrawable.LINEAR_GRADIENT
-                orientation = GradientDrawable.Orientation.TOP_BOTTOM
+//            bground.background = GradientDrawable().apply {
+//                colors = intArrayOf(
+//                    getColor(mContext, R.color.color_top),
+//                    getColor(mContext, color_bottom)
+//                )
+//                gradientType = GradientDrawable.LINEAR_GRADIENT
+//                orientation = GradientDrawable.Orientation.TOP_BOTTOM
 //                cornerRadii = floatArrayOf(0f, 0f, 0f, 0f, 80f, 80f, 80f, 80f)
-            }
+//            }
             check.background.setTint(getColor(mContext, color_bottom))
             next.setColorFilter(getColor(mContext, color_bottom));
             response.addTextChangedListener(textWatcher)
@@ -104,7 +103,7 @@ class DashboardFragment(
     }
 
     private fun onClick() {
-        binding.next.setOnClickListener {
+        binding.llNext.setOnClickListener {
             pos++
             if (pos < questionNames.size) {
                 binding.loading.root.visibility = View.VISIBLE
@@ -115,7 +114,7 @@ class DashboardFragment(
                 presenter.getQuestionData(data.category, questionNames[pos])
             } else {
                 listener.notMoreQuestions()
-                binding.next.visibility = View.GONE
+                binding.llNext.visibility = View.GONE
             }
             showAd()
         }
