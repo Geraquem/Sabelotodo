@@ -11,6 +11,8 @@ interface ICommunication {
     fun getRecord(category: String): Int
     fun setNewRecord(record: RecordDTO)
 
+    fun showAd(pos: Int)
+
     fun closeKeyboard()
     fun somethingWentWrong()
 }

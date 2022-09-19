@@ -7,6 +7,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.data.models.DataToDashDTO
 import com.mmfsin.sabelotodo.data.models.RecordDTO
@@ -24,12 +29,19 @@ class MainActivity : AppCompatActivity(), ICommunication {
 
     private var isDuckButton by Delegates.notNull<Boolean>()
 
+    private var mInterstitialAd: InterstitialAd? = null
+    private val mInterstitalId = "ca-app-pub-3940256099942544/1033173712"
+//    private val mInterstitalId = "ca-app-pub-4515698012373396/9980090620"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Thread.sleep(1500)
         setTheme(R.style.Theme_Sabelotodo)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        MobileAds.initialize(this) {}
+        loadInterstitial(AdRequest.Builder().build())
 
         setToolbarIcon(true)
         binding.toolbarIcon.setOnClickListener {
@@ -125,5 +137,25 @@ class MainActivity : AppCompatActivity(), ICommunication {
 
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount == 1) finish() else sweetAlertGoBack()
+    }
+
+    private fun loadInterstitial(adRequest: AdRequest) {
+        InterstitialAd.load(this, mInterstitalId, adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                mInterstitialAd = null
+                loadInterstitial(AdRequest.Builder().build())
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                mInterstitialAd = interstitialAd
+            }
+        })
+    }
+
+    override fun showAd(pos: Int) {
+        if ((pos % 20) == 0 && mInterstitialAd != null) {
+            mInterstitialAd!!.show(this)
+            loadInterstitial(AdRequest.Builder().build())
+        }
     }
 }

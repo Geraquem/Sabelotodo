@@ -22,7 +22,6 @@ import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.squareup.picasso.Picasso
 import kotlin.properties.Delegates
 
-
 class DashboardFragment(
     private val listener: ICommunication,
     private val data: DataToDashDTO
@@ -118,6 +117,7 @@ class DashboardFragment(
                 listener.notMoreQuestions()
                 binding.next.visibility = View.GONE
             }
+            showAd()
         }
 
         binding.check.setOnClickListener {
@@ -207,4 +207,7 @@ class DashboardFragment(
         super.onAttach(context)
         mContext = context
     }
+
+    private fun showAd() = listener.showAd(pos)
+
 }

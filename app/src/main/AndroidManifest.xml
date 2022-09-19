@@ -11,10 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sabelotodo">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4515698012373396~6232417308" />
+
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true"
-            android:theme="@style/SplashScreenTheme">
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashScreenTheme"
+            android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
