@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity(), ICommunication {
     private var isDuckButton by Delegates.notNull<Boolean>()
 
     private var mInterstitialAd: InterstitialAd? = null
-    private val mInterstitalId = "ca-app-pub-3940256099942544/1033173712"
-//    private val mInterstitalId = "ca-app-pub-4515698012373396/9980090620"
+//    private val mInterstitalId = "ca-app-pub-3940256099942544/1033173712"
+    private val mInterstitalId = "ca-app-pub-4515698012373396/9980090620"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Thread.sleep(1500)
