@@ -30,11 +30,11 @@ class MainActivity : AppCompatActivity(), ICommunication {
     private var isDuckButton by Delegates.notNull<Boolean>()
 
     private var mInterstitialAd: InterstitialAd? = null
-//    private val mInterstitalId = "ca-app-pub-3940256099942544/1033173712"
-    private val mInterstitalId = "ca-app-pub-4515698012373396/9980090620"
+//    private val mInterstitalId = "ca-app-pub-3940256099942544/1033173712" //Pruebas
+    private val mInterstitalId = "ca-app-pub-4515698012373396/9980090620" //Real
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Thread.sleep(1500)
+        Thread.sleep(500)
         setTheme(R.style.Theme_Sabelotodo)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

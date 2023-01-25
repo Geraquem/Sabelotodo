@@ -36,10 +36,11 @@
     <color name="test">#B4B4B4</color>
 
 
-
-    <color name="goodPhrase">#6BAF63</color>
-    <color name="almostPhrase">#DCAA13</color>
-    <color name="badPhrase">#B80707</color>
+    <color name="goodPhrase">#64AC5B</color>
+    <color name="almostGoodPhrase">#698853</color>
+    <color name="almostBadPhrase">#CA9C4D</color>
+    <color name="badPhrase">#871111</color>
+    <color name="really_badPhrase">#F43333</color>
 
     <color name="button">#C0A4ED</color>
 

@@ -25,7 +25,6 @@ class DashboardRepo(private var listener: IDashboardRepo) {
     fun getQuestionData(category: String, questionName: String) {
         reference.child(category).child(questionName).get().addOnSuccessListener {
             it.getValue(DataDTO::class.java)?.let { data -> listener.setQuestionData(data) }
-
         }.addOnFailureListener {
             listener.somethingWentWrong()
         }

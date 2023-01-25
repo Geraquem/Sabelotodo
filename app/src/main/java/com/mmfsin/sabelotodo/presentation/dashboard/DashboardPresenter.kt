@@ -3,6 +3,7 @@ package com.mmfsin.sabelotodo.presentation.dashboard
 import android.content.Context
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.data.models.DataDTO
+import com.mmfsin.sabelotodo.data.models.ResultType.*
 import com.mmfsin.sabelotodo.data.models.SolutionDTO
 import com.mmfsin.sabelotodo.data.repository.DashboardRepo
 import com.mmfsin.sabelotodo.data.repository.DashboardRepo.IDashboardRepo
@@ -12,6 +13,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.Period
 import kotlin.coroutines.CoroutineContext
+import kotlin.math.absoluteValue
 
 class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, CoroutineScope {
 
@@ -60,14 +62,19 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
         val userAnswer = solution.userAnswer.toInt()
         val correct = solution.correctAnswer.toInt()
 
-        val isCorrect = if (userAnswer == correct) {
-            0
-        } else if (userAnswer > (correct - 4) && userAnswer < (correct + 4) && userAnswer != correct) {
-            1
-        } else {
-            2
+        val type = when((userAnswer - correct).absoluteValue){
+            0 -> GOOD
+            1 -> ALMOST_GOOD
+            2 -> ALMOST_GOOD
+            3 -> ALMOST_GOOD
+            4 -> ALMOST_BAD
+            5 -> ALMOST_BAD
+            6 -> BAD
+            7 -> BAD
+            8 -> BAD
+            else -> REALLY_BAD
         }
-        view.showSolution(solution.correctAnswer, isCorrect)
+        view.showSolution(solution.correctAnswer, type)
     }
 
     fun checkPinViewLongitude(longitude: Int, solution: String): Boolean {

@@ -12,10 +12,9 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
-import com.mmfsin.sabelotodo.data.models.DataDTO
-import com.mmfsin.sabelotodo.data.models.DataToDashDTO
-import com.mmfsin.sabelotodo.data.models.RecordDTO
-import com.mmfsin.sabelotodo.data.models.SolutionDTO
+import com.mmfsin.sabelotodo.data.models.*
+import com.mmfsin.sabelotodo.data.models.ResultType
+import com.mmfsin.sabelotodo.data.models.ResultType.*
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.squareup.picasso.Picasso
@@ -24,8 +23,7 @@ import kotlin.properties.Delegates
 class DashboardFragment(
     private val listener: ICommunication,
     private val data: DataToDashDTO
-) :
-    Fragment(), DashboardView {
+) : Fragment(), DashboardView {
 
     private var _bdg: FragmentDashboardBinding? = null
     private val binding get() = _bdg!!
@@ -69,7 +67,7 @@ class DashboardFragment(
         actualRecord = data.actualRecord
         listener.changeToolbarText(presenter.toolbarText(mContext, data.category))
         longitude = presenter.checkPinViewLongitude(mContext, data.category)
-        val color_bottom = presenter.getColorByCategory(mContext, data.category)
+        val colorBottom = presenter.getColorByCategory(mContext, data.category)
         with(binding) {
 //            bground.background = GradientDrawable().apply {
 //                colors = intArrayOf(
@@ -80,8 +78,8 @@ class DashboardFragment(
 //                orientation = GradientDrawable.Orientation.TOP_BOTTOM
 //                cornerRadii = floatArrayOf(0f, 0f, 0f, 0f, 80f, 80f, 80f, 80f)
 //            }
-            check.background.setTint(getColor(mContext, color_bottom))
-            next.setColorFilter(getColor(mContext, color_bottom));
+            check.background.setTint(getColor(mContext, colorBottom))
+            next.setColorFilter(getColor(mContext, colorBottom));
             response.addTextChangedListener(textWatcher)
             response.itemCount = longitude
             loading.root.visibility = View.VISIBLE
@@ -162,30 +160,45 @@ class DashboardFragment(
         binding.years.visibility = View.VISIBLE
     }
 
-    override fun showSolution(solution: String, isCorrect: Int) {
-        when (isCorrect) {
-            0 -> {
-                mPoints += 2
+    override fun showSolution(solution: String, type: ResultType) {
+        when (type) {
+            GOOD -> {
+                mPoints += 5
                 binding.solution.typeAnswer.setTextColor(
                     resources.getColor(R.color.goodPhrase, null)
                 )
                 binding.solution.typeAnswer.text = getString(R.string.correct_answer)
             }
-            1 -> {
+            ALMOST_GOOD -> {
+                mPoints += 2
+                binding.solution.typeAnswer.setTextColor(
+                    resources.getColor(R.color.almostGoodPhrase, null)
+                )
+                binding.solution.typeAnswer.text = getString(R.string.almost_good_answer)
+            }
+            ALMOST_BAD -> {
                 mPoints += 1
                 binding.solution.typeAnswer.setTextColor(
-                    resources.getColor(R.color.almostPhrase, null)
+                    resources.getColor(R.color.almostBadPhrase, null)
                 )
-                binding.solution.typeAnswer.text = getString(R.string.almost_answer)
+                binding.solution.typeAnswer.text = getString(R.string.almost_bad_answer)
             }
-            2 -> {
+            BAD -> {
                 mPoints -= 1
                 binding.solution.typeAnswer.setTextColor(
                     resources.getColor(R.color.badPhrase, null)
                 )
                 binding.solution.typeAnswer.text = getString(R.string.bad_answer)
             }
+            REALLY_BAD -> {
+                mPoints -= 2
+                binding.solution.typeAnswer.setTextColor(
+                    resources.getColor(R.color.really_badPhrase, null)
+                )
+                binding.solution.typeAnswer.text = getString(R.string.really_bad_answer)
+            }
         }
+
         if (mPoints > actualRecord) {
             actualRecord = mPoints
             binding.scoreBoard.actualRecord.text =
