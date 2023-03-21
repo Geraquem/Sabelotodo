@@ -2,9 +2,9 @@ package com.mmfsin.sabelotodo.presentation.dashboard
 
 import android.content.Context
 import com.mmfsin.sabelotodo.R
-import com.mmfsin.sabelotodo.data.models.DataDTO
-import com.mmfsin.sabelotodo.data.models.ResultType.*
-import com.mmfsin.sabelotodo.data.models.SolutionDTO
+import com.mmfsin.sabelotodo.domain.models.DataDTO
+import com.mmfsin.sabelotodo.domain.models.ResultType.*
+import com.mmfsin.sabelotodo.domain.models.SolutionDTO
 import com.mmfsin.sabelotodo.data.repository.DashboardRepo
 import com.mmfsin.sabelotodo.data.repository.DashboardRepo.IDashboardRepo
 import kotlinx.coroutines.CoroutineScope

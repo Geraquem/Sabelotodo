@@ -13,12 +13,13 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.mmfsin.sabelotodo.R
-import com.mmfsin.sabelotodo.data.models.DataToDashDTO
-import com.mmfsin.sabelotodo.data.models.RecordDTO
+import com.mmfsin.sabelotodo.domain.models.DataToDashDTO
+import com.mmfsin.sabelotodo.domain.models.RecordDTO
 import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragment
 import com.mmfsin.sabelotodo.presentation.dashboard.DashboardFragment
+import io.realm.Realm
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), ICommunication {
@@ -30,13 +31,16 @@ class MainActivity : AppCompatActivity(), ICommunication {
     private var isDuckButton by Delegates.notNull<Boolean>()
 
     private var mInterstitialAd: InterstitialAd? = null
-//    private val mInterstitalId = "ca-app-pub-3940256099942544/1033173712" //Pruebas
-    private val mInterstitalId = "ca-app-pub-4515698012373396/9980090620" //Real
+    private val mInterstitalId = "ca-app-pub-3940256099942544/1033173712" //Pruebas
+//    private val mInterstitalId = "ca-app-pub-4515698012373396/9980090620" //Real
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Thread.sleep(500)
         setTheme(R.style.Theme_Sabelotodo)
         super.onCreate(savedInstanceState)
+
+        Realm.init(this)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

@@ -1,4 +1,4 @@
-package com.mmfsin.sabelotodo.data.models
+package com.mmfsin.sabelotodo.domain.models
 
 data class DataToDashDTO(
     var title: String,

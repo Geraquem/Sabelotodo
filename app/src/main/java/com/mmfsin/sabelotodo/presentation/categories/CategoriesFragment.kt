@@ -13,8 +13,8 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R.color
 import com.mmfsin.sabelotodo.R.string.*
-import com.mmfsin.sabelotodo.data.models.CategoryDTO
-import com.mmfsin.sabelotodo.data.models.DataToDashDTO
+import com.mmfsin.sabelotodo.domain.models.CategoryDTO
+import com.mmfsin.sabelotodo.domain.models.DataToDashDTO
 import com.mmfsin.sabelotodo.databinding.FragmentCategoriesBinding
 import com.mmfsin.sabelotodo.databinding.ItemCategoryBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication

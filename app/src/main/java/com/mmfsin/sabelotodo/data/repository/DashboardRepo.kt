@@ -2,7 +2,7 @@ package com.mmfsin.sabelotodo.data.repository
 
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.mmfsin.sabelotodo.data.models.DataDTO
+import com.mmfsin.sabelotodo.domain.models.DataDTO
 
 class DashboardRepo(private var listener: IDashboardRepo) {
 

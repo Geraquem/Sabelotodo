@@ -1,7 +1,7 @@
 package com.mmfsin.sabelotodo.presentation.dashboard
 
-import com.mmfsin.sabelotodo.data.models.DataDTO
-import com.mmfsin.sabelotodo.data.models.ResultType
+import com.mmfsin.sabelotodo.domain.models.DataDTO
+import com.mmfsin.sabelotodo.domain.models.ResultType
 
 interface DashboardView {
     fun setDataList(list: List<String>)

@@ -1,7 +1,7 @@
 package com.mmfsin.sabelotodo.presentation
 
-import com.mmfsin.sabelotodo.data.models.DataToDashDTO
-import com.mmfsin.sabelotodo.data.models.RecordDTO
+import com.mmfsin.sabelotodo.domain.models.DataToDashDTO
+import com.mmfsin.sabelotodo.domain.models.RecordDTO
 
 interface ICommunication {
     fun navigateToDashboard(data: DataToDashDTO)
