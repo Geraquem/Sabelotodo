@@ -2,9 +2,12 @@ package com.mmfsin.sabelotodo.data.repository
 
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.mmfsin.sabelotodo.data.database.RealmDatabase
 import com.mmfsin.sabelotodo.domain.models.DataDTO
 
 class DashboardRepo(private var listener: IDashboardRepo) {
+
+    private val realm by lazy { RealmDatabase() }
 
     private val reference = Firebase.database.reference.child("questions")
 

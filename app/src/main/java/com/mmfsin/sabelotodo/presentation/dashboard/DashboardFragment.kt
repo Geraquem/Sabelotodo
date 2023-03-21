@@ -12,10 +12,9 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
-import com.mmfsin.sabelotodo.data.models.*
-import com.mmfsin.sabelotodo.domain.models.ResultType.*
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
 import com.mmfsin.sabelotodo.domain.models.*
+import com.mmfsin.sabelotodo.domain.models.ResultType.*
 import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.squareup.picasso.Picasso
 import kotlin.properties.Delegates

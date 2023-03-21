@@ -15,7 +15,7 @@ class CategoriesPresenter(private val view: CategoriesView) : ICategoriesRepo, C
     private val repo by lazy { CategoriesRepo(this) }
 
     fun getCategoriesData() {
-        launch(Dispatchers.IO) { repo.getCategoriesData() }
+        launch(Dispatchers.IO) { repo.getCategories() }
     }
 
     override fun setCategoriesData(categories: List<CategoryDTO>) {
