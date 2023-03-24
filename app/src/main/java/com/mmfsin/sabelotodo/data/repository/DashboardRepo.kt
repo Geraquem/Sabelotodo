@@ -3,7 +3,9 @@ package com.mmfsin.sabelotodo.data.repository
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.mmfsin.sabelotodo.data.database.RealmDatabase
+import com.mmfsin.sabelotodo.domain.models.CategoryDTO
 import com.mmfsin.sabelotodo.domain.models.DataDTO
+import io.realm.kotlin.where
 
 class DashboardRepo(private var listener: IDashboardRepo) {
 
@@ -11,31 +13,41 @@ class DashboardRepo(private var listener: IDashboardRepo) {
 
     private val reference = Firebase.database.reference.child("questions")
 
-    fun getDataList(category: String) {
+    fun getDataFromFirebase(category: String) {
         reference.child(category).get().addOnSuccessListener {
-            val list = mutableListOf<String>()
             for (child in it.children) {
-                list.add(child.key.toString())
+                child.getValue(DataDTO::class.java)?.let { data ->
+                    saveData(data)
+                }
             }
-            list.shuffle()
-            listener.setDataList(list)
+            listener.dataListFilled(getCompletedInfo().shuffled())
 
         }.addOnFailureListener {
             listener.somethingWentWrong()
         }
     }
 
-    fun getQuestionData(category: String, questionName: String) {
-        reference.child(category).child(questionName).get().addOnSuccessListener {
-            it.getValue(DataDTO::class.java)?.let { data -> listener.setQuestionData(data) }
-        }.addOnFailureListener {
-            listener.somethingWentWrong()
+    private fun getCompletedInfo(): List<DataDTO> {
+        val list = realm.getObjectsFromRealm {
+            where<DataDTO>().findAll()
         }
+        return list.shuffled()
     }
+
+    fun getCategoryImage(categoryName: String): String? {
+        val categories = realm.getObjectsFromRealm {
+            where<CategoryDTO>().findAll()
+        }
+        for (category in categories) {
+            if (category.name == categoryName) return category.image
+        }
+        return null
+    }
+
+    private fun saveData(data: DataDTO) = realm.addObject { data }
 
     interface IDashboardRepo {
-        fun setDataList(list: List<String>)
-        fun setQuestionData(data: DataDTO)
+        fun dataListFilled(list: List<DataDTO>)
         fun somethingWentWrong()
     }
 }

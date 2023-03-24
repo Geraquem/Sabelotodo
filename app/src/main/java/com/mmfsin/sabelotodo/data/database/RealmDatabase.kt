@@ -1,6 +1,7 @@
 package com.mmfsin.sabelotodo.data.database
 
 import com.mmfsin.sabelotodo.data.database.RealmModule.realmConfiguration
+import com.mmfsin.sabelotodo.domain.models.DataDTO
 import io.realm.Realm
 import io.realm.RealmModel
 import io.realm.RealmResults
@@ -75,5 +76,14 @@ class RealmDatabase {
             realm.cancelTransaction()
             false
         }
+    }
+
+
+    fun deleteData() {
+        val realm = getRealm()
+        realm.beginTransaction()
+        realm.delete(DataDTO::class.java)
+        realm.commitTransaction()
+        realm.close()
     }
 }

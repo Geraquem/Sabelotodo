@@ -2,11 +2,12 @@ package com.mmfsin.sabelotodo.presentation.dashboard
 
 import android.content.Context
 import com.mmfsin.sabelotodo.R
+import com.mmfsin.sabelotodo.data.repository.CategoriesRepo
+import com.mmfsin.sabelotodo.data.repository.DashboardRepo
+import com.mmfsin.sabelotodo.data.repository.DashboardRepo.IDashboardRepo
 import com.mmfsin.sabelotodo.domain.models.DataDTO
 import com.mmfsin.sabelotodo.domain.models.ResultType.*
 import com.mmfsin.sabelotodo.domain.models.SolutionDTO
-import com.mmfsin.sabelotodo.data.repository.DashboardRepo
-import com.mmfsin.sabelotodo.data.repository.DashboardRepo.IDashboardRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,13 +46,9 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
         return longitude
     }
 
-    fun getDataList(category: String) {
-        launch(Dispatchers.IO) { repo.getDataList(category) }
-    }
+    fun getData(category: String) = launch(Dispatchers.IO) { repo.getDataFromFirebase(category) }
 
-    fun getQuestionData(category: String, questionName: String) {
-        launch(Dispatchers.IO) { repo.getQuestionData(category, questionName) }
-    }
+    fun getCategoryImage(category: String): String? = repo.getCategoryImage(category)
 
     fun checkDescription(description: String) {
         if (description == "null") view.handleDescription(false, "")
@@ -62,7 +59,7 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
         val userAnswer = solution.userAnswer.toInt()
         val correct = solution.correctAnswer.toInt()
 
-        val type = when((userAnswer - correct).absoluteValue){
+        val type = when ((userAnswer - correct).absoluteValue) {
             0 -> GOOD
             1 -> ALMOST_GOOD
             2 -> ALMOST_GOOD
@@ -88,17 +85,12 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
 
     private fun calculateAge(age: List<String>): String {
         return Period.between(
-            LocalDate.of(age[2].toInt(), age[1].toInt(), age[0].toInt()),
-            LocalDate.now()
+            LocalDate.of(age[2].toInt(), age[1].toInt(), age[0].toInt()), LocalDate.now()
         ).years.toString()
     }
 
-    override fun setDataList(list: List<String>) {
-        launch { view.setDataList(list) }
-    }
-
-    override fun setQuestionData(data: DataDTO) {
-        launch { view.setQuestionData(data) }
+    override fun dataListFilled(list: List<DataDTO>) {
+        launch { view.dataListFilled(list) }
     }
 
     fun getColorByCategory(c: Context, category: String): Int {

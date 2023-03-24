@@ -2,7 +2,6 @@ package com.mmfsin.sabelotodo.presentation.dashboard
 
 import android.content.Context
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -20,8 +19,7 @@ import com.squareup.picasso.Picasso
 import kotlin.properties.Delegates
 
 class DashboardFragment(
-    private val listener: ICommunication,
-    private val data: DataToDashDTO
+    private val listener: ICommunication, private val data: DataToDashDTO
 ) : Fragment(), DashboardView {
 
     private var _bdg: FragmentDashboardBinding? = null
@@ -31,7 +29,8 @@ class DashboardFragment(
 
     private lateinit var mContext: Context
 
-    private lateinit var questionNames: List<String>
+    private lateinit var completedList: List<DataDTO>
+
     private var pos = 0
     private var longitude = 0
     private lateinit var correctAnswer: String
@@ -40,9 +39,7 @@ class DashboardFragment(
     private var actualRecord by Delegates.notNull<Int>()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _bdg = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
@@ -51,15 +48,15 @@ class DashboardFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        presenter.getDataList(data.category)
-        Glide.with(mContext).load(data.image).into(binding.initialImage.image)
-        object : CountDownTimer(1750, 100) {
-            override fun onTick(millisUntilFinished: Long) {}
-            override fun onFinish() {
-                binding.initialImage.root.visibility = View.GONE
-            }
-        }.start()
+        presenter.getData(data.category)
+        presenter.getCategoryImage(data.category)
+            ?.let { Glide.with(mContext).load(it).into(binding.imgBackground) }
         onClick()
+    }
+
+    override fun dataListFilled(list: List<DataDTO>) {
+        completedList = list
+        setQuestionData(completedList[pos])
     }
 
     private fun init() {
@@ -68,21 +65,11 @@ class DashboardFragment(
         longitude = presenter.checkPinViewLongitude(mContext, data.category)
         val colorBottom = presenter.getColorByCategory(mContext, data.category)
         with(binding) {
-//            bground.background = GradientDrawable().apply {
-//                colors = intArrayOf(
-//                    getColor(mContext, R.color.color_top),
-//                    getColor(mContext, color_bottom)
-//                )
-//                gradientType = GradientDrawable.LINEAR_GRADIENT
-//                orientation = GradientDrawable.Orientation.TOP_BOTTOM
-//                cornerRadii = floatArrayOf(0f, 0f, 0f, 0f, 80f, 80f, 80f, 80f)
-//            }
             check.background.setTint(getColor(mContext, colorBottom))
             next.setColorFilter(getColor(mContext, colorBottom));
             response.addTextChangedListener(textWatcher)
             response.itemCount = longitude
             loading.root.visibility = View.VISIBLE
-            initialImage.root.visibility = View.VISIBLE
             solution.root.visibility = View.GONE
             scoreBoard.actualRecord.text =
                 getString(R.string.actualRecord, data.actualRecord.toString())
@@ -100,42 +87,39 @@ class DashboardFragment(
     }
 
     private fun onClick() {
-        binding.llNext.setOnClickListener {
-            pos++
-            if (pos < questionNames.size) {
-                binding.loading.root.visibility = View.VISIBLE
-                binding.solution.root.visibility = View.GONE
-                binding.check.isEnabled = true
-                binding.response.isEnabled = true
-                binding.response.text = null
-                presenter.getQuestionData(data.category, questionNames[pos])
-            } else {
-                listener.notMoreQuestions()
-                binding.llNext.visibility = View.GONE
+        binding.apply {
+            llNext.setOnClickListener {
+                pos++
+                if (pos < completedList.size) {
+                    loading.root.visibility = View.VISIBLE
+                    solution.root.visibility = View.GONE
+                    check.isEnabled = true
+                    response.isEnabled = true
+                    response.text = null
+                    setQuestionData(completedList[pos])
+                } else {
+                    listener.notMoreQuestions()
+                    llNext.visibility = View.GONE
+                }
+                showAd()
             }
-            showAd()
-        }
 
-        binding.check.setOnClickListener {
+            check.setOnClickListener {
 //            pos--
 //            presenter.getQuestionData(data.category, questionNames[pos])
 
-            val response = binding.response.text.toString()
-            if (response.isNotEmpty() && response.length == longitude) {
-                binding.check.isEnabled = false
-                binding.response.isEnabled = false
-                listener.closeKeyboard()
-                presenter.checkSolution(SolutionDTO(correctAnswer, response))
+                val response = response.text.toString()
+                if (response.isNotEmpty() && response.length == longitude) {
+                    check.isEnabled = false
+                    binding.response.isEnabled = false
+                    listener.closeKeyboard()
+                    presenter.checkSolution(SolutionDTO(correctAnswer, response))
+                }
             }
         }
     }
 
-    override fun setDataList(list: List<String>) {
-        questionNames = list
-        presenter.getQuestionData(data.category, questionNames[pos])
-    }
-
-    override fun setQuestionData(data: DataDTO) {
+    private fun setQuestionData(data: DataDTO) {
         correctAnswer = presenter.checkSolution(data.solution)
         val splitText = data.text.split("%%%")
         with(binding) {

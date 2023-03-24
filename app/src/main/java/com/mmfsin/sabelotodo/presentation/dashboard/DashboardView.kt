@@ -4,8 +4,8 @@ import com.mmfsin.sabelotodo.domain.models.DataDTO
 import com.mmfsin.sabelotodo.domain.models.ResultType
 
 interface DashboardView {
-    fun setDataList(list: List<String>)
-    fun setQuestionData(data: DataDTO)
+    fun dataListFilled(list: List<DataDTO>)
+
     fun handleDescription(enable: Boolean, description: String)
     fun setTwoLongitudePinView()
     fun showSolution(solution: String, type: ResultType)

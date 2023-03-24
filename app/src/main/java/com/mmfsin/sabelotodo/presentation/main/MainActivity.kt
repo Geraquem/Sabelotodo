@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
 
     override fun navigateToDashboard(data: DataToDashDTO) {
         supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.enter_left, R.anim.exit_right)
+//            .setCustomAnimations(R.anim.enter_left, R.anim.exit_right)
             .replace(R.id.fragment_container, DashboardFragment(this, data))
             .addToBackStack(null)
             .commit()

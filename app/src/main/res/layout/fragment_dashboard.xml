@@ -8,6 +8,16 @@
     android:clipToPadding="false"
     tools:context=".presentation.main.MainActivity">
 
+    <ImageView
+        android:id="@+id/img_background"
+        android:layout_width="164dp"
+        android:layout_height="164dp"
+        android:layout_margin="24dp"
+        android:alpha="0.2"
+        android:contentDescription="@string/contentDescription"
+        app:layout_constraintBottom_toTopOf="@id/rl_bottom"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
@@ -252,12 +262,6 @@
     <include
         android:id="@+id/loading"
         layout="@layout/include_loading"
-        android:elevation="10dp"
-        android:visibility="gone" />
-
-    <include
-        android:id="@+id/initial_image"
-        layout="@layout/include_image"
         android:elevation="10dp"
         android:visibility="gone" />
 
