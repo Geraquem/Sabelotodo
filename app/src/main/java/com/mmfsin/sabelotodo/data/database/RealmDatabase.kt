@@ -79,7 +79,7 @@ class RealmDatabase {
     }
 
 
-    fun deleteData() {
+    fun deleteDataDTO() {
         val realm = getRealm()
         realm.beginTransaction()
         realm.delete(DataDTO::class.java)

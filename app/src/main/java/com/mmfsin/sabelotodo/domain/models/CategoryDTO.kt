@@ -9,4 +9,8 @@ open class CategoryDTO(
     var title: String = "",
     var image: String = "",
     var description: String = "",
+    var colorStart: String = "#FFFFFFFF",
+    var colorEnd: String = "#FFFFFFFF",
+    var order: Long = 0,
+    var duckImage: String? = null
 ) : RealmObject()

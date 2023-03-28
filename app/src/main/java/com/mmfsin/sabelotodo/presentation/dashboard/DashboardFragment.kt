@@ -49,7 +49,7 @@ class DashboardFragment(
         super.onViewCreated(view, savedInstanceState)
         init()
         presenter.getData(data.category)
-        presenter.getCategoryImage(data.category)
+        presenter.getCategoryDuck(data.category)
             ?.let { Glide.with(mContext).load(it).into(binding.imgBackground) }
         onClick()
     }

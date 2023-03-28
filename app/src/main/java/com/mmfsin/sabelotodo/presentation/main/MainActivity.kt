@@ -1,7 +1,9 @@
 package com.mmfsin.sabelotodo.presentation.main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -12,6 +14,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.material.snackbar.Snackbar
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.domain.models.DataToDashDTO
 import com.mmfsin.sabelotodo.domain.models.RecordDTO
@@ -49,11 +52,8 @@ class MainActivity : AppCompatActivity(), ICommunication {
 
         setToolbarIcon(true)
         binding.toolbarIcon.setOnClickListener {
-            if (isDuckButton) {
-                Toast.makeText(this, "CUACK", Toast.LENGTH_SHORT).show()
-            } else {
-                onBackPressed()
-            }
+            if (isDuckButton) showToast()
+            else onBackPressed()
         }
         binding.share.setOnClickListener { startActivity(helper.shareInfo()) }
 
@@ -161,5 +161,17 @@ class MainActivity : AppCompatActivity(), ICommunication {
             mInterstitialAd!!.show(this)
             loadInterstitial(AdRequest.Builder().build())
         }
+    }
+
+    @SuppressLint("InflateParams")
+    private fun showToast() {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.custom_toast, null)
+
+        val toast = Toast(applicationContext)
+        toast.setGravity(Gravity.BOTTOM, 0, 100)
+        toast.duration = Toast.LENGTH_SHORT
+        toast.view = layout
+        toast.show()
     }
 }

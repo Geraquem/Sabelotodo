@@ -2,7 +2,6 @@ package com.mmfsin.sabelotodo.presentation.dashboard
 
 import android.content.Context
 import com.mmfsin.sabelotodo.R
-import com.mmfsin.sabelotodo.data.repository.CategoriesRepo
 import com.mmfsin.sabelotodo.data.repository.DashboardRepo
 import com.mmfsin.sabelotodo.data.repository.DashboardRepo.IDashboardRepo
 import com.mmfsin.sabelotodo.domain.models.DataDTO
@@ -48,7 +47,7 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
 
     fun getData(category: String) = launch(Dispatchers.IO) { repo.getDataFromFirebase(category) }
 
-    fun getCategoryImage(category: String): String? = repo.getCategoryImage(category)
+    fun getCategoryDuck(category: String): String? = repo.getCategoryImage(category)
 
     fun checkDescription(description: String) {
         if (description == "null") view.handleDescription(false, "")

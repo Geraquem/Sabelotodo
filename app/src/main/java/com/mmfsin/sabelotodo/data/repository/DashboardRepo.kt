@@ -39,7 +39,7 @@ class DashboardRepo(private var listener: IDashboardRepo) {
             where<CategoryDTO>().findAll()
         }
         for (category in categories) {
-            if (category.name == categoryName) return category.image
+            if (category.name == categoryName) return category.duckImage
         }
         return null
     }

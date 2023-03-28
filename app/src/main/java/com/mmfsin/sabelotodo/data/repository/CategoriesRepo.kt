@@ -4,7 +4,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.mmfsin.sabelotodo.data.database.RealmDatabase
 import com.mmfsin.sabelotodo.domain.models.CategoryDTO
-import com.mmfsin.sabelotodo.domain.models.DataDTO
 import com.mmfsin.sabelotodo.utils.CATEGORY_SIZE
 import io.realm.kotlin.where
 
@@ -15,12 +14,10 @@ class CategoriesRepo(private var listener: ICategoriesRepo) {
     private val reference = Firebase.database.reference.child("categories")
 
     fun getCategories() {
-        realm.deleteData()
-        val categories = realm.getObjectsFromRealm {
-            where<CategoryDTO>().findAll()
-        }
-        if (categories.size < CATEGORY_SIZE) getCategoriesDataFromFirebase()
-        else listener.setCategoriesData(categories)
+        realm.deleteDataDTO()
+        val categories = realm.getObjectsFromRealm { where<CategoryDTO>().findAll() }
+        if (categories.size != CATEGORY_SIZE) getCategoriesDataFromFirebase()
+        else listener.setCategoriesData(categories.sortedBy { it.order })
     }
 
     private fun getCategoriesDataFromFirebase() {
