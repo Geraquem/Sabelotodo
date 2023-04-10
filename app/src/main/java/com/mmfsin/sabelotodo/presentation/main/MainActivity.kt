@@ -14,11 +14,10 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.google.android.material.snackbar.Snackbar
 import com.mmfsin.sabelotodo.R
+import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
 import com.mmfsin.sabelotodo.domain.models.DataToDashDTO
 import com.mmfsin.sabelotodo.domain.models.RecordDTO
-import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragment
 import com.mmfsin.sabelotodo.presentation.dashboard.DashboardFragment
@@ -41,26 +40,40 @@ class MainActivity : AppCompatActivity(), ICommunication {
         Thread.sleep(500)
         setTheme(R.style.Theme_Sabelotodo)
         super.onCreate(savedInstanceState)
-
-        Realm.init(this)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Realm.init(this)
         MobileAds.initialize(this) {}
-        loadInterstitial(AdRequest.Builder().build())
 
-        setToolbarIcon(true)
-        binding.toolbarIcon.setOnClickListener {
-            if (isDuckButton) showToast()
-            else onBackPressed()
+        setUI()
+        setListeners()
+    }
+
+    private fun setUI() {
+        binding.apply {
+            val adRequest = AdRequest.Builder().build()
+            binding.adView.loadAd(adRequest)
+            loadInterstitial(AdRequest.Builder().build())
+
+            setToolbarIcon(true)
+
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, CategoriesFragment(this@MainActivity))
+                .addToBackStack(null)
+                .commit()
         }
-        binding.share.setOnClickListener { startActivity(helper.shareInfo()) }
+    }
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, CategoriesFragment(this))
-            .addToBackStack(null)
-            .commit()
+    private fun setListeners() {
+        binding.apply {
+            share.setOnClickListener { startActivity(helper.shareInfo()) }
+
+            toolbarIcon.setOnClickListener {
+                if (isDuckButton) //showToast()
+                else onBackPressed()
+            }
+        }
     }
 
     override fun changeToolbarText(category: String) {
@@ -71,7 +84,6 @@ class MainActivity : AppCompatActivity(), ICommunication {
 
     override fun navigateToDashboard(data: DataToDashDTO) {
         supportFragmentManager.beginTransaction()
-//            .setCustomAnimations(R.anim.enter_left, R.anim.exit_right)
             .replace(R.id.fragment_container, DashboardFragment(this, data))
             .addToBackStack(null)
             .commit()

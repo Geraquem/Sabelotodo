@@ -15,6 +15,7 @@
         android:layout_marginHorizontal="16dp"
         android:alpha="0.5"
         android:contentDescription="@string/contentDescription"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/rl_bottom"
         app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -23,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
+        android:overScrollMode="never"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@id/rl_bottom"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -52,8 +54,7 @@
                 android:id="@+id/ll_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:elevation="60dp"
+                android:layout_marginTop="12dp"
                 android:orientation="vertical"
                 app:layout_constraintLeft_toLeftOf="@id/gl_left"
                 app:layout_constraintRight_toRightOf="@id/gl_right"
@@ -88,8 +89,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_gravity="center"
-                    android:layout_marginVertical="12dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="12dp"
                     android:contentDescription="@string/contentDescription"
                     android:elevation="12dp"
                     android:src="@color/black"
@@ -99,9 +100,10 @@
 
                 <TextView
                     android:id="@+id/description"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/roboto_regular"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:visibility="gone"
@@ -110,13 +112,12 @@
                     app:layout_constraintTop_toBottomOf="@id/image"
                     tools:text="Personaje de Disney pato bimorfo." />
 
-
                 <TextView
                     android:id="@+id/in_the"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="@font/roboto_regular"
                     android:text="@string/in_the"
                     android:textColor="@color/black"
@@ -172,12 +173,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="12dp"
+                    android:alpha="0.75"
                     android:background="@drawable/bg_button"
                     android:clipToPadding="false"
                     android:elevation="5dp"
                     android:gravity="center"
+                    android:paddingVertical="12dp"
                     android:text="@string/check"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
