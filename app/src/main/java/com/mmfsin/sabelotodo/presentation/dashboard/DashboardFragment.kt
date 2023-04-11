@@ -39,8 +39,6 @@ class DashboardFragment(
 
     private var solutionFlipped: Boolean = false
 
-    private var customColor = 0
-
     private var mPoints = 0
     private var actualRecord by Delegates.notNull<Int>()
 
@@ -71,7 +69,7 @@ class DashboardFragment(
         longitude = presenter.checkPinViewLongitude(mContext, data.category)
 
         val colorByCategory = presenter.getColorByCategory(mContext, data.category)
-        customColor = getColor(mContext, colorByCategory)
+        val customColor = getColor(mContext, colorByCategory)
 
         with(binding) {
             loading.root.visibility = View.VISIBLE
