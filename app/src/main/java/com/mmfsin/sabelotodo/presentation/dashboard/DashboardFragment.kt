@@ -1,6 +1,7 @@
 package com.mmfsin.sabelotodo.presentation.dashboard
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.text.Editable
@@ -38,6 +39,8 @@ class DashboardFragment(
 
     private var solutionFlipped: Boolean = false
 
+    private var customColor = 0
+
     private var mPoints = 0
     private var actualRecord by Delegates.notNull<Int>()
 
@@ -68,13 +71,13 @@ class DashboardFragment(
         longitude = presenter.checkPinViewLongitude(mContext, data.category)
 
         val colorByCategory = presenter.getColorByCategory(mContext, data.category)
-        val customColor = getColor(mContext, colorByCategory)
+        customColor = getColor(mContext, colorByCategory)
 
         with(binding) {
             loading.root.visibility = View.VISIBLE
 
-            changeSolutionBackground(solutionFlip.solutionFront.bg, customColor)
-            changeSolutionStroke(solutionFlip.solutionBack.bg, customColor)
+            changeSolutionFront(solutionFlip.solutionFront.bg, customColor)
+            changeSolutionBack(solutionFlip.solutionBack.bg, customColor)
             check.background.setTint(customColor)
 
             next.setColorFilter(customColor)
@@ -89,7 +92,7 @@ class DashboardFragment(
         }
     }
 
-    private fun changeSolutionBackground(view: View, color: Int) {
+    private fun changeSolutionFront(view: View, color: Int) {
         val background = view.background
         if (background is GradientDrawable) {
             background.setColor(color)
@@ -98,10 +101,11 @@ class DashboardFragment(
         }
     }
 
-    private fun changeSolutionStroke(view: View, color: Int) {
+    private fun changeSolutionBack(view: View, color: Int) {
         val background = view.background
         if (background is GradientDrawable) {
             background.setStroke(10, color)
+            background.setColor(Color.WHITE)
             view.background = background
         }
     }
@@ -123,7 +127,7 @@ class DashboardFragment(
                 if (pos < completedList.size) {
                     loading.root.visibility = View.VISIBLE
 
-                    if(solutionFlipped) flipSolution()
+                    if (solutionFlipped) flipSolution()
 
                     check.isEnabled = true
                     response.isEnabled = true
