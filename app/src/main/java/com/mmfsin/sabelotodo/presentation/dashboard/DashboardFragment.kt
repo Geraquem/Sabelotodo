@@ -8,7 +8,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -67,15 +66,18 @@ class DashboardFragment(
         actualRecord = data.actualRecord
         listener.changeToolbarText(presenter.toolbarText(mContext, data.category))
         longitude = presenter.checkPinViewLongitude(mContext, data.category)
-        val colorBottom = presenter.getColorByCategory(mContext, data.category)
+
+        val colorByCategory = presenter.getColorByCategory(mContext, data.category)
+        val customColor = getColor(mContext, colorByCategory)
+
         with(binding) {
             loading.root.visibility = View.VISIBLE
 
-            changeSolutionStroke(solutionFlip.solutionFront.bg, colorBottom)
-            changeSolutionStroke(solutionFlip.solutionBack.bg, colorBottom)
-            check.background.setTint(getColor(mContext, colorBottom))
+            changeSolutionBackground(solutionFlip.solutionFront.bg, customColor)
+            changeSolutionStroke(solutionFlip.solutionBack.bg, customColor)
+            check.background.setTint(customColor)
 
-            next.setColorFilter(getColor(mContext, colorBottom))
+            next.setColorFilter(customColor)
 
             response.addTextChangedListener(textWatcher)
             response.itemCount = longitude
@@ -87,11 +89,19 @@ class DashboardFragment(
         }
     }
 
+    private fun changeSolutionBackground(view: View, color: Int) {
+        val background = view.background
+        if (background is GradientDrawable) {
+            background.setColor(color)
+            background.setStroke(0, color)
+            view.background = background
+        }
+    }
+
     private fun changeSolutionStroke(view: View, color: Int) {
         val background = view.background
         if (background is GradientDrawable) {
-            val customColor = getColor(mContext, color)
-            background.setStroke(12, customColor)
+            background.setStroke(8, color)
             view.background = background
         }
     }
