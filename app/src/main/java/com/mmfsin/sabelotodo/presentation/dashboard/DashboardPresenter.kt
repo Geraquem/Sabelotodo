@@ -63,12 +63,7 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
             1 -> ALMOST_GOOD
             2 -> ALMOST_GOOD
             3 -> ALMOST_GOOD
-            4 -> ALMOST_BAD
-            5 -> ALMOST_BAD
-            6 -> BAD
-            7 -> BAD
-            8 -> BAD
-            else -> REALLY_BAD
+            else -> BAD
         }
         view.showSolution(solution.correctAnswer, type)
     }

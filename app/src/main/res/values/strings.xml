@@ -59,11 +59,9 @@
 
     <string name="was_in">EN EL <b>%1$s</b></string>
     <string name="has_years"><b>%1$s</b> AÑOS</string>
-    <string name="correct_answer">+5 PUNTOS</string>
-    <string name="almost_good_answer">+2 PUNTOS</string>
-    <string name="almost_bad_answer">+1 PUNTO</string>
+    <string name="correct_answer">+2 PUNTOS</string>
+    <string name="almost_good_answer">+1 PUNTOS</string>
     <string name="bad_answer">-1 PUNTO</string>
-    <string name="really_bad_answer">-2 PUNTOS</string>
 
     <string name="info_fallo_else">…</string>
     <string name="info_fallo_9">+9</string>

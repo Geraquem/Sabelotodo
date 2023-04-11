@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.wajahatkarim3.easyflipview.EasyFlipView
+        android:id="@+id/flip"
+        android:layout_width="match_parent"
+        android:elevation="5dp"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"
+        app:autoFlipBack="false"
+        app:flipDuration="400"
+        app:flipEnabled="true"
+        app:flipFrom="right"
+        app:flipOnTouch="true"
+        app:flipType="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Back Layout Goes Here -->
+        <include
+            android:id="@+id/solution_back"
+            layout="@layout/solution_back" />
+
+        <!-- Front Layout Goes Here -->
+        <include
+            android:id="@+id/solution_front"
+            layout="@layout/solution_front" />
+
+    </com.wajahatkarim3.easyflipview.EasyFlipView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

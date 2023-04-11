@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_grey"
+    android:clipChildren="false"
     android:clipToPadding="false"
     tools:context=".presentation.main.MainActivity">
 
@@ -23,6 +24,7 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:clipChildren="false"
         android:clipToPadding="false"
         android:overScrollMode="never"
         android:scrollbars="none"
@@ -34,6 +36,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipChildren="false"
             android:clipToPadding="false">
 
             <androidx.constraintlayout.widget.Guideline
@@ -55,6 +58,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:orientation="vertical"
                 app:layout_constraintLeft_toLeftOf="@id/gl_left"
                 app:layout_constraintRight_toRightOf="@id/gl_right"
@@ -128,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="20dp"
                     android:orientation="horizontal">
 
                     <com.chaos.view.PinView
@@ -172,9 +177,7 @@
                     style="@style/button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="32dp"
                     android:alpha="0.75"
                     android:background="@drawable/bg_button"
                     android:clipToPadding="false"
@@ -186,8 +189,10 @@
                     android:textSize="16sp" />
 
                 <include
-                    android:id="@+id/solution"
-                    layout="@layout/include_solution" />
+                    android:id="@+id/solution_flip"
+                    layout="@layout/solution_flip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 

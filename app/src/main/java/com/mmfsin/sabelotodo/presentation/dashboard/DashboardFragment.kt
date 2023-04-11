@@ -1,12 +1,14 @@
 package com.mmfsin.sabelotodo.presentation.dashboard
 
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -34,6 +36,8 @@ class DashboardFragment(
     private var pos = 0
     private var longitude = 0
     private lateinit var correctAnswer: String
+
+    private var solutionFlipped: Boolean = false
 
     private var mPoints = 0
     private var actualRecord by Delegates.notNull<Int>()
@@ -65,14 +69,30 @@ class DashboardFragment(
         longitude = presenter.checkPinViewLongitude(mContext, data.category)
         val colorBottom = presenter.getColorByCategory(mContext, data.category)
         with(binding) {
+            loading.root.visibility = View.VISIBLE
+
+            changeSolutionStroke(solutionFlip.solutionFront.bg, colorBottom)
+            changeSolutionStroke(solutionFlip.solutionBack.bg, colorBottom)
             check.background.setTint(getColor(mContext, colorBottom))
-            next.setColorFilter(getColor(mContext, colorBottom));
+
+            next.setColorFilter(getColor(mContext, colorBottom))
+
             response.addTextChangedListener(textWatcher)
             response.itemCount = longitude
-            loading.root.visibility = View.VISIBLE
-            solution.root.visibility = View.GONE
+
+            solutionFlip.flip.isFlipOnTouch = false
+
             scoreBoard.actualRecord.text =
                 getString(R.string.actualRecord, data.actualRecord.toString())
+        }
+    }
+
+    private fun changeSolutionStroke(view: View, color: Int) {
+        val background = view.background
+        if (background is GradientDrawable) {
+            val customColor = getColor(mContext, color)
+            background.setStroke(12, customColor)
+            view.background = background
         }
     }
 
@@ -92,11 +112,14 @@ class DashboardFragment(
                 pos++
                 if (pos < completedList.size) {
                     loading.root.visibility = View.VISIBLE
-                    solution.root.visibility = View.GONE
+
+                    if(solutionFlipped) flipSolution()
+
                     check.isEnabled = true
                     response.isEnabled = true
                     response.text = null
                     setQuestionData(completedList[pos])
+
                 } else {
                     listener.notMoreQuestions()
                     llNext.visibility = View.GONE
@@ -114,6 +137,7 @@ class DashboardFragment(
                     binding.response.isEnabled = false
                     listener.closeKeyboard()
                     presenter.checkSolution(SolutionDTO(correctAnswer, response))
+                    flipSolution()
                 }
             }
         }
@@ -144,41 +168,29 @@ class DashboardFragment(
     }
 
     override fun showSolution(solution: String, type: ResultType) {
+        val correctAnswer = binding.solutionFlip.solutionBack.correctAnswer
+        val solutionPoints = binding.solutionFlip.solutionBack.tvPoints
         when (type) {
             GOOD -> {
-                mPoints += 5
-                binding.solution.typeAnswer.setTextColor(
+                mPoints += 2
+                solutionPoints.setTextColor(
                     resources.getColor(R.color.goodPhrase, null)
                 )
-                binding.solution.typeAnswer.text = getString(R.string.correct_answer)
+                solutionPoints.text = getString(R.string.correct_answer)
             }
             ALMOST_GOOD -> {
-                mPoints += 2
-                binding.solution.typeAnswer.setTextColor(
+                mPoints += 1
+                solutionPoints.setTextColor(
                     resources.getColor(R.color.almostGoodPhrase, null)
                 )
-                binding.solution.typeAnswer.text = getString(R.string.almost_good_answer)
-            }
-            ALMOST_BAD -> {
-                mPoints += 1
-                binding.solution.typeAnswer.setTextColor(
-                    resources.getColor(R.color.almostBadPhrase, null)
-                )
-                binding.solution.typeAnswer.text = getString(R.string.almost_bad_answer)
+                solutionPoints.text = getString(R.string.almost_good_answer)
             }
             BAD -> {
                 mPoints -= 1
-                binding.solution.typeAnswer.setTextColor(
+                solutionPoints.setTextColor(
                     resources.getColor(R.color.badPhrase, null)
                 )
-                binding.solution.typeAnswer.text = getString(R.string.bad_answer)
-            }
-            REALLY_BAD -> {
-                mPoints -= 2
-                binding.solution.typeAnswer.setTextColor(
-                    resources.getColor(R.color.really_badPhrase, null)
-                )
-                binding.solution.typeAnswer.text = getString(R.string.really_bad_answer)
+                solutionPoints.text = getString(R.string.bad_answer)
             }
         }
 
@@ -189,11 +201,15 @@ class DashboardFragment(
             listener.setNewRecord(RecordDTO(data.category, mPoints))
         }
         binding.scoreBoard.points.text = mPoints.toString()
-        binding.solution.root.visibility = View.VISIBLE
-        binding.solution.correctAnswer.text = when (longitude) {
+        correctAnswer.text = when (longitude) {
             2 -> getString(R.string.has_years, solution)
             else -> getString(R.string.was_in, solution)
         }
+    }
+
+    private fun flipSolution() {
+        solutionFlipped = !solutionFlipped
+        binding.solutionFlip.flip.flipTheView()
     }
 
     override fun somethingWentWrong() = listener.somethingWentWrong()
