@@ -101,7 +101,7 @@ class DashboardFragment(
     private fun changeSolutionStroke(view: View, color: Int) {
         val background = view.background
         if (background is GradientDrawable) {
-            background.setStroke(8, color)
+            background.setStroke(10, color)
             view.background = background
         }
     }

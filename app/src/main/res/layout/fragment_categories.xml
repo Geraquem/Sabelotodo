@@ -25,10 +25,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_category"
         android:layout_width="0dp"
-        android:paddingTop="16dp"
         android:layout_height="wrap_content"
         android:clipChildren="false"
         android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingTop="16dp"
         android:scrollbars="none"
         app:layout_constraintLeft_toLeftOf="@id/gl_left"
         app:layout_constraintRight_toRightOf="@id/gl_right"
