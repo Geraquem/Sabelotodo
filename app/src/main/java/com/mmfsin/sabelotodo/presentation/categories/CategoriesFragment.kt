@@ -2,23 +2,18 @@ package com.mmfsin.sabelotodo.presentation.categories
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.mmfsin.sabelotodo.R.color
-import com.mmfsin.sabelotodo.R.string.*
+import com.mmfsin.sabelotodo.R.string.music
+import com.mmfsin.sabelotodo.R.string.musicMasterUrl
+import com.mmfsin.sabelotodo.databinding.FragmentCategoriesBinding
 import com.mmfsin.sabelotodo.domain.models.CategoryDTO
 import com.mmfsin.sabelotodo.domain.models.DataToDashDTO
-import com.mmfsin.sabelotodo.databinding.FragmentCategoriesBinding
-import com.mmfsin.sabelotodo.databinding.ItemCategoryBinding
 import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.mmfsin.sabelotodo.presentation.categories.adapter.CategoriesAdapter
 
