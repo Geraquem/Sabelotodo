@@ -78,8 +78,10 @@ class DashboardFragment(
         binding.apply {
             loading.root.visibility = View.VISIBLE
 
-            changeSolutionFront(solutionFlip.solutionFront.bg, customColor)
-            changeSolutionBack(solutionFlip.solutionBack.bg, customColor)
+            solutionFlip.solutionFront.view.llBack.isVisible = false
+            solutionFlip.solutionBack.view.llFront.isVisible = false
+            changeSolutionFront(solutionFlip.solutionFront.view.bg, customColor)
+            changeSolutionBack(solutionFlip.solutionBack.view.bg, customColor)
             check.background.setTint(customColor)
 
             next.setColorFilter(customColor)
@@ -196,8 +198,8 @@ class DashboardFragment(
     }
 
     override fun showSolution(solution: String, type: ResultType) {
-        val correctAnswer = binding.solutionFlip.solutionBack.correctAnswer
-        val solutionPoints = binding.solutionFlip.solutionBack.tvPoints
+        val correctAnswer = binding.solutionFlip.solutionBack.view.correctAnswer
+        val solutionPoints = binding.solutionFlip.solutionBack.view.tvPoints
         when (type) {
             GOOD -> {
                 mPoints += 2
