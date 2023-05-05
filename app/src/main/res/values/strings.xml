@@ -63,15 +63,4 @@
     <string name="almost_good_answer">+1 PUNTO</string>
     <string name="bad_answer">-1 PUNTO</string>
 
-    <string name="info_fallo_else">…</string>
-    <string name="info_fallo_9">+9</string>
-    <string name="info_fallo_8">+8</string>
-    <string name="info_fallo_7">+7</string>
-    <string name="info_fallo_6">+6</string>
-    <string name="info_fallo_5">+5</string>
-    <string name="info_fallo_4">+4</string>
-    <string name="info_fallo_3">+3</string>
-    <string name="info_fallo_2">+2</string>
-    <string name="info_fallo_1">+1</string>
-
 </resources>

@@ -17,6 +17,7 @@ import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
 import com.mmfsin.sabelotodo.domain.models.*
 import com.mmfsin.sabelotodo.domain.models.ResultType.*
 import com.mmfsin.sabelotodo.presentation.ICommunication
+import com.mmfsin.sabelotodo.presentation.main.MainActivity
 import com.squareup.picasso.Picasso
 import kotlin.properties.Delegates
 
@@ -55,7 +56,8 @@ class DashboardFragment(
         presenter.getData(data.category)
         presenter.getCategoryDuck(data.category)
             ?.let { Glide.with(mContext).load(it).into(binding.imgBackground) }
-        onClick()
+        setListeners()
+        activity?.let { (it as MainActivity).showBanner(true) }
     }
 
     override fun dataListFilled(list: List<DataDTO>) {
@@ -71,7 +73,7 @@ class DashboardFragment(
         val colorByCategory = presenter.getColorByCategory(mContext, data.category)
         val customColor = getColor(mContext, colorByCategory)
 
-        with(binding) {
+        binding.apply {
             loading.root.visibility = View.VISIBLE
 
             changeSolutionFront(solutionFlip.solutionFront.bg, customColor)
@@ -118,7 +120,7 @@ class DashboardFragment(
         }
     }
 
-    private fun onClick() {
+    private fun setListeners() {
         binding.apply {
             llNext.setOnClickListener {
                 pos++

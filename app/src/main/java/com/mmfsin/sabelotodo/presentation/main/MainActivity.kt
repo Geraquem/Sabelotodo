@@ -1,12 +1,9 @@
 package com.mmfsin.sabelotodo.presentation.main
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.android.gms.ads.AdRequest
@@ -53,7 +50,8 @@ class MainActivity : AppCompatActivity(), ICommunication {
     private fun setUI() {
         binding.apply {
             val adRequest = AdRequest.Builder().build()
-            binding.adView.loadAd(adRequest)
+            adView.loadAd(adRequest)
+            showBanner(visible = false)
             loadInterstitial(AdRequest.Builder().build())
 
             setToolbarIcon(true)
@@ -68,7 +66,6 @@ class MainActivity : AppCompatActivity(), ICommunication {
     private fun setListeners() {
         binding.apply {
             share.setOnClickListener { startActivity(helper.shareInfo()) }
-
             toolbarIcon.setOnClickListener {
                 if (isDuckButton) //showToast()
                 else onBackPressed()
@@ -130,6 +127,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
                 binding.share.visibility = View.VISIBLE
                 supportFragmentManager.popBackStack()
                 sDialog.dismissWithAnimation()
+                showBanner(visible = false)
             }
             .setCancelButton(getString(R.string.no)) { sDialog -> sDialog.dismissWithAnimation() }
             .show()
@@ -175,15 +173,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
         }
     }
 
-    @SuppressLint("InflateParams")
-    private fun showToast() {
-        val inflater = layoutInflater
-        val layout = inflater.inflate(R.layout.custom_toast, null)
-
-        val toast = Toast(applicationContext)
-        toast.setGravity(Gravity.BOTTOM, 0, 100)
-        toast.duration = Toast.LENGTH_SHORT
-        toast.view = layout
-        toast.show()
+    override fun showBanner(visible: Boolean) {
+        binding.adView.visibility = if (visible) View.VISIBLE else View.GONE
     }
 }

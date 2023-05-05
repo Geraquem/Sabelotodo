@@ -4,6 +4,8 @@ import com.mmfsin.sabelotodo.domain.models.DataToDashDTO
 import com.mmfsin.sabelotodo.domain.models.RecordDTO
 
 interface ICommunication {
+    fun showBanner(visible: Boolean)
+
     fun navigateToDashboard(data: DataToDashDTO)
     fun changeToolbarText(category: String)
     fun notMoreQuestions()

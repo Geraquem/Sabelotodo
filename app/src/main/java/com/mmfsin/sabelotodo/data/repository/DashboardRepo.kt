@@ -16,9 +16,7 @@ class DashboardRepo(private var listener: IDashboardRepo) {
     fun getDataFromFirebase(category: String) {
         reference.child(category).get().addOnSuccessListener {
             for (child in it.children) {
-                child.getValue(DataDTO::class.java)?.let { data ->
-                    saveData(data)
-                }
+                child.getValue(DataDTO::class.java)?.let { data -> saveData(data) }
             }
             listener.dataListFilled(getCompletedInfo().shuffled())
 
