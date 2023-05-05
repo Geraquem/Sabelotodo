@@ -144,16 +144,18 @@ class DashboardFragment(
                 showAd()
             }
 
-            solutionFlip.root.setOnClickListener {
+            solutionFlip.solutionFront.root.setOnClickListener {
                 val response = response.text.toString()
                 if (response.isNotEmpty() && response.length == longitude) {
-                    check.isEnabled = false
                     binding.response.isEnabled = false
+                    check.isEnabled = false
                     listener.closeKeyboard()
                     presenter.checkSolution(SolutionDTO(correctAnswer, response))
                     flipSolution()
                 }
             }
+
+            solutionFlip.solutionBack.root.setOnClickListener { /* DO NOTHING */ }
 
             /* TODO -> check button está desactivado */
 //            check.setOnClickListener {
