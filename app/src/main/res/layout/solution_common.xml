@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_solution_flip"
-    android:paddingVertical="28dp"
+    android:paddingVertical="18dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -27,18 +27,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/kinder_child"
             android:text="@string/check"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="32sp" />
 
         <ImageView
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:layout_gravity="center"
             android:contentDescription="@string/contentDescription"
-            android:src="@drawable/ic_question" />
+            android:src="@drawable/ic_question"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -59,8 +59,8 @@
             android:id="@+id/correct_answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
-            android:fontFamily="@font/roboto_regular"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/roboto_bold"
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="30sp"

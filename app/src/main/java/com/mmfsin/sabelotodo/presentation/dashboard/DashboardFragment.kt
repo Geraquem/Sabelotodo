@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -78,8 +79,8 @@ class DashboardFragment(
         binding.apply {
             loading.root.visibility = View.VISIBLE
 
-            solutionFlip.solutionFront.view.llBack.isVisible = false
-            solutionFlip.solutionBack.view.llFront.isVisible = false
+            solutionFlip.solutionFront.view.llBack.isInvisible = true
+            solutionFlip.solutionBack.view.llFront.isInvisible = true
             changeSolutionFront(solutionFlip.solutionFront.view.bg, customColor)
             changeSolutionBack(solutionFlip.solutionBack.view.bg, customColor)
             check.background.setTint(customColor)
