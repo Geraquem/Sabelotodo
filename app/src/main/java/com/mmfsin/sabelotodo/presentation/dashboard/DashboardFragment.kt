@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -127,6 +128,7 @@ class DashboardFragment(
                 if (pos < completedList.size) {
                     loading.root.visibility = View.VISIBLE
 
+                    solutionFlip.flip.isFlipOnTouch = false
                     if (solutionFlipped) flipSolution()
 
                     check.isEnabled = true
@@ -141,10 +143,7 @@ class DashboardFragment(
                 showAd()
             }
 
-            check.setOnClickListener {
-//            pos--
-//            presenter.getQuestionData(data.category, questionNames[pos])
-
+            solutionFlip.root.setOnClickListener {
                 val response = response.text.toString()
                 if (response.isNotEmpty() && response.length == longitude) {
                     check.isEnabled = false
@@ -154,6 +153,18 @@ class DashboardFragment(
                     flipSolution()
                 }
             }
+
+            /* TODO -> check button está desactivado */
+//            check.setOnClickListener {
+//                val response = response.text.toString()
+//                if (response.isNotEmpty() && response.length == longitude) {
+//                    check.isEnabled = false
+//                    binding.response.isEnabled = false
+//                    listener.closeKeyboard()
+//                    presenter.checkSolution(SolutionDTO(correctAnswer, response))
+//                    flipSolution()
+//                }
+//            }
         }
     }
 
