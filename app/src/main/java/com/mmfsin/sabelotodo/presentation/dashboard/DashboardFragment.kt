@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
@@ -198,23 +199,17 @@ class DashboardFragment(
         when (type) {
             GOOD -> {
                 mPoints += 2
-                solutionPoints.setTextColor(
-                    resources.getColor(R.color.goodPhrase, null)
-                )
+                solutionPoints.setTextColor(resources.getColor(R.color.goodPhrase, null))
                 solutionPoints.text = getString(R.string.correct_answer)
             }
             ALMOST_GOOD -> {
                 mPoints += 1
-                solutionPoints.setTextColor(
-                    resources.getColor(R.color.almostGoodPhrase, null)
-                )
+                solutionPoints.setTextColor(resources.getColor(R.color.almostBadPhrase, null))
                 solutionPoints.text = getString(R.string.almost_good_answer)
             }
             BAD -> {
                 mPoints -= 1
-                solutionPoints.setTextColor(
-                    resources.getColor(R.color.badPhrase, null)
-                )
+                solutionPoints.setTextColor(resources.getColor(R.color.badPhrase, null))
                 solutionPoints.text = getString(R.string.bad_answer)
             }
         }
@@ -245,5 +240,4 @@ class DashboardFragment(
     }
 
     private fun showAd() = listener.showAd(pos)
-
 }
