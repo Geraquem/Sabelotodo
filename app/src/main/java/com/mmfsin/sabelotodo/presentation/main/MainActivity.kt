@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity(), ICommunication {
     private var isDuckButton by Delegates.notNull<Boolean>()
 
     private var mInterstitialAd: InterstitialAd? = null
-    private val mInterstitalId = "ca-app-pub-3940256099942544/1033173712" //Pruebas
-//    private val mInterstitalId = "ca-app-pub-4515698012373396/9980090620" //Real
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Thread.sleep(500)
@@ -128,6 +126,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
                 supportFragmentManager.popBackStack()
                 sDialog.dismissWithAnimation()
                 showBanner(visible = false)
+
             }
             .setCancelButton(getString(R.string.no)) { sDialog -> sDialog.dismissWithAnimation() }
             .show()
@@ -154,16 +153,20 @@ class MainActivity : AppCompatActivity(), ICommunication {
     }
 
     private fun loadInterstitial(adRequest: AdRequest) {
-        InterstitialAd.load(this, mInterstitalId, adRequest, object : InterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                mInterstitialAd = null
-                loadInterstitial(AdRequest.Builder().build())
-            }
+        InterstitialAd.load(
+            this,
+            getString(R.string.interstitial),
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    mInterstitialAd = null
+                    loadInterstitial(AdRequest.Builder().build())
+                }
 
-            override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                mInterstitialAd = interstitialAd
-            }
-        })
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    mInterstitialAd = interstitialAd
+                }
+            })
     }
 
     override fun showAd(pos: Int) {

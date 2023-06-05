@@ -8,6 +8,12 @@
 
     <string name="musicMasterUrl">https://play.google.com/store/apps/details?id=com.mmfsin.musicmaster</string>
 
+    <!-- ADS -->
+    <string name="interstitial">ca-app-pub-3940256099942544/1033173712</string>
+<!--    <string name="interstitial"></string>-->
+    <string name="banner">ca-app-pub-3940256099942544/6300978111</string>
+<!--    <string name="banner"></string>-->
+
     <!-- Fragments -->
     <string name="fragment_categories">categories</string>
     <string name="fragment_dashboard">dashboard</string>

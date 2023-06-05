@@ -1,8 +1,8 @@
 package com.mmfsin.sabelotodo.presentation.categories
 
-import com.mmfsin.sabelotodo.domain.models.CategoryDTO
 import com.mmfsin.sabelotodo.data.repository.CategoriesRepo
 import com.mmfsin.sabelotodo.data.repository.CategoriesRepo.ICategoriesRepo
+import com.mmfsin.sabelotodo.domain.models.CategoryDTO
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

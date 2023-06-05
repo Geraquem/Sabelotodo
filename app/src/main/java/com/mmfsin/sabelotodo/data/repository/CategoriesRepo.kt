@@ -14,9 +14,8 @@ class CategoriesRepo(private var listener: ICategoriesRepo) {
     private val reference = Firebase.database.reference.child("categories")
 
     fun getCategories() {
-        realm.deleteDataDTO()
         val categories = realm.getObjectsFromRealm { where<CategoryDTO>().findAll() }
-        if (categories.size != CATEGORY_SIZE) getCategoriesDataFromFirebase()
+        if (categories.isEmpty()) getCategoriesDataFromFirebase()
         else listener.setCategoriesData(categories.sortedBy { it.order })
     }
 

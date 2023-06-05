@@ -47,8 +47,6 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
 
     fun getData(category: String) = launch(Dispatchers.IO) { repo.getDataFromFirebase(category) }
 
-    fun getCategoryDuck(category: String): String? = repo.getCategoryImage(category)
-
     fun checkDescription(description: String) {
         if (description == "null") view.handleDescription(false, "")
         else view.handleDescription(true, description)
@@ -84,7 +82,7 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
     }
 
     override fun dataListFilled(list: List<DataDTO>) {
-        launch { view.dataListFilled(list) }
+        launch { view.dataListFilled(list.shuffled()) }
     }
 
     fun getColorByCategory(c: Context, category: String): Int {

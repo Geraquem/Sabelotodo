@@ -1,20 +1,14 @@
 package com.mmfsin.sabelotodo.presentation.dashboard
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
 import com.mmfsin.sabelotodo.domain.models.*
@@ -41,8 +35,6 @@ class DashboardFragment(
     private var longitude = 0
     private lateinit var correctAnswer: String
 
-    private var solutionFlipped: Boolean = false
-
     private var mPoints = 0
     private var actualRecord by Delegates.notNull<Int>()
 
@@ -57,15 +49,8 @@ class DashboardFragment(
         super.onViewCreated(view, savedInstanceState)
         init()
         presenter.getData(data.category)
-        presenter.getCategoryDuck(data.category)
-            ?.let { Glide.with(mContext).load(it).into(binding.imgBackground) }
         setListeners()
         activity?.let { (it as MainActivity).showBanner(true) }
-    }
-
-    override fun dataListFilled(list: List<DataDTO>) {
-        completedList = list
-        setQuestionData(completedList[pos])
     }
 
     private fun init() {
@@ -78,40 +63,13 @@ class DashboardFragment(
 
         binding.apply {
             loading.root.visibility = View.VISIBLE
-
-            solutionFlip.solutionFront.view.llBack.isInvisible = true
-            solutionFlip.solutionBack.view.llFront.isInvisible = true
-            changeSolutionFront(solutionFlip.solutionFront.view.bg, customColor)
-            changeSolutionBack(solutionFlip.solutionBack.view.bg, customColor)
+            solution.root.visibility = View.GONE
             check.background.setTint(customColor)
-
             next.setColorFilter(customColor)
-
-            response.addTextChangedListener(textWatcher)
-            response.itemCount = longitude
-
-            solutionFlip.flip.isFlipOnTouch = false
-
+            pvResponse.addTextChangedListener(textWatcher)
+            pvResponse.itemCount = longitude
             scoreBoard.actualRecord.text =
                 getString(R.string.actualRecord, data.actualRecord.toString())
-        }
-    }
-
-    private fun changeSolutionFront(view: View, color: Int) {
-        val background = view.background
-        if (background is GradientDrawable) {
-            background.setColor(color)
-            background.setStroke(0, color)
-            view.background = background
-        }
-    }
-
-    private fun changeSolutionBack(view: View, color: Int) {
-        val background = view.background
-        if (background is GradientDrawable) {
-            background.setStroke(10, color)
-            background.setColor(Color.WHITE)
-            view.background = background
         }
     }
 
@@ -119,78 +77,65 @@ class DashboardFragment(
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun afterTextChanged(p0: Editable?) {
-            if (presenter.checkPinViewLongitude(longitude, binding.response.text.toString())) {
+            if (presenter.checkPinViewLongitude(longitude, binding.pvResponse.text.toString())) {
                 listener.closeKeyboard()
             }
         }
     }
 
+    override fun dataListFilled(list: List<DataDTO>) {
+        completedList = list.shuffled()
+        setQuestionData(completedList[pos])
+        binding.loading.root.visibility = View.GONE
+    }
+
+    private fun setQuestionData(data: DataDTO) {
+        correctAnswer = presenter.checkSolution(data.solution)
+        val splitText = data.text.split("%%%")
+        binding.apply {
+            text.text = splitText[0]
+            mainText.text = splitText[1]
+            presenter.checkDescription(data.description)
+            Picasso.get().load(data.image).into(image)
+        }
+    }
+
     private fun setListeners() {
         binding.apply {
+            check.setOnClickListener {
+                val response = pvResponse.text.toString()
+                if (response.isNotEmpty() && response.length == longitude) {
+                    check.isEnabled = false
+                    pvResponse.isEnabled = false
+                    listener.closeKeyboard()
+                    presenter.checkSolution(SolutionDTO(correctAnswer, response))
+                }
+            }
+
             llNext.setOnClickListener {
                 pos++
                 if (pos < completedList.size) {
-                    loading.root.visibility = View.VISIBLE
-
-                    solutionFlip.flip.isFlipOnTouch = false
-                    if (solutionFlipped) flipSolution()
-
                     check.isEnabled = true
-                    response.isEnabled = true
-                    response.text = null
+                    pvResponse.isEnabled = true
+                    pvResponse.text = null
                     setQuestionData(completedList[pos])
-
+                    solution.root.visibility = View.GONE
                 } else {
                     listener.notMoreQuestions()
                     llNext.visibility = View.GONE
                 }
                 showAd()
             }
-
-            solutionFlip.solutionFront.root.setOnClickListener {
-                val response = response.text.toString()
-                if (response.isNotEmpty() && response.length == longitude) {
-                    binding.response.isEnabled = false
-                    check.isEnabled = false
-                    listener.closeKeyboard()
-                    presenter.checkSolution(SolutionDTO(correctAnswer, response))
-                    flipSolution()
-                }
-            }
-
-            solutionFlip.solutionBack.root.setOnClickListener { /* DO NOTHING */ }
-
-            /* TODO -> check button está desactivado */
-//            check.setOnClickListener {
-//                val response = response.text.toString()
-//                if (response.isNotEmpty() && response.length == longitude) {
-//                    check.isEnabled = false
-//                    binding.response.isEnabled = false
-//                    listener.closeKeyboard()
-//                    presenter.checkSolution(SolutionDTO(correctAnswer, response))
-//                    flipSolution()
-//                }
-//            }
         }
-    }
-
-    private fun setQuestionData(data: DataDTO) {
-        correctAnswer = presenter.checkSolution(data.solution)
-        val splitText = data.text.split("%%%")
-        with(binding) {
-            text.text = splitText[0]
-            mainText.text = splitText[1]
-            presenter.checkDescription(data.description)
-            Picasso.get().load(data.image).into(image);
-        }
-        binding.loading.root.visibility = View.GONE
     }
 
     override fun handleDescription(enable: Boolean, description: String) {
-        if (enable) {
-            binding.description.text = description
-            binding.description.visibility = View.VISIBLE
-        } else binding.description.visibility = View.GONE
+        binding.description.apply {
+            if (enable) {
+                text = description
+                visibility = View.VISIBLE
+            } else visibility = View.GONE
+        }
     }
 
     override fun setTwoLongitudePinView() {
@@ -198,43 +143,41 @@ class DashboardFragment(
         binding.years.visibility = View.VISIBLE
     }
 
-    override fun showSolution(solution: String, type: ResultType) {
-        val correctAnswer = binding.solutionFlip.solutionBack.view.correctAnswer
-        val solutionPoints = binding.solutionFlip.solutionBack.view.tvPoints
-        when (type) {
-            GOOD -> {
-                mPoints += 2
-                solutionPoints.setTextColor(resources.getColor(R.color.goodPhrase, null))
-                solutionPoints.text = getString(R.string.correct_answer)
+    override fun showSolution(userSolution: String, type: ResultType) {
+        binding.apply {
+            val points = solution.tvPoints
+            when (type) {
+                GOOD -> {
+                    mPoints += 2
+                    points.setTextColor(resources.getColor(R.color.goodPhrase, null))
+                    points.text = getString(R.string.correct_answer)
+                }
+                ALMOST_GOOD -> {
+                    mPoints += 1
+                    points.setTextColor(resources.getColor(R.color.almostBadPhrase, null))
+                    points.text = getString(R.string.almost_good_answer)
+                }
+                BAD -> {
+                    mPoints -= 1
+                    points.setTextColor(resources.getColor(R.color.badPhrase, null))
+                    points.text = getString(R.string.bad_answer)
+                }
             }
-            ALMOST_GOOD -> {
-                mPoints += 1
-                solutionPoints.setTextColor(resources.getColor(R.color.almostBadPhrase, null))
-                solutionPoints.text = getString(R.string.almost_good_answer)
-            }
-            BAD -> {
-                mPoints -= 1
-                solutionPoints.setTextColor(resources.getColor(R.color.badPhrase, null))
-                solutionPoints.text = getString(R.string.bad_answer)
-            }
-        }
 
-        if (mPoints > actualRecord) {
-            actualRecord = mPoints
-            binding.scoreBoard.actualRecord.text =
-                getString(R.string.actualRecord, actualRecord.toString())
-            listener.setNewRecord(RecordDTO(data.category, mPoints))
-        }
-        binding.scoreBoard.points.text = mPoints.toString()
-        correctAnswer.text = when (longitude) {
-            2 -> getString(R.string.has_years, solution)
-            else -> getString(R.string.was_in, solution)
-        }
-    }
+            if (mPoints > actualRecord) {
+                actualRecord = mPoints
+                binding.scoreBoard.actualRecord.text =
+                    getString(R.string.actualRecord, actualRecord.toString())
+                listener.setNewRecord(RecordDTO(data.category, mPoints))
+            }
 
-    private fun flipSolution() {
-        solutionFlipped = !solutionFlipped
-        binding.solutionFlip.flip.flipTheView()
+            scoreBoard.points.text = mPoints.toString()
+            solution.tvCorrectAnswer.text = when (longitude) {
+                2 -> getString(R.string.has_years, userSolution)
+                else -> getString(R.string.was_in, userSolution)
+            }
+            solution.root.visibility = View.VISIBLE
+        }
     }
 
     override fun somethingWentWrong() = listener.somethingWentWrong()

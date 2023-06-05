@@ -77,13 +77,4 @@ class RealmDatabase {
             false
         }
     }
-
-
-    fun deleteDataDTO() {
-        val realm = getRealm()
-        realm.beginTransaction()
-        realm.delete(DataDTO::class.java)
-        realm.commitTransaction()
-        realm.close()
-    }
 }
