@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
 import com.mmfsin.sabelotodo.R.string.music
 import com.mmfsin.sabelotodo.R.string.musicMasterUrl
 import com.mmfsin.sabelotodo.databinding.FragmentCategoriesBinding
@@ -42,6 +44,7 @@ class CategoriesFragment(private val listener: ICommunication) : Fragment(), Cat
     override fun setCategoriesData(categories: List<CategoryDTO>) {
         binding.rvCategory.apply {
             layoutManager = LinearLayoutManager(mContext)
+//            layoutManager = StaggeredGridLayoutManager(2, VERTICAL)
             adapter = CategoriesAdapter(categories, listener) { category, record ->
                 onCategoryClick(category, record)
             }
