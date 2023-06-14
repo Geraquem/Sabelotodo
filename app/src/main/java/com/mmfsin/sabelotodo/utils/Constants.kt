@@ -1,3 +1,3 @@
 package com.mmfsin.sabelotodo.utils
 
-const val CATEGORY_SIZE = 7
+const val CATEGORY_REFERENCE = "categories"

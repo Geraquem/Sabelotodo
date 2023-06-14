@@ -18,9 +18,10 @@ import com.mmfsin.sabelotodo.domain.models.RecordDTO
 import com.mmfsin.sabelotodo.presentation.ICommunication
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragment
 import com.mmfsin.sabelotodo.presentation.dashboard.DashboardFragment
-import io.realm.Realm
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ICommunication {
 
     private lateinit var binding: ActivityMainBinding
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Realm.init(this)
+//        Realm.init(this)
         MobileAds.initialize(this) {}
 
         setUI()
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
             setToolbarIcon(true)
 
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, CategoriesFragment(this@MainActivity))
+                .replace(R.id.fragment_container, CategoriesFragment())
                 .addToBackStack(null)
                 .commit()
         }

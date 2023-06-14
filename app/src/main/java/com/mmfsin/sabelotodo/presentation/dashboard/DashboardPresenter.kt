@@ -2,8 +2,8 @@ package com.mmfsin.sabelotodo.presentation.dashboard
 
 import android.content.Context
 import com.mmfsin.sabelotodo.R
-import com.mmfsin.sabelotodo.data.repository.DashboardRepo
-import com.mmfsin.sabelotodo.data.repository.DashboardRepo.IDashboardRepo
+import com.mmfsin.sabelotodo.data.repository.DashboardRepository
+import com.mmfsin.sabelotodo.data.repository.DashboardRepository.IDashboardRepo
 import com.mmfsin.sabelotodo.domain.models.DataDTO
 import com.mmfsin.sabelotodo.domain.models.ResultType.*
 import com.mmfsin.sabelotodo.domain.models.SolutionDTO
@@ -19,7 +19,7 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
 
     override val coroutineContext: CoroutineContext = Dispatchers.Main
 
-    private val repo by lazy { DashboardRepo(this) }
+    private val repo by lazy { DashboardRepository(this) }
 
     fun toolbarText(context: Context, category: String): String {
         return with(context) {
