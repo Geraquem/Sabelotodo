@@ -30,7 +30,7 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
                 getString(R.string.cartoon_creations) -> getString(R.string.cartoon_creations_toolbar)
                 getString(R.string.videogames) -> getString(R.string.videogames_toolbar)
                 getString(R.string.important_dates) -> getString(R.string.important_dates_toolbar)
-                else -> getString(R.string.somethingWentWrong)
+                else -> "UPSI"
             }
         }
     }

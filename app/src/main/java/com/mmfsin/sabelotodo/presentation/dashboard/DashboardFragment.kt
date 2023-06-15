@@ -13,14 +13,11 @@ import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
 import com.mmfsin.sabelotodo.domain.models.*
 import com.mmfsin.sabelotodo.domain.models.ResultType.*
-import com.mmfsin.sabelotodo.presentation.ICommunication
-import com.mmfsin.sabelotodo.presentation.main.MainActivity
+import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.squareup.picasso.Picasso
 import kotlin.properties.Delegates
 
-class DashboardFragment(
-    private val listener: ICommunication, private val data: DataToDashDTO
-) : Fragment(), DashboardView {
+class DashboardFragment(private val data: DataToDashDTO) : Fragment(), DashboardView {
 
     private var _bdg: FragmentDashboardBinding? = null
     private val binding get() = _bdg!!
@@ -55,7 +52,7 @@ class DashboardFragment(
 
     private fun init() {
         actualRecord = data.actualRecord
-        listener.changeToolbarText(presenter.toolbarText(mContext, data.category))
+//        listener.changeToolbarText(presenter.toolbarText(mContext, data.category))
         longitude = presenter.checkPinViewLongitude(mContext, data.category)
 
         val colorByCategory = presenter.getColorByCategory(mContext, data.category)
@@ -78,7 +75,7 @@ class DashboardFragment(
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun afterTextChanged(p0: Editable?) {
             if (presenter.checkPinViewLongitude(longitude, binding.pvResponse.text.toString())) {
-                listener.closeKeyboard()
+//                listener.clos/eKeyboard()
             }
         }
     }
@@ -107,7 +104,7 @@ class DashboardFragment(
                 if (response.isNotEmpty() && response.length == longitude) {
                     check.isEnabled = false
                     pvResponse.isEnabled = false
-                    listener.closeKeyboard()
+//                    listener.closeKeyboard()
                     presenter.checkSolution(SolutionDTO(correctAnswer, response))
                 }
             }
@@ -121,7 +118,7 @@ class DashboardFragment(
                     setQuestionData(completedList[pos])
                     solution.root.visibility = View.GONE
                 } else {
-                    listener.notMoreQuestions()
+//                    listener.notMoreQuestions()
                     llNext.visibility = View.GONE
                 }
                 showAd()
@@ -168,7 +165,7 @@ class DashboardFragment(
                 actualRecord = mPoints
                 binding.scoreBoard.actualRecord.text =
                     getString(R.string.actualRecord, actualRecord.toString())
-                listener.setNewRecord(RecordDTO(data.category, mPoints))
+//                listener.setNewRecord(RecordDTO(data.category, mPoints))
             }
 
             scoreBoard.points.text = mPoints.toString()
@@ -180,12 +177,12 @@ class DashboardFragment(
         }
     }
 
-    override fun somethingWentWrong() = listener.somethingWentWrong()
+    override fun somethingWentWrong() {}//listener.somethingWentWrong()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
     }
 
-    private fun showAd() = listener.showAd(pos)
+    private fun showAd() {}//= listener.showAd(pos)
 }

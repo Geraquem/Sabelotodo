@@ -3,14 +3,14 @@ package com.mmfsin.sabelotodo.domain.models
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
-open class CategoryDTO(
+open class Category(
     @PrimaryKey
-    var name: String = "",
+    var id: String = "",
     var title: String = "",
     var image: String = "",
     var description: String = "",
     var colorStart: String = "#FFFFFFFF",
     var colorEnd: String = "#FFFFFFFF",
     var order: Long = 0,
-    var duckImage: String? = null
+    var record: Long? = 0,
 ) : RealmObject()

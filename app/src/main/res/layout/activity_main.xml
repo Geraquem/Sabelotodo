@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_grey"
-    tools:context=".presentation.main.MainActivity">
+    tools:context=".presentation.MainActivity">
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginHorizontal="16dp"
-                android:layout_toStartOf="@id/share"
+                android:layout_toStartOf="@id/iv_share"
                 android:layout_toEndOf="@+id/toolbarIcon"
                 android:fontFamily="@font/roboto_regular"
                 android:maxLines="1"
@@ -57,7 +57,7 @@
                 android:textSize="22sp" />
 
             <ImageView
-                android:id="@+id/share"
+                android:id="@+id/iv_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -72,9 +72,11 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        ads:layout_constraintTop_toBottomOf="@id/adView"
+        ads:layout_constraintTop_toBottomOf="@id/appBar"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

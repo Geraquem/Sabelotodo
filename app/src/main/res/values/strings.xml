@@ -3,31 +3,20 @@
     <string name="app_name">Sabelotodo</string>
 
     <string name="contentDescription">image</string>
-    <string name="cuack">cuack</string>
-    <string name="zero">0</string>
-
     <string name="musicMasterUrl">https://play.google.com/store/apps/details?id=com.mmfsin.musicmaster</string>
 
     <!-- ADS -->
     <string name="interstitial">ca-app-pub-3940256099942544/1033173712</string>
-<!--    <string name="interstitial"></string>-->
+    <!--    <string name="interstitial"></string>-->
     <string name="banner">ca-app-pub-3940256099942544/6300978111</string>
-<!--    <string name="banner"></string>-->
+    <!--    <string name="banner"></string>-->
 
-    <!-- Fragments -->
-    <string name="fragment_categories">categories</string>
-    <string name="fragment_dashboard">dashboard</string>
-
-    <!-- Sweet Alert -->
-    <string name="oops">Vaya</string>
-    <string name="somethingWentWrong">Parece que algo ha salido mal</string>
+    <!-- EXIT -->
     <string name="wannaExit">¿Seguro que quieres salir?</string>
     <string name="yes">SI</string>
     <string name="no">NO</string>
-    <string name="noMoreQuestions">De momento no hay más preguntas</string>
-    <string name="ok">OK</string>
 
-    <!-- Categories -->
+    <!-- SHARED PREFS -->
     <string name="spanish_age">spanish-age</string>
     <string name="global_age">global-age</string>
     <string name="films_series">films-series</string>
@@ -37,6 +26,14 @@
     <string name="music">music</string>
     <string name="records">Máxima puntuación: %1$s</string>
 
+    <string name="record_my_records">Mis puntuaciones</string>
+    <string name="record_spanish_age">Españoles y latinos: %1$s</string>
+    <string name="record_global_age">Famos@s mundiales: %1$s</string>
+    <string name="record_films_series">Pelis y series: %1$s</string>
+    <string name="record_cartoon_creations">Dibujos y animación: %1$s</string>
+    <string name="record_videogames">Videojuegos: %1$s</string>
+    <string name="record_important_dates">Fechas importantes: %1$s</string>
+
     <string name="spanish_age_toolbar">Españoles y latinos</string>
     <string name="global_age_toolbar">Famos@s mundiales</string>
     <string name="films_series_toolbar">Pelis y series</string>
@@ -45,13 +42,7 @@
     <string name="important_dates_toolbar">Fechas importantes</string>
 
     <!-- Records -->
-    <string name="record_my_records">Mis puntuaciones</string>
-    <string name="record_spanish_age">Españoles y latinos: %1$s</string>
-    <string name="record_global_age">Famos@s mundiales: %1$s</string>
-    <string name="record_films_series">Pelis y series: %1$s</string>
-    <string name="record_cartoon_creations">Dibujos y animación: %1$s</string>
-    <string name="record_videogames">Videojuegos: %1$s</string>
-    <string name="record_important_dates">Fechas importantes: %1$s</string>
+
 
     <!-- Dashboard -->
     <string name="your_answer">TU RESPUESTA</string>
@@ -62,6 +53,9 @@
     <string name="actualRecord">record actual %1$s</string>
     <string name="points">PUNTOS</string>
     <string name="next">SIGUIENTE</string>
+    <string name="noMoreQuestions">De momento no hay más preguntas</string>
+    <string name="ok">OK</string>
+
 
     <string name="was_in">EN EL <b>%1$s</b></string>
     <string name="has_years"><b>%1$s</b> AÑOS</string>

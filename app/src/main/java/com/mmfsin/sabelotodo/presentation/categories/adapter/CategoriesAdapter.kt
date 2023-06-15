@@ -10,30 +10,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.databinding.ItemCategoryBinding
-import com.mmfsin.sabelotodo.domain.models.CategoryDTO
-import com.mmfsin.sabelotodo.presentation.ICommunication
+import com.mmfsin.sabelotodo.domain.models.Category
 
 class CategoriesAdapter(
-    private val categories: List<CategoryDTO>,
-    private val listener: ICommunication,
-    private val onClick: (category: CategoryDTO, record: Int) -> Unit
+    private val categories: List<Category>,
+    private val onClick: (category: Category, record: Int) -> Unit
 ) : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemCategoryBinding.bind(view)
         val context: Context = binding.root.context
         fun bind(
-            category: CategoryDTO,
-            listener: ICommunication,
-            onClick: (category: CategoryDTO, record: Int) -> Unit
+            category: Category,
+            onClick: (category: Category, record: Int) -> Unit
         ) {
             binding.apply {
                 title.text = category.title
                 Glide.with(context).load(category.image).into(image)
                 description.text = category.description
 
-                val record = listener.getRecord(category.name)
-                actualRecord.text = context.getString(R.string.records, record.toString())
+//                val record = listener.getRecord(category.name)
+//                actualRecord.text = context.getString(R.string.records, record.toString())
 
                 val startColor = category.colorStart
                 val endColor = category.colorEnd
@@ -47,7 +44,7 @@ class CategoriesAdapter(
                     }
                 item.background = newGradient
 
-                item.setOnClickListener { onClick(category, record) }
+                item.setOnClickListener { onClick(category, 98) }
             }
         }
     }
@@ -59,7 +56,7 @@ class CategoriesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(categories[position], listener, onClick)
+        holder.bind(categories[position], onClick)
     }
 
     override fun getItemCount(): Int = categories.size
