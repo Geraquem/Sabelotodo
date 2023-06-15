@@ -16,16 +16,7 @@
     <string name="yes">SI</string>
     <string name="no">NO</string>
 
-    <!-- SHARED PREFS -->
-    <string name="spanish_age">spanish-age</string>
-    <string name="global_age">global-age</string>
-    <string name="films_series">films-series</string>
-    <string name="cartoon_creations">cartoon-creations</string>
-    <string name="videogames">videogames</string>
-    <string name="important_dates">important-dates</string>
-    <string name="music">music</string>
-    <string name="records">Máxima puntuación: %1$s</string>
-
+    <!-- SHARE INFO -->
     <string name="record_my_records">Mis puntuaciones</string>
     <string name="record_spanish_age">Españoles y latinos: %1$s</string>
     <string name="record_global_age">Famos@s mundiales: %1$s</string>
@@ -41,10 +32,10 @@
     <string name="videogames_toolbar">Videojuegos</string>
     <string name="important_dates_toolbar">Fechas importantes</string>
 
-    <!-- Records -->
+    <!-- CATEGORY -->
+    <string name="category_record">Máxima puntuación:</string>
 
-
-    <!-- Dashboard -->
+    <!-- DASHBOARD -->
     <string name="your_answer">TU RESPUESTA</string>
     <string name="in_the">EN EL AÑO</string>
     <string name="years">AÑOS</string>

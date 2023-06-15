@@ -21,28 +21,29 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
 
     private val repo by lazy { DashboardRepository(this) }
 
-    fun toolbarText(context: Context, category: String): String {
-        return with(context) {
-            when (category) {
-                getString(R.string.spanish_age) -> getString(R.string.spanish_age_toolbar)
-                getString(R.string.global_age) -> getString(R.string.global_age_toolbar)
-                getString(R.string.films_series) -> getString(R.string.films_series_toolbar)
-                getString(R.string.cartoon_creations) -> getString(R.string.cartoon_creations_toolbar)
-                getString(R.string.videogames) -> getString(R.string.videogames_toolbar)
-                getString(R.string.important_dates) -> getString(R.string.important_dates_toolbar)
-                else -> "UPSI"
-            }
-        }
-    }
+//    fun toolbarText(context: Context, category: String): String {
+//        return with(context) {
+//            when (category) {
+//                getString(R.string.spanish_age) -> getString(R.string.spanish_age_toolbar)
+//                getString(R.string.global_age) -> getString(R.string.global_age_toolbar)
+//                getString(R.string.films_series) -> getString(R.string.films_series_toolbar)
+//                getString(R.string.cartoon_creations) -> getString(R.string.cartoon_creations_toolbar)
+//                getString(R.string.videogames) -> getString(R.string.videogames_toolbar)
+//                getString(R.string.important_dates) -> getString(R.string.important_dates_toolbar)
+//                else -> "UPSI"
+//            }
+//        }
+//    }
 
     fun checkPinViewLongitude(context: Context, category: String): Int {
-        val longitude = when (category) {
-            context.getString(R.string.spanish_age) -> 2
-            context.getString(R.string.global_age) -> 2
-            else -> 4
-        }
-        if (longitude == 2) view.setTwoLongitudePinView()
-        return longitude
+//        val longitude = when (category) {
+//            context.getString(R.string.spanish_age) -> 2
+//            context.getString(R.string.global_age) -> 2
+//            else -> 4
+//        }
+//        if (longitude == 2) view.setTwoLongitudePinView()
+//        return longitude
+        return 4
     }
 
     fun getData(category: String) = launch(Dispatchers.IO) { repo.getDataFromFirebase(category) }
@@ -86,15 +87,16 @@ class DashboardPresenter(private val view: DashboardView) : IDashboardRepo, Coro
     }
 
     fun getColorByCategory(c: Context, category: String): Int {
-        return when (category) {
-            c.getString(R.string.spanish_age) -> R.color.spa
-            c.getString(R.string.global_age) -> R.color.fam
-            c.getString(R.string.films_series) -> R.color.film
-            c.getString(R.string.cartoon_creations) -> R.color.anim
-            c.getString(R.string.videogames) -> R.color.video
-            c.getString(R.string.important_dates) -> R.color.g_12
-            else -> R.color.test
-        }
+//        return when (category) {
+//            c.getString(R.string.spanish_age) -> R.color.spa
+//            c.getString(R.string.global_age) -> R.color.fam
+//            c.getString(R.string.films_series) -> R.color.film
+//            c.getString(R.string.cartoon_creations) -> R.color.anim
+//            c.getString(R.string.videogames) -> R.color.video
+//            c.getString(R.string.important_dates) -> R.color.g_12
+//            else -> R.color.test
+//        }
+        return R.color.g_12
     }
 
     override fun somethingWentWrong() {

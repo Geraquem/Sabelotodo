@@ -13,18 +13,19 @@ import com.mmfsin.sabelotodo.databinding.FragmentCategoriesBinding
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.categories.adapter.CategoriesAdapter
+import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesViewModel>() {
+class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesViewModel>(),
+    ICategoryListener {
 
     override val viewModel: CategoriesViewModel by viewModels()
 
     private lateinit var mContext: Context
 
     override fun inflateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+        inflater: LayoutInflater, container: ViewGroup?
     ) = FragmentCategoriesBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,12 +64,15 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
         if (categories.isNotEmpty()) {
             binding.rvCategory.apply {
                 layoutManager = LinearLayoutManager(mContext)
-                adapter = CategoriesAdapter(categories.sortedBy { it.order }) { category, record ->
-                    //onCategoryClick(category, record)
-                }
+                adapter =
+                    CategoriesAdapter(categories.sortedBy { it.order }, this@CategoriesFragment)
             }
             binding.loading.root.visibility = View.GONE
         }
+    }
+
+    override fun onCategoryClick(id: String) {
+
     }
 
 //    private fun onCategoryClick(category: CategoryDTO, actualRecord: Int) {

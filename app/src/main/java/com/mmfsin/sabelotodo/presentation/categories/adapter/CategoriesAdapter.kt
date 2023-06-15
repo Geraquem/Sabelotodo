@@ -11,26 +11,22 @@ import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.databinding.ItemCategoryBinding
 import com.mmfsin.sabelotodo.domain.models.Category
+import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
 
 class CategoriesAdapter(
     private val categories: List<Category>,
-    private val onClick: (category: Category, record: Int) -> Unit
+    private val listener: ICategoryListener
 ) : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemCategoryBinding.bind(view)
         val context: Context = binding.root.context
-        fun bind(
-            category: Category,
-            onClick: (category: Category, record: Int) -> Unit
-        ) {
+        fun bind(category: Category, listener: ICategoryListener) {
             binding.apply {
-                title.text = category.title
+                tvTitle.text = category.title
                 Glide.with(context).load(category.image).into(image)
-                description.text = category.description
-
-//                val record = listener.getRecord(category.name)
-//                actualRecord.text = context.getString(R.string.records, record.toString())
+                tvDescription.text = category.description
+                tvRecord.text = category.record.toString()
 
                 val startColor = category.colorStart
                 val endColor = category.colorEnd
@@ -38,13 +34,12 @@ class CategoriesAdapter(
                 val newGradient =
                     GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, colors).apply {
                         gradientType = GradientDrawable.LINEAR_GRADIENT
-                        cornerRadius = 20f
+                        cornerRadius = 30f
                         setGradientCenter(0.5f, 0.5f)
-                        cornerRadius = 40f
                     }
                 item.background = newGradient
 
-                item.setOnClickListener { onClick(category, 98) }
+                item.setOnClickListener { listener.onCategoryClick(category.id) }
             }
         }
     }
@@ -56,7 +51,7 @@ class CategoriesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(categories[position], onClick)
+        holder.bind(categories[position], listener)
     }
 
     override fun getItemCount(): Int = categories.size
