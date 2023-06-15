@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.base.BaseFragment
 import com.mmfsin.sabelotodo.databinding.FragmentCategoriesBinding
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.presentation.MainActivity
+import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToDashboard
 import com.mmfsin.sabelotodo.presentation.categories.adapter.CategoriesAdapter
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -72,7 +74,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
     }
 
     override fun onCategoryClick(id: String) {
-
+        findNavController().navigate(actionCategoriesToDashboard(id))
     }
 
 //    private fun onCategoryClick(category: CategoryDTO, actualRecord: Int) {

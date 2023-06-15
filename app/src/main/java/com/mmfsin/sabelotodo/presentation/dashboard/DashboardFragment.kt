@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
@@ -15,9 +14,11 @@ import com.mmfsin.sabelotodo.domain.models.*
 import com.mmfsin.sabelotodo.domain.models.ResultType.*
 import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
-class DashboardFragment(private val data: DataToDashDTO) : Fragment(), DashboardView {
+@AndroidEntryPoint
+class DashboardFragment : Fragment(), DashboardView {
 
     private var _bdg: FragmentDashboardBinding? = null
     private val binding get() = _bdg!!
@@ -45,28 +46,28 @@ class DashboardFragment(private val data: DataToDashDTO) : Fragment(), Dashboard
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        presenter.getData(data.category)
+//        presenter.getData(data.category)
         setListeners()
         activity?.let { (it as MainActivity).showBanner(true) }
     }
 
     private fun init() {
-        actualRecord = data.actualRecord
+//        actualRecord = data.actualRecord
 //        listener.changeToolbarText(presenter.toolbarText(mContext, data.category))
-        longitude = presenter.checkPinViewLongitude(mContext, data.category)
+//        longitude = presenter.checkPinViewLongitude(mContext, data.category)
 
-        val colorByCategory = presenter.getColorByCategory(mContext, data.category)
-        val customColor = getColor(mContext, colorByCategory)
+//        val colorByCategory = presenter.getColorByCategory(mContext, data.category)
+//        val customColor = getColor(mContext, colorByCategory)
 
         binding.apply {
             loading.root.visibility = View.VISIBLE
             solution.root.visibility = View.GONE
-            check.background.setTint(customColor)
-            next.setColorFilter(customColor)
+//            check.background.setTint(customColor)
+//            next.setColorFilter(customColor)
             pvResponse.addTextChangedListener(textWatcher)
             pvResponse.itemCount = longitude
-            scoreBoard.actualRecord.text =
-                getString(R.string.actualRecord, data.actualRecord.toString())
+//            scoreBoard.actualRecord.text =
+//                getString(R.string.actualRecord, data.actualRecord.toString())
         }
     }
 
