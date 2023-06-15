@@ -2,6 +2,7 @@
 buildscript {
     ext.kotlin_version = '1.7.0'
     ext.hiltVersion = '2.42'
+    ext.navigationVersion = '2.4.2'
     repositories {
         google()
         mavenCentral()
@@ -16,6 +17,8 @@ buildscript {
         classpath 'io.realm:realm-gradle-plugin:10.8.0'
 
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
+
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
     }
 }
 

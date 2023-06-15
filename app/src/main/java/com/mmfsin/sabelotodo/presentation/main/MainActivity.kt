@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), ICommunication {
         MobileAds.initialize(this) {}
 
         setUI()
-        setListeners()
+//        setListeners()
     }
 
     private fun setUI() {
@@ -54,11 +54,11 @@ class MainActivity : AppCompatActivity(), ICommunication {
             loadInterstitial(AdRequest.Builder().build())
 
             setToolbarIcon(true)
-
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, CategoriesFragment())
-                .addToBackStack(null)
-                .commit()
+//
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragment_container, CategoriesFragment())
+//                .addToBackStack(null)
+//                .commit()
         }
     }
 
