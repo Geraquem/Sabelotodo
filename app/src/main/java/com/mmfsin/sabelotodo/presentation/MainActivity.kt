@@ -39,20 +39,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setToolbarListeners() {
-//        binding.share.setOnClickListener { startActivity(helper.shareInfo()) }
+        binding.apply {
+            ivShare.setOnClickListener {
+                /** SHARE */
+            }
+            ivBack.setOnClickListener { onBackPressed() }
+        }
     }
-
 
     fun toolbarIcon(showDuck: Boolean) {
         binding.apply {
             ivShare.isVisible = showDuck
-            val image = if (showDuck) R.drawable.ic_pato else R.drawable.ic_return
-            toolbarIcon.setImageResource(image)
+            ivDuck.isVisible = showDuck
+            ivBack.isVisible = !showDuck
         }
     }
 
     fun toolbarText(title: Int) {
-        binding.toolbarText.text = getString(title)
+        binding.tvTitle.text = getString(title)
     }
 
     fun closeKeyboard() {

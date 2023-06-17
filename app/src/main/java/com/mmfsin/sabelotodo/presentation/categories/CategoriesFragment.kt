@@ -16,6 +16,7 @@ import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToDashboard
 import com.mmfsin.sabelotodo.presentation.categories.adapter.CategoriesAdapter
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
+import com.mmfsin.sabelotodo.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,10 +55,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
         viewModel.event.observe(this) { event ->
             when (event) {
                 is CategoriesEvent.Categories -> setCategoryRecycler(event.result)
-
-                is CategoriesEvent.SomethingWentWrong -> {
-                    val a = 2
-                }
+                is CategoriesEvent.SomethingWentWrong -> activity?.showErrorDialog()
             }
         }
     }
@@ -76,15 +74,6 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
     override fun onCategoryClick(id: String) {
         findNavController().navigate(actionCategoriesToDashboard(id))
     }
-
-//    private fun onCategoryClick(category: CategoryDTO, actualRecord: Int) {
-//        val data = DataToDashDTO(category.title, category.name, category.image, actualRecord)
-//        if (data.category == getString(music)) {
-//            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(musicMasterUrl))))
-//        } else listener.navigateToDashboard(data)
-//    }
-//
-//    override fun somethingWentWrong() = listener.somethingWentWrong()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

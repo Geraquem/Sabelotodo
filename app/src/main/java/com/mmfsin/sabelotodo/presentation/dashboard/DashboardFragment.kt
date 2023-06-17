@@ -10,8 +10,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
-import com.mmfsin.sabelotodo.domain.models.*
+import com.mmfsin.sabelotodo.domain.models.DataDTO
+import com.mmfsin.sabelotodo.domain.models.ResultType
 import com.mmfsin.sabelotodo.domain.models.ResultType.*
+import com.mmfsin.sabelotodo.domain.models.SolutionDTO
 import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,6 +61,10 @@ class DashboardFragment : Fragment(), DashboardView {
 //        val colorByCategory = presenter.getColorByCategory(mContext, data.category)
 //        val customColor = getColor(mContext, colorByCategory)
 
+        (activity as MainActivity).apply {
+            toolbarIcon(showDuck = false)
+            showBanner(true)
+        }
         binding.apply {
             loading.root.visibility = View.VISIBLE
             solution.root.visibility = View.GONE

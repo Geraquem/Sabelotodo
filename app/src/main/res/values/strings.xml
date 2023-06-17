@@ -2,8 +2,8 @@
 
     <string name="app_name">Sabelotodo</string>
 
-    <string name="contentDescription">image</string>
-    <string name="musicMasterUrl">https://play.google.com/store/apps/details?id=com.mmfsin.musicmaster</string>
+    <string name="content_description">image</string>
+    <string name="music_master_url">https://play.google.com/store/apps/details?id=com.mmfsin.musicmaster</string>
 
     <!-- ADS -->
     <string name="interstitial">ca-app-pub-3940256099942544/1033173712</string>
@@ -11,8 +11,13 @@
     <string name="banner">ca-app-pub-3940256099942544/6300978111</string>
     <!--    <string name="banner"></string>-->
 
+    <!-- ERROR -->
+    <string name="error_title">Ha ocurrido un problema</string>
+    <string name="error_description">Inténtalo de nuevo más tarde</string>
+    <string name="error_btn">Aceptar</string>
+
     <!-- EXIT -->
-    <string name="wannaExit">¿Seguro que quieres salir?</string>
+    <string name="wanna_exit">¿Seguro que quieres salir?</string>
     <string name="yes">SI</string>
     <string name="no">NO</string>
 
@@ -46,7 +51,6 @@
     <string name="next">SIGUIENTE</string>
     <string name="noMoreQuestions">De momento no hay más preguntas</string>
     <string name="ok">OK</string>
-
 
     <string name="was_in">EN EL <b>%1$s</b></string>
     <string name="has_years"><b>%1$s</b> AÑOS</string>

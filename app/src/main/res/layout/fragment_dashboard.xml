@@ -96,7 +96,7 @@
                 android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
-                android:contentDescription="@string/contentDescription"
+                android:contentDescription="@string/content_description"
                 android:elevation="12dp"
                 android:src="@color/black"
                 app:layout_constraintLeft_toLeftOf="@id/gl_left"
@@ -269,7 +269,7 @@
                 android:id="@+id/next"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:contentDescription="@string/contentDescription"
+                android:contentDescription="@string/content_description"
                 android:elevation="5dp"
                 android:src="@drawable/ic_next" />
 
