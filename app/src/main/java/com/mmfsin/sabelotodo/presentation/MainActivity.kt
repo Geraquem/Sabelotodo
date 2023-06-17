@@ -55,8 +55,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun toolbarText(title: Int) {
-        binding.tvTitle.text = getString(title)
+    fun toolbarText(title: String) {
+        binding.tvTitle.text = title
     }
 
     fun closeKeyboard() {

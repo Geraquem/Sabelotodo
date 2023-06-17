@@ -16,11 +16,7 @@
     <string name="error_description">Inténtalo de nuevo más tarde</string>
     <string name="error_btn">Aceptar</string>
 
-    <!-- EXIT -->
-    <string name="wanna_exit">¿Seguro que quieres salir?</string>
-    <string name="yes">SI</string>
-    <string name="no">NO</string>
-
+    <!-- //////////////////////////////////// -->
     <!-- SHARE INFO -->
     <string name="record_my_records">Mis puntuaciones</string>
     <string name="record_spanish_age">Españoles y latinos: %1$s</string>
@@ -36,26 +32,30 @@
     <string name="cartoon_creations_toolbar">Dibujos y animación</string>
     <string name="videogames_toolbar">Videojuegos</string>
     <string name="important_dates_toolbar">Fechas importantes</string>
+    <!-- //////////////////////////////////// -->
 
     <!-- CATEGORY -->
     <string name="category_record">Máxima puntuación:</string>
 
     <!-- DASHBOARD -->
-    <string name="your_answer">TU RESPUESTA</string>
-    <string name="in_the">EN EL AÑO</string>
-    <string name="years">AÑOS</string>
-    <string name="check">COMPROBAR</string>
-    <string name="user_answer">TU RESPUESTA</string>
-    <string name="actualRecord">record actual %1$s</string>
-    <string name="points">PUNTOS</string>
-    <string name="next">SIGUIENTE</string>
-    <string name="noMoreQuestions">De momento no hay más preguntas</string>
-    <string name="ok">OK</string>
+    <string name="dashboard_your_answer">TU RESPUESTA</string>
+    <string name="dashboard_in_the">EN EL AÑO</string>
+    <string name="dashboard_years">AÑOS</string>
+    <string name="dashboard_check">COMPROBAR</string>
+    <string name="dashboard_actual_record">record actual %1$s</string>
+    <string name="dashboard_points">PUNTOS</string>
+    <string name="dashboard_no_more_questions">De momento no hay más preguntas</string>
 
-    <string name="was_in">EN EL <b>%1$s</b></string>
-    <string name="has_years"><b>%1$s</b> AÑOS</string>
-    <string name="correct_answer">+2 PUNTOS</string>
-    <string name="almost_good_answer">+1 PUNTO</string>
-    <string name="bad_answer">-1 PUNTO</string>
+    <string name="solution_user_answer">TU RESPUESTA</string>
+    <string name="solution_was_in">EN EL <b>%1$s</b></string>
+    <string name="solution_years"><b>%1$s</b> AÑOS</string>
+    <string name="solution_correct_answer">+2 PUNTOS</string>
+    <string name="solution_almost_good_answer">+1 PUNTO</string>
+    <string name="solution_bad_answer">-1 PUNTO</string>
+
+    <!-- EXIT -->
+    <string name="wanna_exit">¿Seguro que quieres salir?</string>
+    <string name="yes">SI</string>
+    <string name="no">NO</string>
 
 </resources>

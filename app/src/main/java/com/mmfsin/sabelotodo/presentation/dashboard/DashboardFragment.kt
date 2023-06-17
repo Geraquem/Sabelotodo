@@ -7,73 +7,82 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.mmfsin.sabelotodo.R
+import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
+import com.mmfsin.sabelotodo.base.BaseFragment
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
-import com.mmfsin.sabelotodo.domain.models.DataDTO
-import com.mmfsin.sabelotodo.domain.models.ResultType
-import com.mmfsin.sabelotodo.domain.models.ResultType.*
-import com.mmfsin.sabelotodo.domain.models.SolutionDTO
+import com.mmfsin.sabelotodo.domain.models.Data
 import com.mmfsin.sabelotodo.presentation.MainActivity
-import com.squareup.picasso.Picasso
+import com.mmfsin.sabelotodo.utils.CATEGORY_ID
+import com.mmfsin.sabelotodo.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class DashboardFragment : Fragment(), DashboardView {
+class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>() {
 
-    private var _bdg: FragmentDashboardBinding? = null
-    private val binding get() = _bdg!!
-
-    private val presenter by lazy { DashboardPresenter(this) }
-
+    override val viewModel: DashboardViewModel by viewModels()
     private lateinit var mContext: Context
 
-    private lateinit var completedList: List<DataDTO>
+    private var id: String? = null
+    private var dataList: List<Data> = emptyList()
 
-    private var pos = 0
-    private var longitude = 0
-    private lateinit var correctAnswer: String
+    private var pinViewLength: Int = 0
+    private var position: Int = 0
+    private var points: Int = 0
 
-    private var mPoints = 0
-    private var actualRecord by Delegates.notNull<Int>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        _bdg = FragmentDashboardBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun inflateView(
+        inflater: LayoutInflater, container: ViewGroup?
+    ) = FragmentDashboardBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init()
-//        presenter.getData(data.category)
-        setListeners()
-        activity?.let { (it as MainActivity).showBanner(true) }
+        id?.let { viewModel.getCategory(it) } ?: run { error() }
     }
 
-    private fun init() {
-//        actualRecord = data.actualRecord
-//        listener.changeToolbarText(presenter.toolbarText(mContext, data.category))
-//        longitude = presenter.checkPinViewLongitude(mContext, data.category)
+    override fun getBundleArgs() {
+        arguments?.let { id = it.getString(CATEGORY_ID) }
+    }
 
-//        val colorByCategory = presenter.getColorByCategory(mContext, data.category)
-//        val customColor = getColor(mContext, colorByCategory)
-
-        (activity as MainActivity).apply {
-            toolbarIcon(showDuck = false)
-            showBanner(true)
-        }
+    override fun setUI() {
         binding.apply {
-            loading.root.visibility = View.VISIBLE
-            solution.root.visibility = View.GONE
-//            check.background.setTint(customColor)
-//            next.setColorFilter(customColor)
+            setUpToolbar()
+            loading.root.isVisible
+            solution.root.isVisible = false
+            scoreBoard.tvPoints.text = points.toString()
+        }
+    }
+
+    private fun setUpToolbar() {
+        (activity as MainActivity).apply {
+            showBanner(visible = true)
+            toolbarIcon(showDuck = false)
+        }
+    }
+
+    override fun observe() {
+        viewModel.event.observe(this) { event ->
+            when (event) {
+                is DashboardEvent.GetCategory -> {
+                    (activity as MainActivity).toolbarText(event.result.title)
+                    setPinView(event.result.longitudePV)
+                    viewModel.getDashboardData(event.result.id)
+                }
+                is DashboardEvent.DashboardData -> {
+                    dataList = event.data
+                    setData()
+                }
+                is DashboardEvent.SomethingWentWrong -> error()
+            }
+        }
+    }
+
+    private fun setPinView(length: Int) {
+        binding.apply {
+            pinViewLength = length
+            pvResponse.itemCount = pinViewLength
+            if (length == 2) tvInThe.isVisible = false else tvYears.isVisible = false
             pvResponse.addTextChangedListener(textWatcher)
-            pvResponse.itemCount = longitude
-//            scoreBoard.actualRecord.text =
-//                getString(R.string.actualRecord, data.actualRecord.toString())
         }
     }
 
@@ -81,115 +90,33 @@ class DashboardFragment : Fragment(), DashboardView {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun afterTextChanged(p0: Editable?) {
-            if (presenter.checkPinViewLongitude(longitude, binding.pvResponse.text.toString())) {
-//                listener.clos/eKeyboard()
+            if (binding.pvResponse.text.toString().length == pinViewLength) {
+                (activity as MainActivity).closeKeyboard()
             }
         }
     }
 
-    override fun dataListFilled(list: List<DataDTO>) {
-        completedList = list.shuffled()
-        setQuestionData(completedList[pos])
-        binding.loading.root.visibility = View.GONE
-    }
-
-    private fun setQuestionData(data: DataDTO) {
-        correctAnswer = presenter.checkSolution(data.solution)
-        val splitText = data.text.split("%%%")
-        binding.apply {
-            text.text = splitText[0]
-            mainText.text = splitText[1]
-            presenter.checkDescription(data.description)
-            Picasso.get().load(data.image).into(image)
-        }
-    }
-
-    private fun setListeners() {
-        binding.apply {
-            check.setOnClickListener {
-                val response = pvResponse.text.toString()
-                if (response.isNotEmpty() && response.length == longitude) {
-                    check.isEnabled = false
-                    pvResponse.isEnabled = false
-//                    listener.closeKeyboard()
-                    presenter.checkSolution(SolutionDTO(correctAnswer, response))
+    private fun setData() {
+        if (dataList.isNotEmpty()) {
+            binding.apply {
+                try {
+                    val data = dataList[position]
+                    Glide.with(mContext).load(data.image).into(image)
+                    tvFirstText.text = data.firstText
+                    tvSecondText.text = data.secondText
+                    solution.tvCorrectAnswer.text = data.solution
+                    loading.root.isVisible = false
+                } catch (e: java.lang.Exception) {
+                    error()
                 }
             }
-
-            llNext.setOnClickListener {
-                pos++
-                if (pos < completedList.size) {
-                    check.isEnabled = true
-                    pvResponse.isEnabled = true
-                    pvResponse.text = null
-                    setQuestionData(completedList[pos])
-                    solution.root.visibility = View.GONE
-                } else {
-//                    listener.notMoreQuestions()
-                    llNext.visibility = View.GONE
-                }
-                showAd()
-            }
-        }
+        } else error()
     }
 
-    override fun handleDescription(enable: Boolean, description: String) {
-        binding.description.apply {
-            if (enable) {
-                text = description
-                visibility = View.VISIBLE
-            } else visibility = View.GONE
-        }
-    }
-
-    override fun setTwoLongitudePinView() {
-        binding.inThe.visibility = View.GONE
-        binding.years.visibility = View.VISIBLE
-    }
-
-    override fun showSolution(userSolution: String, type: ResultType) {
-        binding.apply {
-            val points = solution.tvPoints
-            when (type) {
-                GOOD -> {
-                    mPoints += 2
-                    points.setTextColor(resources.getColor(R.color.goodPhrase, null))
-                    points.text = getString(R.string.correct_answer)
-                }
-                ALMOST_GOOD -> {
-                    mPoints += 1
-                    points.setTextColor(resources.getColor(R.color.almostBadPhrase, null))
-                    points.text = getString(R.string.almost_good_answer)
-                }
-                BAD -> {
-                    mPoints -= 1
-                    points.setTextColor(resources.getColor(R.color.badPhrase, null))
-                    points.text = getString(R.string.bad_answer)
-                }
-            }
-
-            if (mPoints > actualRecord) {
-                actualRecord = mPoints
-                binding.scoreBoard.actualRecord.text =
-                    getString(R.string.actualRecord, actualRecord.toString())
-//                listener.setNewRecord(RecordDTO(data.category, mPoints))
-            }
-
-            scoreBoard.points.text = mPoints.toString()
-            solution.tvCorrectAnswer.text = when (longitude) {
-                2 -> getString(R.string.has_years, userSolution)
-                else -> getString(R.string.was_in, userSolution)
-            }
-            solution.root.visibility = View.VISIBLE
-        }
-    }
-
-    override fun somethingWentWrong() {}//listener.somethingWentWrong()
+    private fun error() = activity?.showErrorDialog()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
     }
-
-    private fun showAd() {}//= listener.showAd(pos)
 }

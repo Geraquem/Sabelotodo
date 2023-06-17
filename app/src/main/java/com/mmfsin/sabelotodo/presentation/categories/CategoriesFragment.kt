@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,7 +40,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
     override fun setUI() {
         binding.apply {
             setUpToolbar()
-            loading.root.visibility = View.VISIBLE
+            loading.root.isVisible
         }
     }
 
@@ -47,7 +48,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
         (activity as MainActivity).apply {
             showBanner(visible = false)
             toolbarIcon(showDuck = true)
-            toolbarText(R.string.app_name)
+            toolbarText(getString(R.string.app_name))
         }
     }
 
@@ -67,7 +68,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
                 adapter =
                     CategoriesAdapter(categories.sortedBy { it.order }, this@CategoriesFragment)
             }
-            binding.loading.root.visibility = View.GONE
+            binding.loading.root.isVisible = false
         }
     }
 

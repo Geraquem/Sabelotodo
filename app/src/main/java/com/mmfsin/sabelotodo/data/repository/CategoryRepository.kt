@@ -22,6 +22,12 @@ class CategoryRepository @Inject constructor(
         return realmDatabase.getObjectsFromRealm { where<Category>().findAll() }
     }
 
+    override fun getCategoryFromRealm(id: String): Category? {
+        val categories =
+            realmDatabase.getObjectsFromRealm { where<Category>().equalTo("id", id).findAll() }
+        return if (categories.isEmpty()) null else categories.first()
+    }
+
     override suspend fun getCategoriesFromFirebase(): List<Category> {
         val latch = CountDownLatch(1)
         val categories = mutableListOf<Category>()
@@ -33,9 +39,8 @@ class CategoryRepository @Inject constructor(
                 }
             }
             latch.countDown()
-        }.addOnFailureListener {
-            latch.countDown()
-        }
+        }.addOnFailureListener { latch.countDown() }
+
         withContext(Dispatchers.IO) {
             latch.await()
         }

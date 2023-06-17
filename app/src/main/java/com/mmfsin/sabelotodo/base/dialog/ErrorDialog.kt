@@ -9,6 +9,9 @@ class ErrorDialog : BaseDialog<DialogErrorBinding>() {
     override fun inflateView(inflater: LayoutInflater) = DialogErrorBinding.inflate(inflater)
 
     override fun setListeners() {
-        binding.btnAccept.setOnClickListener { activity?.onBackPressed() }
+        binding.btnAccept.setOnClickListener {
+            activity?.onBackPressed()
+            dismiss()
+        }
     }
 }
