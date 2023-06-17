@@ -47,8 +47,8 @@
     <string name="dashboard_no_more_questions">De momento no hay más preguntas</string>
 
     <string name="solution_user_answer">TU RESPUESTA</string>
-    <string name="solution_was_in">EN EL <b>%1$s</b></string>
-    <string name="solution_years"><b>%1$s</b> AÑOS</string>
+    <string name="solution_was_in">EN EL</string>
+    <string name="solution_years">AÑOS</string>
     <string name="solution_correct_answer">+2 PUNTOS</string>
     <string name="solution_almost_good_answer">+1 PUNTO</string>
     <string name="solution_bad_answer">-1 PUNTO</string>

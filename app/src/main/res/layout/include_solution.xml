@@ -7,15 +7,34 @@
     android:orientation="vertical"
     android:paddingHorizontal="16dp">
 
-    <TextView
-        android:id="@+id/tv_correct_answer"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_regular"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="28sp"
-        tools:text="EN EL 1944" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_in_the"
+            style="@style/BigTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/solution_was_in" />
+
+        <TextView
+            android:id="@+id/tv_correct_answer"
+            style="@style/BigTextView_Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1944" />
+
+        <TextView
+            android:id="@+id/tv_years"
+            style="@style/BigTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/solution_years" />
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

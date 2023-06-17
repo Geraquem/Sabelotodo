@@ -53,6 +53,17 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         }
     }
 
+    override fun setListeners() {
+        binding.apply {
+            btnCheck.setOnClickListener { }
+            btnNext.setOnClickListener {
+                position++
+                if (position < dataList.size) setData()
+                else activity?.showErrorDialog() // show no more questions
+            }
+        }
+    }
+
     private fun setUpToolbar() {
         (activity as MainActivity).apply {
             showBanner(visible = true)
@@ -69,7 +80,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     viewModel.getDashboardData(event.result.id)
                 }
                 is DashboardEvent.DashboardData -> {
-                    dataList = event.data
+                    dataList = event.data.take(3)
                     setData()
                 }
                 is DashboardEvent.SomethingWentWrong -> error()
@@ -82,6 +93,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             pinViewLength = length
             pvResponse.itemCount = pinViewLength
             if (length == 2) tvInThe.isVisible = false else tvYears.isVisible = false
+            if (length == 2) solution.tvInThe.isVisible = false else solution.tvYears.isVisible =
+                false
             pvResponse.addTextChangedListener(textWatcher)
         }
     }
