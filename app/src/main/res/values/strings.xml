@@ -1,9 +1,7 @@
 <resources>
 
     <string name="app_name">Sabelotodo</string>
-
     <string name="content_description">image</string>
-    <string name="music_master_url">https://play.google.com/store/apps/details?id=com.mmfsin.musicmaster</string>
 
     <!-- ADS -->
     <string name="interstitial">ca-app-pub-3940256099942544/1033173712</string>
@@ -26,6 +24,28 @@
     <string name="exit_yes">SALIR</string>
     <string name="exit_no">QUEDARME</string>
 
+    <!-- CATEGORY -->
+    <string name="category_record">Máxima puntuación:</string>
+    <string name="music">music</string>
+    <string name="music_master_url">https://play.google.com/store/apps/details?id=com.mmfsin.musicmaster</string>
+
+    <!-- DASHBOARD -->
+    <string name="dashboard_your_answer">TU RESPUESTA</string>
+    <string name="dashboard_in_the">EN EL AÑO</string>
+    <string name="dashboard_years">AÑOS</string>
+    <string name="dashboard_check">COMPROBAR</string>
+    <string name="dashboard_actual_record">record actual</string>
+    <string name="dashboard_points">PUNTOS</string>
+    <string name="dashboard_no_more_questions">De momento no hay más preguntas</string>
+
+    <string name="solution_user_answer">TU RESPUESTA</string>
+    <string name="solution_was_in">EN EL</string>
+    <string name="solution_years">AÑOS</string>
+    <string name="solution_correct_answer">+2 PUNTOS</string>
+    <string name="solution_almost_good_answer">+1 PUNTO</string>
+    <string name="solution_bad_answer">-1 PUNTO</string>
+
+
     <!-- //////////////////////////////////// -->
     <!-- SHARE INFO -->
     <string name="record_my_records">Mis puntuaciones</string>
@@ -43,24 +63,5 @@
     <string name="videogames_toolbar">Videojuegos</string>
     <string name="important_dates_toolbar">Fechas importantes</string>
     <!-- //////////////////////////////////// -->
-
-    <!-- CATEGORY -->
-    <string name="category_record">Máxima puntuación:</string>
-
-    <!-- DASHBOARD -->
-    <string name="dashboard_your_answer">TU RESPUESTA</string>
-    <string name="dashboard_in_the">EN EL AÑO</string>
-    <string name="dashboard_years">AÑOS</string>
-    <string name="dashboard_check">COMPROBAR</string>
-    <string name="dashboard_actual_record">record actual</string>
-    <string name="dashboard_points">PUNTOS</string>
-    <string name="dashboard_no_more_questions">De momento no hay más preguntas</string>
-
-    <string name="solution_user_answer">TU RESPUESTA</string>
-    <string name="solution_was_in">EN EL</string>
-    <string name="solution_years">AÑOS</string>
-    <string name="solution_correct_answer">+2 PUNTOS</string>
-    <string name="solution_almost_good_answer">+1 PUNTO</string>
-    <string name="solution_bad_answer">-1 PUNTO</string>
 
 </resources>

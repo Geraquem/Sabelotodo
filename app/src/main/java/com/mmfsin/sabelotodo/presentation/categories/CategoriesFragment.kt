@@ -1,6 +1,9 @@
 package com.mmfsin.sabelotodo.presentation.categories
 
 import android.content.Context
+import android.content.Intent
+import android.content.Intent.ACTION_VIEW
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -73,7 +76,9 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
     }
 
     override fun onCategoryClick(id: String) {
-        findNavController().navigate(actionCategoriesToDashboard(id))
+        if (id == getString(R.string.music)) {
+            startActivity(Intent(ACTION_VIEW, Uri.parse(getString(R.string.music_master_url))))
+        } else findNavController().navigate(actionCategoriesToDashboard(id))
     }
 
     override fun onAttach(context: Context) {
