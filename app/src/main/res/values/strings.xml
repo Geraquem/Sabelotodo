@@ -24,6 +24,9 @@
     <string name="exit_yes">SALIR</string>
     <string name="exit_no">QUEDARME</string>
 
+    <!-- LOADING -->
+    <string name="loading">Un momentito…</string>
+
     <!-- CATEGORY -->
     <string name="category_record">Máxima puntuación:</string>
     <string name="music">music</string>
@@ -44,24 +47,5 @@
     <string name="solution_correct_answer">+2 PUNTOS</string>
     <string name="solution_almost_good_answer">+1 PUNTO</string>
     <string name="solution_bad_answer">-1 PUNTO</string>
-
-
-    <!-- //////////////////////////////////// -->
-    <!-- SHARE INFO -->
-    <string name="record_my_records">Mis puntuaciones</string>
-    <string name="record_spanish_age">Españoles y latinos: %1$s</string>
-    <string name="record_global_age">Famos@s mundiales: %1$s</string>
-    <string name="record_films_series">Pelis y series: %1$s</string>
-    <string name="record_cartoon_creations">Dibujos y animación: %1$s</string>
-    <string name="record_videogames">Videojuegos: %1$s</string>
-    <string name="record_important_dates">Fechas importantes: %1$s</string>
-
-    <string name="spanish_age_toolbar">Españoles y latinos</string>
-    <string name="global_age_toolbar">Famos@s mundiales</string>
-    <string name="films_series_toolbar">Pelis y series</string>
-    <string name="cartoon_creations_toolbar">Dibujos y animación</string>
-    <string name="videogames_toolbar">Videojuegos</string>
-    <string name="important_dates_toolbar">Fechas importantes</string>
-    <!-- //////////////////////////////////// -->
 
 </resources>
