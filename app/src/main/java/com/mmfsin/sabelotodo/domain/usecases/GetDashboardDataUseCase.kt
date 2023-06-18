@@ -9,7 +9,7 @@ class GetDashboardDataUseCase @Inject constructor(private val repository: IDashb
     BaseUseCase<GetDashboardDataUseCase.Params, List<Data>>() {
 
     override suspend fun execute(params: Params): List<Data> =
-        repository.getDashboardData(params.categoryId)
+        repository.getDashboardData(params.categoryId).shuffled()
 
     data class Params(val categoryId: String)
 }

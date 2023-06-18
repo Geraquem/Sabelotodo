@@ -102,7 +102,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     viewModel.getDashboardData(event.result.id)
                 }
                 is DashboardEvent.DashboardData -> {
-                    dataList = event.data
+                    dataList = event.data.shuffled()
                     setData()
                 }
                 is DashboardEvent.Solution -> setSolution(event.solution)

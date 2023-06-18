@@ -36,7 +36,7 @@ class DashboardRepository @Inject constructor(
         withContext(Dispatchers.IO) {
             latch.await()
         }
-        return dataList.toDataList()
+        return dataList.toDataList().shuffled()
     }
 
     override fun updateRecord(categoryId: String, record: Int) {
