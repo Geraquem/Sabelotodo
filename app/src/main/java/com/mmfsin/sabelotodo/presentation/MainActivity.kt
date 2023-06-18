@@ -82,8 +82,8 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    fun showInterstitial(pos: Int) {
-        if ((pos % 20) == 0 && mInterstitialAd != null) {
+    fun showInterstitial() {
+        if (mInterstitialAd != null) {
             mInterstitialAd!!.show(this)
             loadInterstitial(AdRequest.Builder().build())
         }

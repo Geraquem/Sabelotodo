@@ -75,6 +75,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 position++
                 if (position < dataList.size) setData()
                 else activity?.let { NoMoreQuestionsDialog().show(it.supportFragmentManager, "") }
+                if (position % 20 == 0) (activity as MainActivity).showInterstitial()
             }
         }
 
