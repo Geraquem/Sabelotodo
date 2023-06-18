@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  GOOD PHRASES  -->
+    <string-array name="good_phrases">
+        <item>MUY BIEN</item>
+        <item>PERFECTÍSIMO</item>
+        <item>MARAVILLOSO</item>
+        <item>FANTABULOSO</item>
+        <item>OLÉ</item>
+        <item>PERFECTÍSIMO</item>
+        <item>GENIAL GENIAL</item>
+        <item>ESTUPENDITO</item>
+        <item>EN EL CLAVO</item>
+        <item>JUSTO</item>
+        <item>LO TIENES</item>
+    </string-array>
+
+    <!--  ALMOST PHRASES  -->
+    <string-array name="almost_phrases">
+        <item>UUYYYYYYY</item>
+        <item>CASI, PERO NO</item>
+        <item>CASI CASI</item>
+        <item>HAS ESTADO CERQUITA</item>
+        <item>AL PALO</item>
+        <item>NO HA ESTADO MAL</item>
+        <item>BUEN INTENTO</item>
+        <item>A LA PRÓXIMA</item>
+        <item>NO ESTÁ MAL, PERO TAMPOCO BIEN</item>
+        <item>ROZANDO</item>
+    </string-array>
+
+    <!--  BAD PHRASES  -->
+    <string-array name="bad_phrases">
+        <item>QUE DESASTRE…</item>
+        <item>FATAL FATAL FATAL</item>
+        <item>TODOS SABEMOS QUE HAS HECHO LO QUE HAS PODIDO</item>
+        <item>FRACASO ABSOLUTO</item>
+        <item>HORRIBLE</item>
+        <item>NI IDEA TIENES</item>
+        <item>MADRE MÍA…</item>
+        <item>AL MENOS LO HAS INTENTADO</item>
+        <item>PPFFFFF…</item>
+        <item>SI ESTO FUESE UN EXAMEN ESTARÍA SUSPENSO</item>
+        <item>FRACASO ABSOLUTO</item>
+        <item>ESTO NO ES LO TUYO EH</item>
+        <item>POR FAVOR, CONCÉNTRESE</item>
+    </string-array>
+
+</resources>

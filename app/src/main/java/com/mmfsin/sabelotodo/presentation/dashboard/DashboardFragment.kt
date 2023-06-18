@@ -7,13 +7,19 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.base.BaseFragment
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
+import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
+import com.mmfsin.sabelotodo.domain.models.ResultType
+import com.mmfsin.sabelotodo.domain.models.ResultType.*
 import com.mmfsin.sabelotodo.presentation.MainActivity
+import com.mmfsin.sabelotodo.presentation.dashboard.dialog.NoMoreQuestionsDialog
 import com.mmfsin.sabelotodo.utils.CATEGORY_ID
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,8 +31,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     private lateinit var mContext: Context
 
     private var id: String? = null
+    private var category: Category? = null
     private var dataList: List<Data> = emptyList()
 
+    private var currentSolution: String = ""
     private var pinViewLength: Int = 0
     private var position: Int = 0
     private var points: Int = 0
@@ -55,13 +63,25 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     override fun setListeners() {
         binding.apply {
-            btnCheck.setOnClickListener { }
+            btnCheck.setOnClickListener {
+                val answer = pvResponse.text.toString()
+                if (answer.length == pinViewLength) {
+                    btnCheck.isEnabled = false
+                    viewModel.checkSolution(answer, currentSolution)
+                }
+            }
             btnNext.setOnClickListener {
                 position++
                 if (position < dataList.size) setData()
-                else activity?.showErrorDialog() // show no more questions
+                else activity?.let { NoMoreQuestionsDialog().show(it.supportFragmentManager, "") }
             }
         }
+
+//        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                activity?.let { ExitDialog().show(it.supportFragmentManager, "") }
+//            }
+//        })
     }
 
     private fun setUpToolbar() {
@@ -75,13 +95,19 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         viewModel.event.observe(this) { event ->
             when (event) {
                 is DashboardEvent.GetCategory -> {
+                    category = event.result
                     (activity as MainActivity).toolbarText(event.result.title)
                     setPinView(event.result.longitudePV)
+                    binding.scoreBoard.tvRecord.text = event.result.record.toString()
                     viewModel.getDashboardData(event.result.id)
                 }
                 is DashboardEvent.DashboardData -> {
-                    dataList = event.data.take(3)
+                    dataList = event.data
                     setData()
+                }
+                is DashboardEvent.Solution -> setSolution(event.solution)
+                is DashboardEvent.Record -> {
+                    if (event.result) binding.scoreBoard.tvRecord.text = points.toString()
                 }
                 is DashboardEvent.SomethingWentWrong -> error()
             }
@@ -114,16 +140,47 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             binding.apply {
                 try {
                     val data = dataList[position]
+                    solution.root.isVisible = false
+                    btnCheck.isEnabled = true
+                    currentSolution = data.solution
                     Glide.with(mContext).load(data.image).into(image)
+                    pvResponse.text = null
                     tvFirstText.text = data.firstText
                     tvSecondText.text = data.secondText
-                    solution.tvCorrectAnswer.text = data.solution
+                    solution.tvCorrectAnswer.text = currentSolution
                     loading.root.isVisible = false
                 } catch (e: java.lang.Exception) {
                     error()
                 }
             }
         } else error()
+    }
+
+    private fun setSolution(result: ResultType) {
+        binding.apply {
+            solution.apply {
+                when (result) {
+                    GOOD -> {
+                        points += 2
+                        tvPoints.text = getString(R.string.solution_correct_answer)
+                        tvPoints.setTextColor(getColor(mContext, R.color.color_good))
+                    }
+                    ALMOST_GOOD -> {
+                        points += 1
+                        tvPoints.text = getString(R.string.solution_almost_good_answer)
+                        tvPoints.setTextColor(getColor(mContext, R.color.color_almost))
+                    }
+                    BAD -> {
+                        points -= 1
+                        tvPoints.text = getString(R.string.solution_bad_answer)
+                        tvPoints.setTextColor(getColor(mContext, R.color.color_bad))
+                    }
+                }
+                root.isVisible = true
+            }
+            scoreBoard.tvPoints.text = points.toString()
+            category?.let { viewModel.checkRecord(points.toString(), it.record.toString(), it.id) }
+        }
     }
 
     private fun error() = activity?.showErrorDialog()

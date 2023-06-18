@@ -16,6 +16,16 @@
     <string name="error_description">Inténtalo de nuevo más tarde</string>
     <string name="error_btn">Aceptar</string>
 
+    <!-- NO MORE QUESTIONS -->
+    <string name="no_more_title">Has acabado con todo</string>
+    <string name="no_more_description">No hay más preguntas por el momento</string>
+    <string name="no_more_btn">Salir</string>
+
+    <!-- EXIT -->
+    <string name="exit_title">¿Seguro que quieres salir?</string>
+    <string name="exit_yes">SALIR</string>
+    <string name="exit_no">QUEDARME</string>
+
     <!-- //////////////////////////////////// -->
     <!-- SHARE INFO -->
     <string name="record_my_records">Mis puntuaciones</string>
@@ -42,7 +52,7 @@
     <string name="dashboard_in_the">EN EL AÑO</string>
     <string name="dashboard_years">AÑOS</string>
     <string name="dashboard_check">COMPROBAR</string>
-    <string name="dashboard_actual_record">record actual %1$s</string>
+    <string name="dashboard_actual_record">record actual</string>
     <string name="dashboard_points">PUNTOS</string>
     <string name="dashboard_no_more_questions">De momento no hay más preguntas</string>
 
@@ -52,10 +62,5 @@
     <string name="solution_correct_answer">+2 PUNTOS</string>
     <string name="solution_almost_good_answer">+1 PUNTO</string>
     <string name="solution_bad_answer">-1 PUNTO</string>
-
-    <!-- EXIT -->
-    <string name="wanna_exit">¿Seguro que quieres salir?</string>
-    <string name="yes">SI</string>
-    <string name="no">NO</string>
 
 </resources>
