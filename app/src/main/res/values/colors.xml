@@ -9,37 +9,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dirty_white">#E3DDDD</color>
-    <color name="grey">#BABABA</color>
     <color name="light_grey">#DFDCDC</color>
-
-    <color name="color_top">#FBF4FF</color>
-
-    <color name="g_1">#D15DF1</color>
-    <color name="g_2">#B08AED</color>
-    <color name="g_3">#E48A46</color>
-    <color name="g_4">#E3C67E</color>
-    <color name="g_5">#56C161</color>
-    <color name="g_6">#8EE177</color>
-    <color name="g_7">#3699EF</color>
-    <color name="g_8">#58B5D1</color>
-    <color name="g_9">#CB62CF</color>
-    <color name="g_10">#E688B1</color>
-    <color name="g_11">#EA893F</color>
-    <color name="g_12">#AEB858</color>
-
-    <color name="spa">#D3C1F1</color>
-    <color name="fam">#D5C9AB</color>
-    <color name="film">#A5C09C</color>
-    <color name="anim">#B6CBD1</color>
-    <color name="video">#C69FB0</color>
-    <color name="dates">#BDC384</color>
-
-    <color name="test">#B4B4B4</color>
 
     <color name="color_good">#64AC5B</color>
     <color name="color_almost">#B6893A</color>
     <color name="color_bad">#871111</color>
-
-    <color name="button">#C0A4ED</color>
 
 </resources>

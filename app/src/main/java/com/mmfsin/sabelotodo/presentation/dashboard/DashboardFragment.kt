@@ -1,6 +1,7 @@
 package com.mmfsin.sabelotodo.presentation.dashboard
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -96,9 +97,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             when (event) {
                 is DashboardEvent.GetCategory -> {
                     category = event.result
-                    (activity as MainActivity).toolbarText(event.result.title)
-                    setPinView(event.result.longitudePV)
-                    binding.scoreBoard.tvRecord.text = event.result.record.toString()
+                    setCategoryData()
                     viewModel.getDashboardData(event.result.id)
                 }
                 is DashboardEvent.DashboardData -> {
@@ -110,6 +109,19 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     if (event.result) binding.scoreBoard.tvRecord.text = points.toString()
                 }
                 is DashboardEvent.SomethingWentWrong -> error()
+            }
+        }
+    }
+
+    private fun setCategoryData() {
+        binding.apply {
+            category?.let {
+                (activity as MainActivity).toolbarText(it.title)
+                setPinView(it.longitudePV)
+                val colorDashboard = Color.parseColor(it.colorDashboard)
+                btnCheck.background.setTint(colorDashboard)
+                btnNext.setColorFilter(colorDashboard)
+                scoreBoard.tvRecord.text = it.record.toString()
             }
         }
     }

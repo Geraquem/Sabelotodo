@@ -13,14 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.97" />
+        app:layout_constraintGuide_percent="0.96" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_left"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.03" />
+        app:layout_constraintGuide_percent="0.04" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_category"

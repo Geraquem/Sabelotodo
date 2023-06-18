@@ -9,6 +9,7 @@ open class Category(
     var title: String = "",
     var image: String = "",
     var description: String = "",
+    var colorDashboard: String = "#FFFFFFFF",
     var colorStart: String = "#FFFFFFFF",
     var colorEnd: String = "#FFFFFFFF",
     var order: Long = 0,

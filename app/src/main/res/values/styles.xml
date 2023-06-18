@@ -46,7 +46,6 @@
         <item name="fontFamily">@font/roboto_bold</item>
         <item name="android:paddingVertical">16dp</item>
         <item name="elevation">5dp</item>
-        <item name="backgroundTint">@color/g_1</item>
     </style>
 
     <style name="tv_info">
