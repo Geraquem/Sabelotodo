@@ -39,17 +39,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setToolbarListeners() {
-        binding.apply {
-            ivShare.setOnClickListener {
-                /** SHARE */
-            }
-            ivBack.setOnClickListener { onBackPressed() }
-        }
+        binding.ivBack.setOnClickListener { onBackPressed() }
     }
 
     fun toolbarIcon(showDuck: Boolean) {
         binding.apply {
-            ivShare.isVisible = showDuck
             ivDuck.isVisible = showDuck
             ivBack.isVisible = !showDuck
         }

@@ -8,10 +8,9 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="dirty_white">#E3DDDD</color>
     <color name="light_grey">#DFDCDC</color>
 
-    <color name="color_good">#64AC5B</color>
+    <color name="color_good">#518E4A</color>
     <color name="color_almost">#B6893A</color>
     <color name="color_bad">#871111</color>
 
