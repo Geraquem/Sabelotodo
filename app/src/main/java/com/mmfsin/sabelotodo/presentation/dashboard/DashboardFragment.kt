@@ -46,6 +46,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).inDashboard = true
         id?.let { viewModel.getCategory(it) } ?: run { error() }
     }
 

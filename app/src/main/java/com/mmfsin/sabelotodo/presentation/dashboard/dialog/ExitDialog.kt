@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import com.mmfsin.sabelotodo.base.BaseDialog
 import com.mmfsin.sabelotodo.databinding.DialogExitBinding
 
-class ExitDialog : BaseDialog<DialogExitBinding>() {
+class ExitDialog(val action: () -> Unit) : BaseDialog<DialogExitBinding>() {
 
     override fun inflateView(inflater: LayoutInflater) = DialogExitBinding.inflate(inflater)
 
@@ -12,7 +12,7 @@ class ExitDialog : BaseDialog<DialogExitBinding>() {
         binding.apply {
             btnStay.setOnClickListener { dismiss() }
             btnExit.setOnClickListener {
-                activity?.onBackPressed()
+                action()
                 dismiss()
             }
         }

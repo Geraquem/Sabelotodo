@@ -37,6 +37,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).inDashboard = false
         viewModel.getCategories()
     }
 

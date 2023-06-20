@@ -11,6 +11,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
+import com.mmfsin.sabelotodo.presentation.dashboard.dialog.ExitDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private var mInterstitialAd: InterstitialAd? = null
+
+    var inDashboard = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Thread.sleep(500)
@@ -85,5 +88,11 @@ class MainActivity : AppCompatActivity() {
 
     fun showBanner(visible: Boolean) {
         binding.adView.isVisible = visible
+    }
+
+    override fun onBackPressed() {
+        val dialog = ExitDialog() { super.onBackPressed() }
+        if (inDashboard) dialog.show(supportFragmentManager, "")
+        else super.onBackPressed()
     }
 }
