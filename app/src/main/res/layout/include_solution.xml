@@ -9,6 +9,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
+        android:layout_marginBottom="6dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -35,13 +36,6 @@
             android:layout_marginStart="8dp"
             android:text="@string/solution_years" />
     </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0.75dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginVertical="4dp"
-        android:background="@color/black" />
 
     <TextView
         android:id="@+id/tv_points"

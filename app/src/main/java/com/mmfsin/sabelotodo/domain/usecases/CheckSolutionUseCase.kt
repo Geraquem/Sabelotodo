@@ -15,9 +15,7 @@ class CheckSolutionUseCase @Inject constructor() :
             val solution = params.solution.toInt()
             when ((answer - solution).absoluteValue) {
                 0 -> GOOD
-                1 -> ALMOST_GOOD
-                2 -> ALMOST_GOOD
-                3 -> ALMOST_GOOD
+                1, 2, 3 -> ALMOST_GOOD
                 else -> BAD
             }
         } catch (e: Exception) {
