@@ -15,7 +15,7 @@ class App : Application() {
         Realm.init(this)
         MobileAds.initialize(this) {}
 
-        getFCMToken()
+//        getFCMToken()
     }
 
     private fun getFCMToken() {
