@@ -66,13 +66,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     override fun setListeners() {
         binding.apply {
             btnCheck.setOnClickListener {
-                position--
-                setData()
-//                val answer = pvResponse.text.toString()
-//                if (answer.length == pinViewLength) {
-//                    btnCheck.isEnabled = false
-//                    viewModel.checkSolution(answer, currentSolution)
-//                }
+                val answer = pvResponse.text.toString()
+                if (answer.length == pinViewLength) {
+                    btnCheck.isEnabled = false
+                    viewModel.checkSolution(answer, currentSolution)
+                }
             }
             btnNext.setOnClickListener {
                 position++
@@ -81,7 +79,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     (activity as MainActivity).inDashboard = false
                     activity?.let { NoMoreQuestionsDialog().show(it.supportFragmentManager, "") }
                 }
-//                if (position % 20 == 0) (activity as MainActivity).showInterstitial()
+                if (position % 20 == 0) (activity as MainActivity).showInterstitial()
             }
         }
     }
