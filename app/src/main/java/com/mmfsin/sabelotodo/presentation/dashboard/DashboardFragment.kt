@@ -66,25 +66,24 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     override fun setListeners() {
         binding.apply {
             btnCheck.setOnClickListener {
-                val answer = pvResponse.text.toString()
-                if (answer.length == pinViewLength) {
-                    btnCheck.isEnabled = false
-                    viewModel.checkSolution(answer, currentSolution)
-                }
+                position--
+                setData()
+//                val answer = pvResponse.text.toString()
+//                if (answer.length == pinViewLength) {
+//                    btnCheck.isEnabled = false
+//                    viewModel.checkSolution(answer, currentSolution)
+//                }
             }
             btnNext.setOnClickListener {
                 position++
                 if (position < dataList.size) setData()
-                else activity?.let { NoMoreQuestionsDialog().show(it.supportFragmentManager, "") }
-                if (position % 20 == 0) (activity as MainActivity).showInterstitial()
+                else{
+                    (activity as MainActivity).inDashboard = false
+                    activity?.let { NoMoreQuestionsDialog().show(it.supportFragmentManager, "") }
+                }
+//                if (position % 20 == 0) (activity as MainActivity).showInterstitial()
             }
         }
-
-//        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
-//            override fun handleOnBackPressed() {
-//                activity?.let { ExitDialog().show(it.supportFragmentManager, "") }
-//            }
-//        })
     }
 
     private fun setUpToolbar() {

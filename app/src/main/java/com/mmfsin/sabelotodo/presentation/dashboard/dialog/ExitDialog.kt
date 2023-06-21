@@ -8,6 +8,10 @@ class ExitDialog(val action: () -> Unit) : BaseDialog<DialogExitBinding>() {
 
     override fun inflateView(inflater: LayoutInflater) = DialogExitBinding.inflate(inflater)
 
+    override fun setUI() {
+        isCancelable = true
+    }
+
     override fun setListeners() {
         binding.apply {
             btnStay.setOnClickListener { dismiss() }

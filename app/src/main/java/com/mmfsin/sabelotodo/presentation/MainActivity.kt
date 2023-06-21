@@ -42,7 +42,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setToolbarListeners() {
-        binding.ivBack.setOnClickListener { onBackPressed() }
+        binding.ivBack.setOnClickListener {
+            inDashboard = false
+            onBackPressed()
+        }
     }
 
     fun toolbarIcon(showDuck: Boolean) {
