@@ -39,6 +39,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     private var pinViewLength: Int = 0
     private var position: Int = 0
     private var points: Int = 0
+    private var record: Int = 0
 
     override fun inflateView(
         inflater: LayoutInflater, container: ViewGroup?
@@ -75,7 +76,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             btnNext.setOnClickListener {
                 position++
                 if (position < dataList.size) setData()
-                else{
+                else {
                     (activity as MainActivity).inDashboard = false
                     activity?.let { NoMoreQuestionsDialog().show(it.supportFragmentManager, "") }
                 }
@@ -96,16 +97,20 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             when (event) {
                 is DashboardEvent.GetCategory -> {
                     category = event.result
+                    record = event.result.record ?: 0
                     setCategoryData()
                     viewModel.getDashboardData(event.result.id)
                 }
                 is DashboardEvent.DashboardData -> {
-                    dataList = event.data.shuffled()
+                    dataList = event.data//.shuffled()
                     setData()
                 }
                 is DashboardEvent.Solution -> setSolution(event.solution)
-                is DashboardEvent.Record -> {
-                    if (event.result) binding.scoreBoard.tvRecord.text = points.toString()
+                is DashboardEvent.IsRecord -> {
+                    if (event.result.isRecord) {
+                        record = event.result.newRecord
+                        binding.scoreBoard.tvRecord.text = record.toString()
+                    }
                 }
                 is DashboardEvent.SomethingWentWrong -> error()
             }
@@ -190,7 +195,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 root.isVisible = true
             }
             scoreBoard.tvPoints.text = points.toString()
-            category?.let { viewModel.checkRecord(points.toString(), it.record.toString(), it.id) }
+            category?.let { viewModel.checkRecord(points.toString(), record.toString(), it.id) }
         }
     }
 

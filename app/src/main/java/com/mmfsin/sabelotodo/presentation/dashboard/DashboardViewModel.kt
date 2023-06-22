@@ -50,7 +50,7 @@ class DashboardViewModel @Inject constructor(
         executeUseCase(
             { checkRecordUseCase.execute(CheckRecordUseCase.Params(points, record, categoryId)) },
             { result ->
-                _event.value = result?.let { DashboardEvent.Record(it) }
+                _event.value = result?.let { DashboardEvent.IsRecord(it) }
                     ?: run { DashboardEvent.SomethingWentWrong }
             },
             { _event.value = DashboardEvent.SomethingWentWrong }
