@@ -2,6 +2,7 @@ package com.mmfsin.sabelotodo.presentation
 
 import android.content.Context
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -11,6 +12,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
+import com.mmfsin.sabelotodo.presentation.categories.dialog.CuackDialog
 import com.mmfsin.sabelotodo.presentation.dashboard.dialog.ExitDialog
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,9 +44,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setToolbarListeners() {
-        binding.ivBack.setOnClickListener {
-            inDashboard = false
-            onBackPressed()
+        binding.apply {
+            ivDuck.setOnClickListener {
+                ivDuck.isEnabled = false
+                CuackDialog().show(supportFragmentManager, "")
+                object : CountDownTimer(2000, 100) {
+                    override fun onTick(p0: Long) {}
+                    override fun onFinish() {
+                        ivDuck.isEnabled = true
+                    }
+                }.start()
+            }
+
+            ivBack.setOnClickListener {
+                inDashboard = false
+                onBackPressed()
+            }
         }
     }
 

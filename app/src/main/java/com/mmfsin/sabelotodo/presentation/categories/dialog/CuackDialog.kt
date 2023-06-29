@@ -1,26 +1,57 @@
 package com.mmfsin.sabelotodo.presentation.categories.dialog
 
 import android.app.Dialog
+import android.os.CountDownTimer
 import android.view.LayoutInflater
+import android.view.View
 import com.mmfsin.sabelotodo.base.BaseDialog
-import com.mmfsin.sabelotodo.databinding.DialogExitBinding
+import com.mmfsin.sabelotodo.databinding.DialogCuackBinding
 
-class CuackDialog: BaseDialog<DialogExitBinding>() {
+class CuackDialog : BaseDialog<DialogCuackBinding>() {
 
-    override fun inflateView(inflater: LayoutInflater) = DialogExitBinding.inflate(inflater)
+    override fun inflateView(inflater: LayoutInflater) = DialogCuackBinding.inflate(inflater)
 
-    override fun setCustomViewDialog(dialog: Dialog) = centerViewDialog(dialog)
+    override fun setCustomViewDialog(dialog: Dialog) = bottomViewDialog(dialog)
 
     override fun setUI() {
-        isCancelable = true
+        binding.apply {
+            tvSound.visibility = View.INVISIBLE
+            tvSound.text = getBarkText()
+            isCancelable = true
+            bark()
+        }
     }
 
-    override fun setListeners() {
+    private fun getBarkText(): String {
+        return when ((1..20).random()) {
+            1, 2, 3, 4, 6, 7, 8, 9, 10 -> "Cuack"
+            12, 13, 14 -> "Miau"
+            15, 16, 17 -> "Guau"
+            18, 19, 20 -> "Oink"
+            else -> "Pringao"
+        }
+    }
+
+    private fun bark() {
         binding.apply {
-            btnStay.setOnClickListener { dismiss() }
-            btnExit.setOnClickListener {
-                dismiss()
-            }
+            object : CountDownTimer(800, 100) {
+                override fun onTick(p0: Long) {}
+                override fun onFinish() {
+                    tvSound.visibility = View.VISIBLE
+                    object : CountDownTimer(500, 100) {
+                        override fun onTick(p0: Long) {}
+                        override fun onFinish() {
+                            tvSound.visibility = View.INVISIBLE
+                            object : CountDownTimer(600, 100) {
+                                override fun onTick(p0: Long) {}
+                                override fun onFinish() {
+                                    activity?.let { dismiss() }
+                                }
+                            }.start()
+                        }
+                    }.start()
+                }
+            }.start()
         }
     }
 }

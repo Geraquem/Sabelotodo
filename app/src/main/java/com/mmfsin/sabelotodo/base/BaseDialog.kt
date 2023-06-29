@@ -44,7 +44,7 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment() {
 
     fun bottomViewDialog(dialog: Dialog) {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+        dialog.window?.setLayout(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
         dialog.window?.attributes?.gravity = Gravity.BOTTOM
         dialog.window?.attributes?.windowAnimations = R.style.slide_up_down_dialog
     }
