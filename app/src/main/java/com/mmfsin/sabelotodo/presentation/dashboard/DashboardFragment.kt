@@ -1,5 +1,6 @@
 package com.mmfsin.sabelotodo.presentation.dashboard
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
@@ -8,6 +9,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
+import android.widget.ProgressBar
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -164,6 +167,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     tvFirstText.text = data.firstText
                     tvSecondText.text = data.secondText
                     solution.tvCorrectAnswer.text = currentSolution
+                    animateProgress(solution.progressBarLeft, 0, 0)
+                    animateProgress(solution.progressBarRight, 0, 0)
                     loading.root.isVisible = false
                 } catch (e: java.lang.Exception) {
                     error()
@@ -193,13 +198,26 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     }
                 }
                 root.isVisible = true
+                animateProgress(solution.progressBarLeft, 100, 100)
+                animateProgress(solution.progressBarRight, 100, 100)
             }
             scoreBoard.tvPoints.text = points.toString()
             category?.let { viewModel.checkRecord(points.toString(), record.toString(), it.id) }
         }
     }
 
-    private fun error() = activity?.showErrorDialog()
+    private fun animateProgress(progress: ProgressBar, total: Int, votes: Int) {
+        progress.max = total * 100
+        val animation = ObjectAnimator.ofInt(progress, "progress", votes * 100)
+        animation.duration = 2000
+        animation.interpolator = DecelerateInterpolator()
+        animation.start()
+    }
+
+    private fun error() {
+        (activity as MainActivity).inDashboard = false
+        activity?.showErrorDialog()
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

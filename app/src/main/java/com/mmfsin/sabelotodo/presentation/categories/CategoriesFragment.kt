@@ -77,7 +77,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
     }
 
     override fun onCategoryClick(id: String) {
-        if (id == getString(R.string.music)) {
+        if (id == getString(R.string.category_music)) {
             startActivity(Intent(ACTION_VIEW, Uri.parse(getString(R.string.music_master_url))))
         } else findNavController().navigate(actionCategoriesToDashboard(id))
     }

@@ -5,11 +5,13 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup.LayoutParams
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewbinding.ViewBinding
+import com.mmfsin.sabelotodo.R
 
 abstract class BaseDialog<VB : ViewBinding> : DialogFragment() {
 
@@ -32,10 +34,19 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment() {
 
     protected abstract fun inflateView(inflater: LayoutInflater): VB
 
-    private fun setCustomViewDialog(dialog: Dialog) {
+    open fun setCustomViewDialog(dialog: Dialog) {}
+
+    fun centerViewDialog(dialog: Dialog) {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val width = resources.displayMetrics.widthPixels * 0.9
         dialog.window?.setLayout(width.toInt(), LayoutParams.WRAP_CONTENT)
+    }
+
+    fun bottomViewDialog(dialog: Dialog) {
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+        dialog.window?.attributes?.gravity = Gravity.BOTTOM
+        dialog.window?.attributes?.windowAnimations = R.style.slide_up_down_dialog
     }
 
     override fun show(manager: FragmentManager, tag: String?) {
