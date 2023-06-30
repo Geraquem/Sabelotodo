@@ -11,6 +11,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_grey">#DFDCDC</color>
 
+    <color name="button_disabled">#80C6C6C6</color>
+    <color name="text_button_disabled">#858585</color>
+
     <color name="color_good">#518E4A</color>
     <color name="color_almost">#B6893A</color>
     <color name="color_bad">#871111</color>

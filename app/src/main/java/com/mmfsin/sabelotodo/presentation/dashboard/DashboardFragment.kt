@@ -72,7 +72,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             btnCheck.setOnClickListener {
                 val answer = pvResponse.text.toString()
                 if (answer.length == pinViewLength) {
+                    pvResponse.isEnabled = false
                     btnCheck.isEnabled = false
+                    setButtonColor(null)
                     viewModel.checkSolution(answer, currentSolution)
                 }
             }
@@ -125,9 +127,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             category?.let {
                 (activity as MainActivity).toolbarText(it.title)
                 setPinView(it.longitudePV)
-                val colorDashboard = Color.parseColor(it.colorDashboard)
-                btnCheck.background.setTint(colorDashboard)
-                btnNext.setColorFilter(colorDashboard)
+                btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
                 scoreBoard.tvRecord.text = it.record.toString()
             }
         }
@@ -160,12 +160,14 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 try {
                     val data = dataList[position]
                     solution.root.isVisible = false
-                    btnCheck.isEnabled = true
                     currentSolution = data.solution
                     Glide.with(mContext).load(data.image).into(image)
                     pvResponse.text = null
+                    pvResponse.isEnabled = true
+                    btnCheck.isEnabled = true
                     tvFirstText.text = data.firstText
                     tvSecondText.text = data.secondText
+                    category?.let { setButtonColor(Color.parseColor(it.colorDashboard)) }
                     solution.tvCorrectAnswer.text = currentSolution
                     animateProgress(solution.progressBarLeft, 0, 0)
                     animateProgress(solution.progressBarRight, 0, 0)
@@ -175,6 +177,20 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                 }
             }
         } else error()
+    }
+
+    private fun setButtonColor(color: Int?) {
+        binding.btnCheck.apply {
+            color?.let {
+                setTextColor(getColor(mContext, R.color.black))
+                elevation = 5f
+                background.setTint(it)
+            } ?: run {
+                setTextColor(getColor(mContext, R.color.text_button_disabled))
+                elevation = 0f
+                background.setTint(getColor(mContext, R.color.button_disabled))
+            }
+        }
     }
 
     private fun setSolution(result: ResultType) {
