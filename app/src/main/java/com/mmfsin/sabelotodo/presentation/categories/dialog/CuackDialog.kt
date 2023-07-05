@@ -28,13 +28,13 @@ class CuackDialog : BaseDialog<DialogCuackBinding>() {
             12, 13, 14 -> "Miau"
             15, 16, 17 -> "Guau"
             18, 19, 20 -> "Oink"
-            else -> "Pringao"
+            else -> "Pringao" //(5)
         }
     }
 
     private fun bark() {
         binding.apply {
-            object : CountDownTimer(800, 100) {
+            object : CountDownTimer(650, 100) {
                 override fun onTick(p0: Long) {}
                 override fun onFinish() {
                     tvSound.visibility = View.VISIBLE
@@ -42,7 +42,7 @@ class CuackDialog : BaseDialog<DialogCuackBinding>() {
                         override fun onTick(p0: Long) {}
                         override fun onFinish() {
                             tvSound.visibility = View.INVISIBLE
-                            object : CountDownTimer(600, 100) {
+                            object : CountDownTimer(400, 100) {
                                 override fun onTick(p0: Long) {}
                                 override fun onFinish() {
                                     activity?.let { dismiss() }

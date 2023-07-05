@@ -125,7 +125,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     private fun setCategoryData() {
         binding.apply {
             category?.let {
-                (activity as MainActivity).toolbarText(it.title)
+                (activity as MainActivity).toolbarText(it.toolbarText)
                 setPinView(it.longitudePV)
                 btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
                 scoreBoard.tvRecord.text = it.record.toString()

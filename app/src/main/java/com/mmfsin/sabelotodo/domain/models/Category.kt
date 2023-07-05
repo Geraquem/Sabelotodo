@@ -14,5 +14,6 @@ open class Category(
     var colorEnd: String = "#FFFFFFFF",
     var order: Long = 0,
     var record: Int? = 0,
+    var toolbarText: String = "",
     var longitudePV: Int = 0,
 ) : RealmObject()
