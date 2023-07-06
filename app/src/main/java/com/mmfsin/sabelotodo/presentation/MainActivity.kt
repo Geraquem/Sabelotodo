@@ -98,8 +98,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showInterstitial() {
-        if (mInterstitialAd != null) {
-            mInterstitialAd!!.show(this)
+        mInterstitialAd?.let {
+            it.show(this)
             loadInterstitial(AdRequest.Builder().build())
         }
     }
