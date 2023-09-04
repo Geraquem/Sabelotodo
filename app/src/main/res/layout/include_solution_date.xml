@@ -30,15 +30,6 @@
             android:textSize="28sp"
             tools:text="1944" />
 
-        <TextView
-            android:id="@+id/tv_years"
-            style="@style/BigTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/solution_years"
-            android:textSize="26sp" />
-
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,13 +68,5 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tv_points"
-        style="@style/BigTextView_Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="26sp"
-        tools:text="@string/solution_correct_answer" />
 
 </LinearLayout>

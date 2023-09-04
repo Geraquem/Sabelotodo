@@ -4,10 +4,10 @@
     <string name="content_description">image</string>
 
     <!-- ADS -->
-<!--        <string name="banner">ca-app-pub-3940256099942544/6300978111</string>-->
-    <string name="banner">ca-app-pub-4515698012373396/2351444900</string>
-<!--        <string name="interstitial">ca-app-pub-3940256099942544/1033173712</string>-->
-    <string name="interstitial">ca-app-pub-4515698012373396/9980090620</string>
+        <string name="banner">ca-app-pub-3940256099942544/6300978111</string>
+<!--    <string name="banner">ca-app-pub-4515698012373396/2351444900</string>-->
+        <string name="interstitial">ca-app-pub-3940256099942544/1033173712</string>
+<!--    <string name="interstitial">ca-app-pub-4515698012373396/9980090620</string>-->
 
     <!-- ERROR -->
     <string name="error_title">Ha ocurrido un problema</string>
@@ -33,17 +33,20 @@
     <string name="music_master_url">https://play.google.com/store/apps/details?id=com.mmfsin.musicmaster</string>
 
     <!-- DASHBOARD -->
-    <string name="dashboard_your_answer">TU RESPUESTA</string>
-    <string name="dashboard_in_the">EN EL AÑO</string>
-    <string name="dashboard_years">AÑOS</string>
-    <string name="dashboard_check">COMPROBAR</string>
+    <string name="dashboard_in_the">En el año</string>
+    <string name="dashboard_years">Años</string>
+    <string name="dashboard_check">Comprobar</string>
     <string name="dashboard_actual_record">record actual</string>
-    <string name="dashboard_points">PUNTOS</string>
+    <string name="dashboard_points">Puntos</string>
     <string name="dashboard_no_more_questions">De momento no hay más preguntas</string>
 
-    <string name="solution_user_answer">TU RESPUESTA</string>
+    <!-- SOLUTION AGE -->
+    <string name="solution_age_was_born">Nació el</string>
+    <string name="solution_age_of">de</string>
+    <string name="solution_age_has">Tiene</string>
+    <string name="solution_age_years">años</string>
+
     <string name="solution_was_in">EN EL</string>
-    <string name="solution_years">AÑOS</string>
     <string name="solution_correct_answer">+2 PUNTOS</string>
     <string name="solution_almost_good_answer">+1 PUNTO</string>
     <string name="solution_bad_answer">-1 PUNTO</string>

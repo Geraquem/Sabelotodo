@@ -24,6 +24,9 @@ import com.mmfsin.sabelotodo.domain.models.ResultType
 import com.mmfsin.sabelotodo.domain.models.ResultType.*
 import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.dashboard.dialog.NoMoreQuestionsDialog
+import com.mmfsin.sabelotodo.presentation.models.SolutionType
+import com.mmfsin.sabelotodo.presentation.models.SolutionType.AGES
+import com.mmfsin.sabelotodo.presentation.models.SolutionType.DATES
 import com.mmfsin.sabelotodo.utils.CATEGORY_ID
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,6 +47,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     private var points: Int = 0
     private var record: Int = 0
 
+    private var solutionType: SolutionType? = null
+
     override fun inflateView(
         inflater: LayoutInflater, container: ViewGroup?
     ) = FragmentDashboardBinding.inflate(inflater, container, false)
@@ -62,7 +67,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         binding.apply {
             setUpToolbar()
             loading.root.isVisible
-            solution.root.isVisible = false
+            llSolutions.isVisible = false
             scoreBoard.tvPoints.text = points.toString()
         }
     }
@@ -137,9 +142,18 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
         binding.apply {
             pinViewLength = length
             pvResponse.itemCount = pinViewLength
-            if (length == 2) tvInThe.isVisible = false else tvYears.isVisible = false
-            if (length == 2) solution.tvInThe.isVisible = false else solution.tvYears.isVisible =
-                false
+            /** AGES */
+            if (length == 2) {
+                solutionType = AGES
+                solutionDate.root.visibility = View.GONE
+                tvInThe.isVisible = false
+            }
+            /** DATES */
+            else {
+                solutionType = DATES
+                solutionAge.root.visibility = View.GONE
+                tvYears.isVisible = false
+            }
             pvResponse.addTextChangedListener(textWatcher)
         }
     }
@@ -159,7 +173,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
             binding.apply {
                 try {
                     val data = dataList[position]
-                    solution.root.isVisible = false
+                    llSolutions.isVisible = false
+                    setBirth(data.birth)
                     currentSolution = data.solution
                     Glide.with(mContext).load(data.image).into(image)
                     pvResponse.text = null
@@ -168,15 +183,40 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     tvFirstText.text = data.firstText
                     tvSecondText.text = data.secondText
                     category?.let { setButtonColor(Color.parseColor(it.colorDashboard)) }
-                    solution.tvCorrectAnswer.text = currentSolution
-                    animateProgress(solution.progressBarLeft, 0, 0)
-                    animateProgress(solution.progressBarRight, 0, 0)
+                    resetSolution()
                     loading.root.isVisible = false
                 } catch (e: java.lang.Exception) {
                     error()
                 }
             }
         } else error()
+    }
+
+    private fun setBirth(birth: List<String>) {
+        if (birth.isNotEmpty() && birth.size == 3 && solutionType == AGES) {
+            val of = getString(R.string.solution_age_of)
+            val birthText = "${birth[0]} $of ${birth[1]} $of ${birth[2]}"
+            binding.solutionAge.tvBirthDate.text = birthText
+        }
+    }
+
+    private fun resetSolution() {
+        binding.apply {
+            when (solutionType) {
+                AGES -> {
+                    solutionAge.tvCorrectAnswer.text = currentSolution
+                    animateProgress(solutionAge.progressBarLeft, 0, 0)
+                    animateProgress(solutionAge.progressBarRight, 0, 0)
+                }
+                DATES -> {
+                    solutionDate.tvCorrectAnswer.text = currentSolution
+                    animateProgress(solutionDate.progressBarLeft, 0, 0)
+                    animateProgress(solutionDate.progressBarRight, 0, 0)
+                }
+                /** if null */
+                else -> {}
+            }
+        }
     }
 
     private fun setButtonColor(color: Int?) {
@@ -195,27 +235,38 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     private fun setSolution(result: ResultType) {
         binding.apply {
-            solution.apply {
-                when (result) {
-                    GOOD -> {
-                        points += 2
-                        tvPoints.text = getString(R.string.solution_correct_answer)
-                        tvPoints.setTextColor(getColor(mContext, R.color.color_good))
-                    }
-                    ALMOST_GOOD -> {
-                        points += 1
-                        tvPoints.text = getString(R.string.solution_almost_good_answer)
-                        tvPoints.setTextColor(getColor(mContext, R.color.color_almost))
-                    }
-                    BAD -> {
-                        points -= 1
-                        tvPoints.text = getString(R.string.solution_bad_answer)
-                        tvPoints.setTextColor(getColor(mContext, R.color.color_bad))
-                    }
+            when (result) {
+                GOOD -> {
+                    points += 2
+                    tvPoints.text = getString(R.string.solution_correct_answer)
+                    tvPoints.setTextColor(getColor(mContext, R.color.color_good))
                 }
-                root.isVisible = true
-                animateProgress(solution.progressBarLeft, 100, 100)
-                animateProgress(solution.progressBarRight, 100, 100)
+                ALMOST_GOOD -> {
+                    points += 1
+                    tvPoints.text = getString(R.string.solution_almost_good_answer)
+                    tvPoints.setTextColor(getColor(mContext, R.color.color_almost))
+                }
+                BAD -> {
+                    points -= 1
+                    tvPoints.text = getString(R.string.solution_bad_answer)
+                    tvPoints.setTextColor(getColor(mContext, R.color.color_bad))
+                }
+            }
+
+            when (solutionType) {
+                AGES -> {
+                    llSolutions.isVisible = true
+                    animateProgress(solutionAge.progressBarLeft, 100, 100)
+                    animateProgress(solutionAge.progressBarRight, 100, 100)
+
+                }
+                DATES -> {
+                    llSolutions.isVisible = true
+                    animateProgress(solutionDate.progressBarLeft, 100, 100)
+                    animateProgress(solutionDate.progressBarRight, 100, 100)
+                }
+                /**if null*/
+                else -> {}
             }
             scoreBoard.tvPoints.text = points.toString()
             category?.let { viewModel.checkRecord(points.toString(), record.toString(), it.id) }
