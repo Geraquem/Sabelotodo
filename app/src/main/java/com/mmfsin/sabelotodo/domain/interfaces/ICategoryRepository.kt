@@ -4,6 +4,6 @@ import com.mmfsin.sabelotodo.domain.models.Category
 
 interface ICategoryRepository {
     fun getCategoriesFromRealm(): List<Category>
-    fun getCategoryFromRealm(id: String): Category?
-    suspend fun getCategoriesFromFirebase(): List<Category>
+    suspend fun getCategories(): List<Category>
+    fun getCategory(id: String): Category?
 }

@@ -4,10 +4,10 @@
     <string name="content_description">image</string>
 
     <!-- ADS -->
-<!--        <string name="banner">ca-app-pub-3940256099942544/6300978111</string>-->
-    <string name="banner">ca-app-pub-4515698012373396/2351444900</string>
-<!--        <string name="interstitial">ca-app-pub-3940256099942544/1033173712</string>-->
-    <string name="interstitial">ca-app-pub-4515698012373396/9980090620</string>
+    <string name="banner">ca-app-pub-3940256099942544/6300978111</string>
+    <!--    <string name="banner">ca-app-pub-4515698012373396/2351444900</string>-->
+    <string name="interstitial">ca-app-pub-3940256099942544/1033173712</string>
+    <!--    <string name="interstitial">ca-app-pub-4515698012373396/9980090620</string>-->
 
     <!-- ERROR -->
     <string name="error_title">Ha ocurrido un problema</string>
@@ -21,6 +21,7 @@
 
     <!-- EXIT -->
     <string name="exit_title">¿Seguro que quieres salir?</string>
+    <string name="exit_description">Perderás todos los puntos que hayas conseguido</string>
     <string name="exit_yes">SALIR</string>
     <string name="exit_no">QUEDARME</string>
 
@@ -31,6 +32,11 @@
     <string name="category_record">Máxima puntuación:</string>
     <string name="category_music">music</string>
     <string name="music_master_url">https://play.google.com/store/apps/details?id=com.mmfsin.musicmaster</string>
+
+    <!-- CATEGORY DIALOG-->
+    <string name="category_dialog_example">Algunos ejemplos</string>
+    <string name="category_dialog_start">Empezar</string>
+    <string name="category_dialog_download">Descargar</string>
 
     <!-- DASHBOARD -->
     <string name="dashboard_in_the">En el año</string>

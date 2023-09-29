@@ -1,0 +1,23 @@
+package com.mmfsin.sabelotodo.presentation.categories.dialogs.category
+
+import com.mmfsin.sabelotodo.base.BaseViewModel
+import com.mmfsin.sabelotodo.domain.usecases.GetCategoryByIdUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+@HiltViewModel
+class CategoryDialogViewModel @Inject constructor(
+    private val getCategoryByIdUseCase: GetCategoryByIdUseCase
+) : BaseViewModel<CategoryDialogEvent>() {
+
+    fun getCategory(id: String) {
+        executeUseCase(
+            { getCategoryByIdUseCase.execute(GetCategoryByIdUseCase.Params(id)) },
+            { result ->
+                _event.value = result?.let { CategoryDialogEvent.GetCategory(result) }
+                    ?: run { CategoryDialogEvent.SomethingWentWrong }
+            },
+            { _event.value = CategoryDialogEvent.SomethingWentWrong }
+        )
+    }
+}

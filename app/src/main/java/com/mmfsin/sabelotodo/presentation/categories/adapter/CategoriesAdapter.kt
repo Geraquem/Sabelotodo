@@ -25,14 +25,14 @@ class CategoriesAdapter(
             binding.apply {
                 tvTitle.text = category.title
                 Glide.with(context).load(category.image).into(image)
-                tvDescription.text = category.description
+                tvDescription.text = category.short_description
                 tvRecord.text = category.record.toString()
 
                 val startColor = category.colorStart
                 val endColor = category.colorEnd
                 val colors = intArrayOf(Color.parseColor(startColor), Color.parseColor(endColor))
                 val newGradient =
-                    GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, colors).apply {
+                    GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors).apply {
                         gradientType = GradientDrawable.LINEAR_GRADIENT
                         cornerRadius = 30f
                         setGradientCenter(0.5f, 0.5f)

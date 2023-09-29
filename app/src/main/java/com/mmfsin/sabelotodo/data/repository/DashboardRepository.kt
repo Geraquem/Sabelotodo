@@ -8,7 +8,7 @@ import com.mmfsin.sabelotodo.domain.interfaces.IDashboardRepository
 import com.mmfsin.sabelotodo.domain.interfaces.IRealmDatabase
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
-import com.mmfsin.sabelotodo.utils.QUESTIONS_REFERENCE
+import com.mmfsin.sabelotodo.utils.QUESTIONS
 import io.realm.kotlin.where
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -20,7 +20,7 @@ class DashboardRepository @Inject constructor(
     private val realmDatabase: IRealmDatabase
 ) : IDashboardRepository {
 
-    private val reference = Firebase.database.reference.child(QUESTIONS_REFERENCE)
+    private val reference = Firebase.database.reference.child(QUESTIONS)
 
     override suspend fun getDashboardData(categoryId: String): List<Data> {
         val latch = CountDownLatch(1)

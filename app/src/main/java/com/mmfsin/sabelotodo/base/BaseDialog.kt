@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.ViewGroup.LayoutParams
+import android.view.ViewGroup.LayoutParams.*
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewbinding.ViewBinding
@@ -39,12 +39,25 @@ abstract class BaseDialog<VB : ViewBinding> : DialogFragment() {
     fun centerViewDialog(dialog: Dialog) {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val width = resources.displayMetrics.widthPixels * 0.9
-        dialog.window?.setLayout(width.toInt(), LayoutParams.WRAP_CONTENT)
+        dialog.window?.setLayout(width.toInt(), WRAP_CONTENT)
+    }
+
+    fun centerCustomViewDialog(dialog: Dialog) {
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout(WRAP_CONTENT, WRAP_CONTENT)
     }
 
     fun bottomViewDialog(dialog: Dialog) {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window?.setLayout(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+        dialog.window?.setLayout(WRAP_CONTENT, WRAP_CONTENT)
+        dialog.window?.attributes?.gravity = Gravity.BOTTOM
+        dialog.window?.attributes?.windowAnimations = R.style.slide_up_down_dialog
+    }
+
+    fun bottomCustomViewDialog(dialog: Dialog, percent: Double) {
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val height = resources.displayMetrics.heightPixels * percent
+        dialog.window?.setLayout(MATCH_PARENT, height.toInt())
         dialog.window?.attributes?.gravity = Gravity.BOTTOM
         dialog.window?.attributes?.windowAnimations = R.style.slide_up_down_dialog
     }

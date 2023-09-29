@@ -1,4 +1,4 @@
-package com.mmfsin.sabelotodo.presentation.categories.dialog
+package com.mmfsin.sabelotodo.presentation.categories.dialogs
 
 import android.app.Dialog
 import android.os.CountDownTimer

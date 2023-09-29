@@ -8,8 +8,7 @@ import javax.inject.Inject
 class GetCategoryByIdUseCase @Inject constructor(private val repository: ICategoryRepository) :
     BaseUseCase<GetCategoryByIdUseCase.Params, Category?>() {
 
-    override suspend fun execute(params: Params): Category? =
-        repository.getCategoryFromRealm(params.id)
+    override suspend fun execute(params: Params): Category? = repository.getCategory(params.id)
 
     data class Params(val id: String)
 }

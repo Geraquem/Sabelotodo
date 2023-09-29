@@ -4,5 +4,6 @@ package com.mmfsin.sabelotodo.utils
 const val CATEGORY_ID = "id"
 
 //FIREBASE
-const val CATEGORY_REFERENCE = "categories"
-const val QUESTIONS_REFERENCE = "questions"
+const val VERSION = "version"
+const val CATEGORIES = "categories"
+const val QUESTIONS = "questions"

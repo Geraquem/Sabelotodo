@@ -12,7 +12,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.databinding.ActivityMainBinding
-import com.mmfsin.sabelotodo.presentation.categories.dialog.CuackDialog
+import com.mmfsin.sabelotodo.presentation.categories.dialogs.CuackDialog
 import com.mmfsin.sabelotodo.presentation.dashboard.dialog.ExitDialog
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private var mInterstitialAd: InterstitialAd? = null
 
+    var checkVersion = true
     var inDashboard = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
             ivBack.setOnClickListener {
                 inDashboard = false
-                onBackPressed()
+                onBack()
             }
         }
     }
@@ -108,9 +109,12 @@ class MainActivity : AppCompatActivity() {
         binding.adView.isVisible = visible
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        val dialog = ExitDialog() { super.onBackPressed() }
+        val dialog = ExitDialog() { onBack() }
         if (inDashboard) dialog.show(supportFragmentManager, "")
-        else super.onBackPressed()
+        else onBack()
     }
+
+    private fun onBack() = onBackPressedDispatcher.onBackPressed()
 }

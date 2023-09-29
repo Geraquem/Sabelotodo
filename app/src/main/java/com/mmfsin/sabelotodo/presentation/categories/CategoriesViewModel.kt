@@ -10,10 +10,13 @@ class CategoriesViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase
 ) : BaseViewModel<CategoriesEvent>() {
 
-    fun getCategories() {
+    fun getCategories(fromRealm: Boolean) {
         executeUseCase(
-            { getCategoriesUseCase.execute() },
-            { result -> _event.value = CategoriesEvent.Categories(result) },
+            { getCategoriesUseCase.execute(GetCategoriesUseCase.Params(fromRealm)) },
+            { result ->
+                _event.value = if (result.isNotEmpty()) CategoriesEvent.Categories(result)
+                else CategoriesEvent.SomethingWentWrong
+            },
             { _event.value = CategoriesEvent.SomethingWentWrong }
         )
     }

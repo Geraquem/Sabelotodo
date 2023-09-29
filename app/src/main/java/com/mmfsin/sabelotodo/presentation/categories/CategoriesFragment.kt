@@ -19,13 +19,16 @@ import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToDashboard
 import com.mmfsin.sabelotodo.presentation.categories.adapter.CategoriesAdapter
+import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.CategoryDialog
+import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.interfaces.ICategoryDialogListener
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
 import com.mmfsin.sabelotodo.utils.showErrorDialog
+import com.mmfsin.sabelotodo.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesViewModel>(),
-    ICategoryListener {
+    ICategoryListener, ICategoryDialogListener {
 
     override val viewModel: CategoriesViewModel by viewModels()
 
@@ -38,7 +41,10 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).inDashboard = false
-        viewModel.getCategories()
+
+        val checkVersion = (activity as MainActivity).checkVersion
+        viewModel.getCategories(checkVersion)
+        (activity as MainActivity).checkVersion = false
     }
 
     override fun setUI() {
@@ -77,9 +83,15 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
     }
 
     override fun onCategoryClick(id: String) {
-        if (id == getString(R.string.category_music)) {
-            startActivity(Intent(ACTION_VIEW, Uri.parse(getString(R.string.music_master_url))))
-        } else findNavController().navigate(actionCategoriesToDashboard(id))
+        activity?.showFragmentDialog(CategoryDialog.newInstance(id, this@CategoriesFragment))
+    }
+
+    override fun startGame(categoryId: String) {
+        findNavController().navigate(actionCategoriesToDashboard(categoryId))
+    }
+
+    override fun openMusicMaster() {
+        startActivity(Intent(ACTION_VIEW, Uri.parse(getString(R.string.music_master_url))))
     }
 
     override fun onAttach(context: Context) {

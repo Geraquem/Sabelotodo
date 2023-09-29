@@ -18,10 +18,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_marginEnd="8dp"
                 style="@style/MediumTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:text="@string/dashboard_actual_record"
                 android:textAllCaps="true" />
 
@@ -30,8 +30,8 @@
                 style="@style/MediumTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="19"
-                android:textAllCaps="true" />
+                android:textAllCaps="true"
+                tools:text="19" />
 
         </LinearLayout>
 
@@ -56,6 +56,7 @@
             android:layout_gravity="center"
             android:layout_marginEnd="8dp"
             android:text="@string/dashboard_points"
+            android:textAllCaps="true"
             android:textColor="@color/black" />
 
         <TextView
