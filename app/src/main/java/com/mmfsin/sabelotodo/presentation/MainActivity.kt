@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private var mInterstitialAd: InterstitialAd? = null
 
-    var checkVersion = true
+    var fromRealm = false
     var inDashboard = false
 
     override fun onCreate(savedInstanceState: Bundle?) {

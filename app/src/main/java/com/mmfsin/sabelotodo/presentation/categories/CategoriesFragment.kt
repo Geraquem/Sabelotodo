@@ -42,9 +42,9 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).inDashboard = false
 
-        val checkVersion = (activity as MainActivity).checkVersion
-        viewModel.getCategories(checkVersion)
-        (activity as MainActivity).checkVersion = false
+        val fromRealm = (activity as MainActivity).fromRealm
+        viewModel.getCategories(fromRealm)
+        (activity as MainActivity).fromRealm = true
     }
 
     override fun setUI() {

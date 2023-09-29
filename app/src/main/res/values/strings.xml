@@ -26,7 +26,7 @@
     <string name="exit_no">QUEDARME</string>
 
     <!-- LOADING -->
-    <string name="loading">Un momentito…</string>
+    <string name="loading">Un momentito</string>
 
     <!-- CATEGORY -->
     <string name="category_record">Máxima puntuación:</string>
