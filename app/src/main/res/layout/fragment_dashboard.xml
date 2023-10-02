@@ -9,16 +9,30 @@
     android:clipToPadding="false">
 
     <pl.droidsonroids.gif.GifImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:contentDescription="@string/content_description"
-        android:src="@drawable/giphy" />
+        android:src="@drawable/giphy"
+        app:layout_constraintBottom_toTopOf="@id/bg_bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/bg_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/content_description"
+        android:src="@drawable/giphy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <View
         android:layout_width="match_parent"
-        android:alpha="0.2"
-        android:background="@color/light_grey"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:alpha="0.25"
+        android:background="@color/light_grey" />
 
     <ScrollView
         android:id="@+id/scroll"
