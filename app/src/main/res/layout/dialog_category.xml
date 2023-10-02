@@ -61,28 +61,14 @@
                 android:textColor="@color/white"
                 tools:text="Adivina las edades de blablabla" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/duck_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/duck_image"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_marginEnd="4dp"
-                    android:contentDescription="@string/app_name"
-                    tools:src="@color/black" />
-
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:contentDescription="@string/app_name"
-                    tools:src="@color/black" />
-
-            </LinearLayout>
+                android:contentDescription="@string/app_name"
+                tools:src="@color/black" />
 
             <TextView
                 android:id="@+id/tv_title_examples"
