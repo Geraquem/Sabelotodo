@@ -78,6 +78,7 @@ class CategoryDialog(private val id: String, private val listener: ICategoryDial
                 llHighScore.visibility = View.GONE
                 btnText.text = getString(R.string.category_dialog_download)
                 btnImage.setImageResource(R.drawable.ic_download)
+                viewModel.checkIfAvailable()
             }
         }
     }
@@ -103,7 +104,21 @@ class CategoryDialog(private val id: String, private val listener: ICategoryDial
                     category = event.category
                     setUI()
                 }
+                is CategoryDialogEvent.AvailableMusicMaster -> availableMusicMaster(event.available)
                 is CategoryDialogEvent.SomethingWentWrong -> error()
+            }
+        }
+    }
+
+    private fun availableMusicMaster(available: Boolean) {
+        binding.apply {
+            btnStart.isEnabled = available
+            if (available) {
+                btnText.text = getString(R.string.category_dialog_download)
+                btnImage.setImageResource(R.drawable.ic_download)
+            } else {
+                btnText.text = getString(R.string.category_dialog_soon)
+                btnImage.visibility = View.GONE
             }
         }
     }

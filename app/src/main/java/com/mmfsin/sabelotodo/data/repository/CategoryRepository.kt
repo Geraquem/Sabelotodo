@@ -1,13 +1,14 @@
 package com.mmfsin.sabelotodo.data.repository
 
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.mmfsin.sabelotodo.data.models.VersionDTO
 import com.mmfsin.sabelotodo.domain.interfaces.ICategoryRepository
 import com.mmfsin.sabelotodo.domain.interfaces.IRealmDatabase
 import com.mmfsin.sabelotodo.domain.models.Category
-import com.mmfsin.sabelotodo.utils.CATEGORIES
-import com.mmfsin.sabelotodo.utils.VERSION
+import com.mmfsin.sabelotodo.utils.*
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.realm.kotlin.where
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -15,6 +16,7 @@ import java.util.concurrent.CountDownLatch
 import javax.inject.Inject
 
 class CategoryRepository @Inject constructor(
+    @ApplicationContext val context: Context,
     private val realmDatabase: IRealmDatabase
 ) : ICategoryRepository {
 
@@ -31,21 +33,22 @@ class CategoryRepository @Inject constructor(
     }
 
     override suspend fun getCategories(): List<Category> {
-        val savedVersion = realmDatabase.getObjectsFromRealm { where<VersionDTO>().findAll() }
-        val actualVersion = if (savedVersion.isEmpty()) -1 else savedVersion.first().version
-        getDataFromFirebase(actualVersion)
-
-        return realmDatabase.getObjectsFromRealm { where<Category>().findAll() }
+        getDataFromFirebase(getSavedVersion())
+        return getCategoriesFromRealm()
     }
 
     private suspend fun getDataFromFirebase(savedVersion: Long) {
         val latch = CountDownLatch(1)
         reference.get().addOnSuccessListener {
             val version = it.child(VERSION).value as Long
-            realmDatabase.addObject { VersionDTO(VERSION, version) }
             if (version == savedVersion) {
                 latch.countDown()
             } else {
+                saveVersion(newVersion = version)
+
+                val availableMM = it.child(MUSIC_MASTER).value as Boolean
+                updateAvailableMM(availableMM)
+
                 val fbCategories = it.child(CATEGORIES)
                 for (child in fbCategories.children) {
                     child.getValue(Category::class.java)?.let { deck ->
@@ -63,6 +66,31 @@ class CategoryRepository @Inject constructor(
             latch.await()
         }
     }
+
+
+    private fun saveVersion(newVersion: Long) {
+        val editor = getSharedPreferences().edit()
+        editor.putLong(SAVED_VERSION, newVersion)
+        editor.apply()
+    }
+
+    private fun getSavedVersion(): Long {
+        val sharedPreferences = context.getSharedPreferences(MY_SHARED_PREFS, MODE_PRIVATE)
+        return sharedPreferences.getLong(SAVED_VERSION, -1)
+    }
+
+    private fun updateAvailableMM(available: Boolean) {
+        val editor = getSharedPreferences().edit()
+        editor.putBoolean(AVAILABLE_MUSICMASTER, available)
+        editor.apply()
+    }
+
+    override fun getAvailableMusicMaster(): Boolean {
+        val sharedPreferences = context.getSharedPreferences(MY_SHARED_PREFS, MODE_PRIVATE)
+        return sharedPreferences.getBoolean(AVAILABLE_MUSICMASTER, false)
+    }
+
+    private fun getSharedPreferences() = context.getSharedPreferences(MY_SHARED_PREFS, MODE_PRIVATE)
 
     private fun saveCategory(category: Category) = realmDatabase.addObject { category }
 }

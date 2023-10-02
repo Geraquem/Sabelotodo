@@ -6,4 +6,6 @@ interface ICategoryRepository {
     fun getCategoriesFromRealm(): List<Category>
     suspend fun getCategories(): List<Category>
     fun getCategory(id: String): Category?
+
+    fun getAvailableMusicMaster(): Boolean
 }
