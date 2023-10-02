@@ -8,6 +8,18 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/content_description"
+        android:src="@drawable/giphy" />
+
+    <View
+        android:layout_width="match_parent"
+        android:alpha="0.2"
+        android:background="@color/light_grey"
+        android:layout_height="match_parent"/>
+
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
@@ -137,9 +149,9 @@
                         android:cursorVisible="false"
                         android:fontFamily="sans-serif-condensed-medium"
                         android:inputType="number"
+                        android:itemBackground="@color/light_white"
                         android:textColor="@color/black"
                         android:textSize="20sp"
-                        android:itemBackground="@color/light_white"
                         android:textStyle="bold"
                         app:cursorWidth="0dp"
                         app:hideLineWhenFilled="true"

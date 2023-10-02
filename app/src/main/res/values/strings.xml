@@ -37,6 +37,7 @@
     <string name="category_dialog_example">Algunos ejemplos</string>
     <string name="category_dialog_start">Empezar</string>
     <string name="category_dialog_download">Descargar</string>
+    <string name="category_dialog_soon">¡Proximamente!</string>
 
     <!-- DASHBOARD -->
     <string name="dashboard_in_the">En el año</string>
