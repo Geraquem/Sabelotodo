@@ -72,6 +72,7 @@ class CategoryDialog(private val id: String, private val listener: ICategoryDial
     private fun checkIfMusic(id: String) {
         if (id == getString(R.string.category_music)) {
             binding.apply {
+                duckImage.visibility = View.VISIBLE
                 tvTitleExamples.visibility = View.GONE
                 llHighScore.visibility = View.GONE
                 btnText.text = getString(R.string.category_dialog_download)

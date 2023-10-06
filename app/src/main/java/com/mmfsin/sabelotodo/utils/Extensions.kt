@@ -3,6 +3,7 @@ package com.mmfsin.sabelotodo.utils
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Dialog
+import android.os.CountDownTimer
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.DialogFragment
@@ -28,4 +29,13 @@ fun Dialog.animateDialog() {
             start()
         }
     }
+}
+
+fun countDown(action: () -> Unit) {
+    object : CountDownTimer(4000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {}
+        override fun onFinish() {
+            action()
+        }
+    }.start()
 }

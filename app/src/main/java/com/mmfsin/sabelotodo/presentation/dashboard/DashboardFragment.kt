@@ -28,6 +28,7 @@ import com.mmfsin.sabelotodo.presentation.models.SolutionType
 import com.mmfsin.sabelotodo.presentation.models.SolutionType.AGES
 import com.mmfsin.sabelotodo.presentation.models.SolutionType.DATES
 import com.mmfsin.sabelotodo.utils.CATEGORY_ID
+import com.mmfsin.sabelotodo.utils.countDown
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,6 +41,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     private var id: String? = null
     private var category: Category? = null
     private var dataList: List<Data> = emptyList()
+
+    private var firstAccess = true
 
     private var currentSolution: String = ""
     private var pinViewLength: Int = 0
@@ -130,6 +133,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     private fun setCategoryData() {
         binding.apply {
             category?.let {
+                Glide.with(requireContext()).load(it.duckImage).into(loading.image)
                 (activity as MainActivity).toolbarText(it.toolbarText)
                 setPinView(it.longitudePV)
                 btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
@@ -184,7 +188,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
                     tvSecondText.text = data.secondText
                     category?.let { setButtonColor(Color.parseColor(it.colorDashboard)) }
                     resetSolution()
-                    loading.root.isVisible = false
+                    if (firstAccess) {
+                        firstAccess = false
+                        countDown { loading.root.isVisible = false }
+                    } else loading.root.isVisible = false
                 } catch (e: java.lang.Exception) {
                     error()
                 }
