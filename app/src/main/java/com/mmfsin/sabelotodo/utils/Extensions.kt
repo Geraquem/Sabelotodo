@@ -32,7 +32,7 @@ fun Dialog.animateDialog() {
 }
 
 fun countDown(action: () -> Unit) {
-    object : CountDownTimer(4000, 1000) {
+    object : CountDownTimer(2800, 1000) {
         override fun onTick(millisUntilFinished: Long) {}
         override fun onFinish() {
             action()
