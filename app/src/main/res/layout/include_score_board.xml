@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="@string/dashboard_actual_record"
+                android:text="@string/guesser_actual_record"
                 android:textAllCaps="true" />
 
             <TextView
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="8dp"
-            android:text="@string/dashboard_points"
+            android:text="@string/guesser_points"
             android:textAllCaps="true"
             android:textColor="@color/black" />
 

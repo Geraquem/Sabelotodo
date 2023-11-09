@@ -1,4 +1,4 @@
-package com.mmfsin.sabelotodo.presentation.dashboard
+package com.mmfsin.sabelotodo.presentation.dashboard.guesser
 
 import android.animation.ObjectAnimator
 import android.content.Context
@@ -17,11 +17,13 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.base.BaseFragment
-import com.mmfsin.sabelotodo.databinding.FragmentDashboardBinding
+import com.mmfsin.sabelotodo.databinding.FragmentDashboardGuesserBinding
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
 import com.mmfsin.sabelotodo.domain.models.ResultType
-import com.mmfsin.sabelotodo.domain.models.ResultType.*
+import com.mmfsin.sabelotodo.domain.models.ResultType.ALMOST_GOOD
+import com.mmfsin.sabelotodo.domain.models.ResultType.BAD
+import com.mmfsin.sabelotodo.domain.models.ResultType.GOOD
 import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.dashboard.dialog.NoMoreQuestionsDialog
 import com.mmfsin.sabelotodo.presentation.models.SolutionType
@@ -33,9 +35,9 @@ import com.mmfsin.sabelotodo.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewModel>() {
+class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserViewModel>() {
 
-    override val viewModel: DashboardViewModel by viewModels()
+    override val viewModel: GuesserViewModel by viewModels()
     private lateinit var mContext: Context
 
     private var id: String? = null
@@ -54,7 +56,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
 
     override fun inflateView(
         inflater: LayoutInflater, container: ViewGroup?
-    ) = FragmentDashboardBinding.inflate(inflater, container, false)
+    ) = FragmentDashboardGuesserBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -108,24 +110,24 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, DashboardViewMo
     override fun observe() {
         viewModel.event.observe(this) { event ->
             when (event) {
-                is DashboardEvent.GetCategory -> {
+                is GuesserEvent.GetCategory -> {
                     category = event.result
                     record = event.result.record ?: 0
                     setCategoryData()
                     viewModel.getDashboardData(event.result.id)
                 }
-                is DashboardEvent.DashboardData -> {
+                is GuesserEvent.GuesserData -> {
                     dataList = event.data
                     setData()
                 }
-                is DashboardEvent.Solution -> setSolution(event.solution)
-                is DashboardEvent.IsRecord -> {
+                is GuesserEvent.Solution -> setSolution(event.solution)
+                is GuesserEvent.IsRecord -> {
                     if (event.result.isRecord) {
                         record = event.result.newRecord
                         binding.scoreBoard.tvRecord.text = record.toString()
                     }
                 }
-                is DashboardEvent.SomethingWentWrong -> error()
+                is GuesserEvent.SomethingWentWrong -> error()
             }
         }
     }

@@ -11,8 +11,8 @@
         android:label="CategoriesFragment"
         tools:layout="@layout/fragment_categories">
         <action
-            android:id="@+id/action_categories_to_dashboard"
-            app:destination="@id/dashboardFragment">
+            android:id="@+id/action_categories_to_guesser"
+            app:destination="@id/guesserFragment">
             <argument
                 android:name="id"
                 app:argType="string" />
@@ -20,8 +20,8 @@
     </fragment>
 
     <fragment
-        android:id="@+id/dashboardFragment"
-        android:name="com.mmfsin.sabelotodo.presentation.dashboard.DashboardFragment"
-        android:label="DashboardFragment"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/guesserFragment"
+        android:name="com.mmfsin.sabelotodo.presentation.dashboard.guesser.GuesserFragment"
+        android:label="guesserFragment"
+        tools:layout="@layout/fragment_dashboard_guesser" />
 </navigation>

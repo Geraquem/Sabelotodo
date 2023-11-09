@@ -39,13 +39,13 @@
     <string name="category_dialog_download">Descargar</string>
     <string name="category_dialog_soon">¡Proximamente!</string>
 
-    <!-- DASHBOARD -->
-    <string name="dashboard_in_the">En el año</string>
-    <string name="dashboard_years">Años</string>
-    <string name="dashboard_check">Comprobar</string>
-    <string name="dashboard_actual_record">record actual</string>
-    <string name="dashboard_points">Puntos</string>
-    <string name="dashboard_no_more_questions">De momento no hay más preguntas</string>
+    <!-- GUESSER -->
+    <string name="guesser_in_the">En el año</string>
+    <string name="guesser_years">Años</string>
+    <string name="guesser_check">Comprobar</string>
+    <string name="guesser_actual_record">record actual</string>
+    <string name="guesser_points">Puntos</string>
+    <string name="guesser_no_more_questions">De momento no hay más preguntas</string>
 
     <!-- SOLUTION AGE -->
     <string name="solution_age_was_born">Nació el</string>

@@ -17,7 +17,7 @@ import com.mmfsin.sabelotodo.base.BaseFragment
 import com.mmfsin.sabelotodo.databinding.FragmentCategoriesBinding
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.presentation.MainActivity
-import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToDashboard
+import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToGuesser
 import com.mmfsin.sabelotodo.presentation.categories.adapter.CategoriesAdapter
 import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.CategoryDialog
 import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.interfaces.ICategoryDialogListener
@@ -86,13 +86,11 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
         activity?.showFragmentDialog(CategoryDialog.newInstance(id, this@CategoriesFragment))
     }
 
-    override fun startGame(categoryId: String) {
-        findNavController().navigate(actionCategoriesToDashboard(categoryId))
-    }
+    override fun startGame(categoryId: String) =
+        findNavController().navigate(actionCategoriesToGuesser(categoryId))
 
-    override fun openMusicMaster() {
+    override fun openMusicMaster() =
         startActivity(Intent(ACTION_VIEW, Uri.parse(getString(R.string.music_master_url))))
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

@@ -142,7 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/dashboard_in_the"
+                    android:text="@string/guesser_in_the"
                     android:textAllCaps="true"
                     android:visibility="visible" />
 
@@ -184,7 +184,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="12dp"
-                        android:text="@string/dashboard_years"
+                        android:text="@string/guesser_years"
                         android:textAllCaps="true"
                         tools:visibility="visible" />
 
@@ -202,7 +202,7 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
                     android:paddingVertical="16dp"
-                    android:text="@string/dashboard_check"
+                    android:text="@string/guesser_check"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
