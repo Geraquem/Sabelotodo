@@ -1,7 +1,7 @@
 package com.mmfsin.sabelotodo.utils
 
 //NAVIGATION
-const val CATEGORY_ID = "id"
+const val CATEGORY_ID = "category_id"
 
 //FIREBASE
 const val VERSION = "version"

@@ -14,7 +14,15 @@
             android:id="@+id/action_categories_to_guesser"
             app:destination="@id/guesserFragment">
             <argument
-                android:name="id"
+                android:name="category_id"
+                app:argType="string" />
+
+        </action>
+        <action
+            android:id="@+id/action_categories_to_temporary"
+            app:destination="@id/temporaryFragment">
+            <argument
+                android:name="category_id"
                 app:argType="string" />
         </action>
     </fragment>
@@ -24,4 +32,11 @@
         android:name="com.mmfsin.sabelotodo.presentation.dashboard.guesser.GuesserFragment"
         android:label="guesserFragment"
         tools:layout="@layout/fragment_dashboard_guesser" />
+
+    <fragment
+        android:id="@+id/temporaryFragment"
+        android:name="com.mmfsin.sabelotodo.presentation.dashboard.temporary.TemporaryFragment"
+        android:label="temporaryFragment"
+        tools:layout="@layout/fragment_dashboard_temporary" />
+
 </navigation>
