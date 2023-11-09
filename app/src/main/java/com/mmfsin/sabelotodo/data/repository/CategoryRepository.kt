@@ -67,17 +67,13 @@ class CategoryRepository @Inject constructor(
         }
     }
 
-
     private fun saveVersion(newVersion: Long) {
         val editor = getSharedPreferences().edit()
         editor.putLong(SAVED_VERSION, newVersion)
         editor.apply()
     }
 
-    private fun getSavedVersion(): Long {
-        val sharedPreferences = context.getSharedPreferences(MY_SHARED_PREFS, MODE_PRIVATE)
-        return sharedPreferences.getLong(SAVED_VERSION, -1)
-    }
+    private fun getSavedVersion(): Long = getSharedPreferences().getLong(SAVED_VERSION, -1)
 
     private fun updateAvailableMM(available: Boolean) {
         val editor = getSharedPreferences().edit()
