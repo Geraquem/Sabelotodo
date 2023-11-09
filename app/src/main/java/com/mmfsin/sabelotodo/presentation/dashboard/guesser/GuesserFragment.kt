@@ -73,7 +73,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
             setUpToolbar()
             loading.root.isVisible
             llSolutions.isVisible = false
-            scoreBoard.tvPoints.text = points.toString()
+            scoreLayout.scoreBoard.tvPoints.text = points.toString()
         }
     }
 
@@ -88,7 +88,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     viewModel.checkSolution(answer, currentSolution)
                 }
             }
-            btnNext.setOnClickListener {
+            scoreLayout.btnNext.setOnClickListener {
                 position++
                 if (position < dataList.size) setData()
                 else {
@@ -116,17 +116,20 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     setCategoryData()
                     viewModel.getDashboardData(event.result.id)
                 }
+
                 is GuesserEvent.GuesserData -> {
                     dataList = event.data
                     setData()
                 }
+
                 is GuesserEvent.Solution -> setSolution(event.solution)
                 is GuesserEvent.IsRecord -> {
                     if (event.result.isRecord) {
                         record = event.result.newRecord
-                        binding.scoreBoard.tvRecord.text = record.toString()
+                        binding.scoreLayout.scoreBoard.tvRecord.text = record.toString()
                     }
                 }
+
                 is GuesserEvent.SomethingWentWrong -> error()
             }
         }
@@ -138,8 +141,8 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                 Glide.with(requireContext()).load(it.duckImage).into(loading.image)
                 (activity as MainActivity).toolbarText(it.toolbarText)
                 setPinView(it.longitudePV)
-                btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
-                scoreBoard.tvRecord.text = it.record.toString()
+                scoreLayout.btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
+                scoreLayout.scoreBoard.tvRecord.text = it.record.toString()
             }
         }
     }
@@ -217,6 +220,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     animateProgress(solutionAge.progressBarLeft, 0, 0)
                     animateProgress(solutionAge.progressBarRight, 0, 0)
                 }
+
                 DATES -> {
                     solutionDate.tvCorrectAnswer.text = currentSolution
                     animateProgress(solutionDate.progressBarLeft, 0, 0)
@@ -250,11 +254,13 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     tvPoints.text = getString(R.string.solution_correct_answer)
                     tvPoints.setTextColor(getColor(mContext, R.color.color_good))
                 }
+
                 ALMOST_GOOD -> {
                     points += 1
                     tvPoints.text = getString(R.string.solution_almost_good_answer)
                     tvPoints.setTextColor(getColor(mContext, R.color.color_almost))
                 }
+
                 BAD -> {
                     points -= 1
                     tvPoints.text = getString(R.string.solution_bad_answer)
@@ -269,6 +275,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     animateProgress(solutionAge.progressBarRight, 100, 100)
 
                 }
+
                 DATES -> {
                     llSolutions.isVisible = true
                     animateProgress(solutionDate.progressBarLeft, 100, 100)
@@ -277,7 +284,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                 /**if null*/
                 else -> {}
             }
-            scoreBoard.tvPoints.text = points.toString()
+            scoreLayout.scoreBoard.tvPoints.text = points.toString()
             category?.let { viewModel.checkRecord(points.toString(), record.toString(), it.id) }
         }
     }

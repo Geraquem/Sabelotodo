@@ -8,55 +8,14 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rl_bottom"
-        android:layout_width="0dp"
+    <include
+        android:id="@+id/score_layout"
+        layout="@layout/include_bottom_dashboard"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_view_score"
-        android:paddingVertical="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl2_left"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl2_right"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.95" />
-
-        <include
-            android:id="@+id/score_board"
-            layout="@layout/include_score_board"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/gl2_left"
-            app:layout_constraintRight_toLeftOf="@id/btn_next"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/btn_next"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:contentDescription="@string/content_description"
-            android:elevation="5dp"
-            android:src="@drawable/ic_next"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="@id/gl2_right"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <include
         android:id="@+id/loading"

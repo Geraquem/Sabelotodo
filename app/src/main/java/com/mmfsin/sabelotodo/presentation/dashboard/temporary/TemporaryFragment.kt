@@ -57,7 +57,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         binding.apply {
             setUpToolbar()
             loading.root.isVisible
-            scoreBoard.tvPoints.text = points.toString()
+            scoreLayout.scoreBoard.tvPoints.text = points.toString()
         }
     }
 
@@ -65,7 +65,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         binding.apply {
 
 
-            btnNext.setOnClickListener {
+            scoreLayout.btnNext.setOnClickListener {
                 position++
                 if (position < dataList.size) setData()
                 else {
@@ -117,10 +117,15 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             category?.let {
                 Glide.with(requireContext()).load(it.duckImage).into(loading.image)
                 (activity as MainActivity).toolbarText(it.toolbarText)
-                btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
-                scoreBoard.tvRecord.text = it.record.toString()
+                setSolutionType(it.longitudePV)
+                scoreLayout.btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
+                scoreLayout.scoreBoard.tvRecord.text = it.record.toString()
             }
         }
+    }
+
+    private fun setSolutionType(length: Int) {
+        solutionType = if (length < 4) SolutionType.AGES else SolutionType.DATES
     }
 
     private fun setData() {
