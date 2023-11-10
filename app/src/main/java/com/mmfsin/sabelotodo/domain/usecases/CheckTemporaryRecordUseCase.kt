@@ -5,15 +5,15 @@ import com.mmfsin.sabelotodo.domain.interfaces.IDashboardRepository
 import com.mmfsin.sabelotodo.domain.models.Record
 import javax.inject.Inject
 
-class CheckRecordUseCase @Inject constructor(private val repository: IDashboardRepository) :
-    BaseUseCase<CheckRecordUseCase.Params, Record?>() {
+class CheckTemporaryRecordUseCase @Inject constructor(private val repository: IDashboardRepository) :
+    BaseUseCase<CheckTemporaryRecordUseCase.Params, Record?>() {
 
     override suspend fun execute(params: Params): Record? {
         return try {
             val points = params.points.toInt()
             val record = params.record.toInt()
             val isRecord = if (points > 0 && points > record) {
-                repository.updateRecord(params.categoryId, points)
+                repository.updateTemporaryRecord(params.categoryId, points)
                 true
             } else false
             Record(isRecord, points)

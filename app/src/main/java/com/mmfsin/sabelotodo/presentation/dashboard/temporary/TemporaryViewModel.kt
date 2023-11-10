@@ -1,7 +1,8 @@
 package com.mmfsin.sabelotodo.presentation.dashboard.temporary
 
 import com.mmfsin.sabelotodo.base.BaseViewModel
-import com.mmfsin.sabelotodo.domain.usecases.CheckRecordUseCase
+import com.mmfsin.sabelotodo.domain.usecases.CheckGuesserRecordUseCase
+import com.mmfsin.sabelotodo.domain.usecases.CheckTemporaryRecordUseCase
 import com.mmfsin.sabelotodo.domain.usecases.CheckTemporarySolutionUseCase
 import com.mmfsin.sabelotodo.domain.usecases.GetCategoryByIdUseCase
 import com.mmfsin.sabelotodo.domain.usecases.GetDashboardDataUseCase
@@ -14,7 +15,7 @@ class TemporaryViewModel @Inject constructor(
     private val getCategoryByIdUseCase: GetCategoryByIdUseCase,
     private val getDashboardDataUseCase: GetDashboardDataUseCase,
     private val checkTemporarySolutionUseCase: CheckTemporarySolutionUseCase,
-    private val checkRecordUseCase: CheckRecordUseCase
+    private val checkTemporaryRecordUseCase: CheckTemporaryRecordUseCase
 ) : BaseViewModel<TemporaryEvent>() {
 
     fun getCategory(id: String) {
@@ -48,13 +49,13 @@ class TemporaryViewModel @Inject constructor(
     }
 
     fun checkRecord(points: String, record: String, categoryId: String) {
-//        executeUseCase(
-//            { checkRecordUseCase.execute(CheckRecordUseCase.Params(points, record, categoryId)) },
-//            { result ->
-//                _event.value = result?.let { GuesserEvent.IsRecord(it) }
-//                    ?: run { GuesserEvent.SomethingWentWrong }
-//            },
-//            { _event.value = GuesserEvent.SomethingWentWrong }
-//        )
+        executeUseCase(
+            { checkTemporaryRecordUseCase.execute(CheckTemporaryRecordUseCase.Params(points, record, categoryId)) },
+            { result ->
+                _event.value = result?.let { TemporaryEvent.IsRecord(it) }
+                    ?: run { TemporaryEvent.SomethingWentWrong }
+            },
+            { _event.value = TemporaryEvent.SomethingWentWrong }
+        )
     }
 }

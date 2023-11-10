@@ -3,10 +3,10 @@ package com.mmfsin.sabelotodo.data.repository
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.mmfsin.sabelotodo.data.mappers.toDataList
+import com.mmfsin.sabelotodo.data.models.CategoryDTO
 import com.mmfsin.sabelotodo.data.models.DataDTO
 import com.mmfsin.sabelotodo.domain.interfaces.IDashboardRepository
 import com.mmfsin.sabelotodo.domain.interfaces.IRealmDatabase
-import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
 import com.mmfsin.sabelotodo.utils.QUESTIONS
 import io.realm.kotlin.where
@@ -39,13 +39,24 @@ class DashboardRepository @Inject constructor(
         return dataList.toDataList()
     }
 
-    override fun updateRecord(categoryId: String, record: Int) {
+    override fun updateGuesserRecord(categoryId: String, record: Int) {
         val categories = realmDatabase.getObjectsFromRealm {
-            where<Category>().equalTo("id", categoryId).findAll()
+            where<CategoryDTO>().equalTo("id", categoryId).findAll()
         }
         val category = if (categories.isEmpty()) null else categories.first()
         category?.let {
             it.guesserRecord = record
+            realmDatabase.addObject { category }
+        }
+    }
+
+    override fun updateTemporaryRecord(categoryId: String, record: Int) {
+        val categories = realmDatabase.getObjectsFromRealm {
+            where<CategoryDTO>().equalTo("id", categoryId).findAll()
+        }
+        val category = if (categories.isEmpty()) null else categories.first()
+        category?.let {
+            it.temporaryRecord = record
             realmDatabase.addObject { category }
         }
     }

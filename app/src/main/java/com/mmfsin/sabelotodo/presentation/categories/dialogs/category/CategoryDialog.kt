@@ -3,22 +3,24 @@ package com.mmfsin.sabelotodo.presentation.categories.dialogs.category
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.GradientDrawable.Orientation.BOTTOM_TOP
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.base.BaseDialog
 import com.mmfsin.sabelotodo.databinding.DialogCategoryBinding
 import com.mmfsin.sabelotodo.domain.models.Category
-import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.interfaces.ICategoryDialogListener
+import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
 import com.mmfsin.sabelotodo.utils.animateDialog
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CategoryDialog(private val id: String, private val listener: ICategoryDialogListener) :
+class CategoryDialog(private val id: String, private val listener: ICategoryListener) :
     BaseDialog<DialogCategoryBinding>() {
 
     private val viewModel: CategoryDialogViewModel by viewModels()
@@ -50,7 +52,8 @@ class CategoryDialog(private val id: String, private val listener: ICategoryDial
                 tvTitle.text = it.title
                 tvDescription.text = it.description
                 tvExamples.text = it.examples
-                tvRecord.text = it.guesserRecord.toString()
+                tvGuesserRecord.text = it.guesserRecord.toString()
+                tvTemporaryRecord.text = it.temporaryRecord.toString()
             }
         }
     }
@@ -59,13 +62,14 @@ class CategoryDialog(private val id: String, private val listener: ICategoryDial
         binding.apply {
             val colors = intArrayOf(Color.parseColor(colorStart), Color.parseColor(colorEnd))
             val newGradient =
-                GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors).apply {
+                GradientDrawable(BOTTOM_TOP, colors).apply {
                     gradientType = GradientDrawable.LINEAR_GRADIENT
                     cornerRadius = 30f
                     setGradientCenter(0.5f, 0.5f)
                 }
             vBg.background = newGradient
-            btnStart.background = newGradient
+            btnGuesser.background = newGradient
+            btnTemporary.background = newGradient
         }
     }
 
@@ -75,8 +79,8 @@ class CategoryDialog(private val id: String, private val listener: ICategoryDial
                 duckImage.visibility = View.VISIBLE
                 tvTitleExamples.visibility = View.GONE
                 llHighScore.visibility = View.GONE
-                btnText.text = getString(R.string.category_dialog_download)
-                btnImage.setImageResource(R.drawable.ic_download)
+                btnGuesserText.text = getString(R.string.category_dialog_download)
+                btnGuesserImage.setImageResource(R.drawable.ic_download)
                 viewModel.checkIfAvailable()
             }
         }
@@ -84,11 +88,21 @@ class CategoryDialog(private val id: String, private val listener: ICategoryDial
 
     override fun setListeners() {
         binding.apply {
-            btnStart.setOnClickListener {
+            btnGuesser.setOnClickListener {
                 category?.let {
                     if (id == getString(R.string.category_music)) listener.openMusicMaster()
                     else {
-                        listener.startGame(it.id)
+                        listener.startGuesserGame(it.id)
+                        dismiss()
+                    }
+                }
+            }
+
+            btnTemporary.setOnClickListener {
+                category?.let {
+                    if (id == getString(R.string.category_music)) listener.openMusicMaster()
+                    else {
+                        listener.startCTemporaryGame(it.id)
                         dismiss()
                     }
                 }
@@ -103,6 +117,7 @@ class CategoryDialog(private val id: String, private val listener: ICategoryDial
                     category = event.category
                     setUI()
                 }
+
                 is CategoryDialogEvent.AvailableMusicMaster -> availableMusicMaster(event.available)
                 is CategoryDialogEvent.SomethingWentWrong -> error()
             }
@@ -111,13 +126,14 @@ class CategoryDialog(private val id: String, private val listener: ICategoryDial
 
     private fun availableMusicMaster(available: Boolean) {
         binding.apply {
-            btnStart.isEnabled = available
+            btnTemporary.isVisible = false
+            btnGuesser.isEnabled = available
             if (available) {
-                btnText.text = getString(R.string.category_dialog_download)
-                btnImage.setImageResource(R.drawable.ic_download)
+                btnGuesserText.text = getString(R.string.category_dialog_download)
+                btnGuesserImage.setImageResource(R.drawable.ic_download)
             } else {
-                btnText.text = getString(R.string.category_dialog_soon)
-                btnImage.visibility = View.GONE
+                btnGuesserText.text = getString(R.string.category_dialog_soon)
+                btnGuesserImage.visibility = View.GONE
             }
         }
     }
@@ -125,7 +141,7 @@ class CategoryDialog(private val id: String, private val listener: ICategoryDial
     private fun error() = activity?.showErrorDialog()
 
     companion object {
-        fun newInstance(id: String, listener: ICategoryDialogListener): CategoryDialog {
+        fun newInstance(id: String, listener: ICategoryListener): CategoryDialog {
             return CategoryDialog(id, listener)
         }
     }

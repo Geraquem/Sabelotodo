@@ -55,8 +55,8 @@
                 android:id="@+id/tv_description"
                 style="@style/MediumTextView"
                 android:layout_width="wrap_content"
-                android:layout_gravity="start"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:layout_marginBottom="12dp"
                 android:fontFamily="@font/roboto_regular"
                 android:textColor="@color/white"
@@ -67,9 +67,9 @@
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:layout_marginEnd="4dp"
-                android:visibility="gone"
                 android:layout_marginBottom="16dp"
                 android:contentDescription="@string/app_name"
+                android:visibility="gone"
                 tools:src="@color/black" />
 
             <TextView
@@ -93,79 +93,145 @@
                 android:layout_gravity="start"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="start"
-                android:textStyle="italic"
                 android:textColor="@color/white"
+                android:textStyle="italic"
                 tools:text="Los simpsons, los picapiedra blablabla" />
-
-            <LinearLayout
-                android:id="@+id/ll_high_score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:background="@drawable/bg_record"
-                android:elevation="6dp"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="4dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="@string/category_record"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tv_record"
-                    style="@style/TextAppearance.Material3.BodyLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_regular"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="10" />
-
-            </LinearLayout>
 
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:id="@+id/btn_start"
+        android:id="@+id/btn_guesser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@drawable/bg_category_dialog"
         android:gravity="center"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingVertical="12dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl_main">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:id="@+id/btn_guesser_text"
+                style="@style/BigTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/crazy_regular"
+                android:gravity="center"
+                android:text="@string/category_dialog_guesser_start"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:id="@+id/btn_guesser_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/ic_play" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_high_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_record"
+            android:elevation="6dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/category_record"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_guesser_record"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="10" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btn_temporary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_category_dialog"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_guesser">
+
         <TextView
-            android:id="@+id/btn_text"
             style="@style/BigTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:fontFamily="@font/crazy_regular"
             android:gravity="center"
-            android:text="@string/category_dialog_start"
+            android:text="@string/category_dialog_temporary_start"
             android:textAllCaps="true"
             android:textColor="@color/white" />
 
-        <ImageView
-            android:id="@+id/btn_image"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="@string/content_description"
-            android:src="@drawable/ic_play" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_record"
+            android:elevation="6dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/category_record"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_temporary_record"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="10" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

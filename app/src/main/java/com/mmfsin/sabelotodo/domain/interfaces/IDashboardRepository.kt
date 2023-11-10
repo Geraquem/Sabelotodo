@@ -4,5 +4,6 @@ import com.mmfsin.sabelotodo.domain.models.Data
 
 interface IDashboardRepository {
     suspend fun getDashboardData(categoryId: String): List<Data>
-    fun updateRecord(categoryId: String, record: Int)
+    fun updateGuesserRecord(categoryId: String, record: Int)
+    fun updateTemporaryRecord(categoryId: String, record: Int)
 }

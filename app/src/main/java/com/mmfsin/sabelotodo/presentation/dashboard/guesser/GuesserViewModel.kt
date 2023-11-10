@@ -1,7 +1,7 @@
 package com.mmfsin.sabelotodo.presentation.dashboard.guesser
 
 import com.mmfsin.sabelotodo.base.BaseViewModel
-import com.mmfsin.sabelotodo.domain.usecases.CheckRecordUseCase
+import com.mmfsin.sabelotodo.domain.usecases.CheckGuesserRecordUseCase
 import com.mmfsin.sabelotodo.domain.usecases.CheckGuesserSolutionUseCase
 import com.mmfsin.sabelotodo.domain.usecases.GetCategoryByIdUseCase
 import com.mmfsin.sabelotodo.domain.usecases.GetDashboardDataUseCase
@@ -13,7 +13,7 @@ class GuesserViewModel @Inject constructor(
     private val getCategoryByIdUseCase: GetCategoryByIdUseCase,
     private val getDashboardDataUseCase: GetDashboardDataUseCase,
     private val checkGuesserSolutionUseCase: CheckGuesserSolutionUseCase,
-    private val checkRecordUseCase: CheckRecordUseCase
+    private val checkGuesserRecordUseCase: CheckGuesserRecordUseCase
 ) : BaseViewModel<GuesserEvent>() {
 
     fun getCategory(id: String) {
@@ -48,7 +48,7 @@ class GuesserViewModel @Inject constructor(
 
     fun checkRecord(points: String, record: String, categoryId: String) {
         executeUseCase(
-            { checkRecordUseCase.execute(CheckRecordUseCase.Params(points, record, categoryId)) },
+            { checkGuesserRecordUseCase.execute(CheckGuesserRecordUseCase.Params(points, record, categoryId)) },
             { result ->
                 _event.value = result?.let { GuesserEvent.IsRecord(it) }
                     ?: run { GuesserEvent.SomethingWentWrong }

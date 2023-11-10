@@ -35,7 +35,8 @@
 
     <!-- CATEGORY DIALOG-->
     <string name="category_dialog_example">Algunos ejemplos:</string>
-    <string name="category_dialog_start">Empezar</string>
+    <string name="category_dialog_guesser_start">Empezar</string>
+    <string name="category_dialog_temporary_start">Cuál es mas antiguo</string>
     <string name="category_dialog_download">Descargar</string>
     <string name="category_dialog_soon">¡Proximamente!</string>
 
@@ -48,7 +49,8 @@
     <string name="guesser_no_more_questions">De momento no hay más preguntas</string>
 
     <!-- TEMPORARY -->
-    <string name="temporary_older">¿Cuál es más antiguo?</string>
+    <string name="temporary_ages">¿Quién es más joven?</string>
+    <string name="temporary_dates">¿Cuál es más antiguo?</string>
 
     <!-- SOLUTION AGE -->
     <string name="solution_age_was_born">Nació el</string>

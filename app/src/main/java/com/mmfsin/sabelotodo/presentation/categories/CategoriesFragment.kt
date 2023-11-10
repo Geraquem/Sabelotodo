@@ -21,7 +21,6 @@ import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirection
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToTemporary
 import com.mmfsin.sabelotodo.presentation.categories.adapter.CategoriesAdapter
 import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.CategoryDialog
-import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.interfaces.ICategoryDialogListener
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import com.mmfsin.sabelotodo.utils.showFragmentDialog
@@ -29,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesViewModel>(),
-    ICategoryListener, ICategoryDialogListener {
+    ICategoryListener {
 
     override val viewModel: CategoriesViewModel by viewModels()
 
@@ -53,9 +52,6 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
             setUpToolbar()
             loading.root.isVisible
         }
-
-        /****************************************************************************************/
-        findNavController().navigate(actionCategoriesToTemporary("cartoon-creations"))
     }
 
     private fun setUpToolbar() {
@@ -90,8 +86,11 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
         activity?.showFragmentDialog(CategoryDialog.newInstance(id, this@CategoriesFragment))
     }
 
-    override fun startGame(categoryId: String) =
+    override fun startGuesserGame(categoryId: String) =
         findNavController().navigate(actionCategoriesToGuesser(categoryId))
+
+    override fun startCTemporaryGame(categoryId: String) =
+        findNavController().navigate(actionCategoriesToTemporary(categoryId))
 
     override fun openMusicMaster() =
         startActivity(Intent(ACTION_VIEW, Uri.parse(getString(R.string.music_master_url))))

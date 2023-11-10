@@ -21,11 +21,10 @@ import com.mmfsin.sabelotodo.base.BaseFragment
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardTemporaryBinding
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
-import com.mmfsin.sabelotodo.presentation.models.ResultType
-import com.mmfsin.sabelotodo.presentation.models.ResultType.GOOD
 import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.dashboard.dialog.NoMoreQuestionsDialog
-import com.mmfsin.sabelotodo.presentation.models.SolutionType
+import com.mmfsin.sabelotodo.presentation.models.ResultType
+import com.mmfsin.sabelotodo.presentation.models.ResultType.GOOD
 import com.mmfsin.sabelotodo.presentation.models.TempSelectionType
 import com.mmfsin.sabelotodo.presentation.models.TempSelectionType.BOTTOM
 import com.mmfsin.sabelotodo.presentation.models.TempSelectionType.TOP
@@ -53,8 +52,6 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
 
     private var solution1: String? = null
     private var solution2: String? = null
-
-    private var solutionType: SolutionType? = null
 
     override fun inflateView(
         inflater: LayoutInflater, container: ViewGroup?
@@ -84,12 +81,14 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     override fun setListeners() {
         binding.apply {
             llTop.setOnClickListener {
+                enableImages(false)
                 checkNotNulls(solution1, solution2) { sol1, sol2 ->
                     viewModel.checkSolutions(TOP, sol1, sol2)
                 }
             }
 
             llBottom.setOnClickListener {
+                enableImages(false)
                 checkNotNulls(solution1, solution2) { sol1, sol2 ->
                     viewModel.checkSolutions(BOTTOM, sol1, sol2)
                 }
@@ -114,7 +113,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             when (event) {
                 is TemporaryEvent.GetCategory -> {
                     category = event.result
-                    record = event.result.guesserRecord ?: 0
+                    record = event.result.temporaryRecord ?: 0
                     setCategoryData()
                     viewModel.getDashboardData(event.result.id)
                 }
@@ -127,10 +126,10 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                 is TemporaryEvent.Solution -> setSolution(event.solution)
 
                 is TemporaryEvent.IsRecord -> {
-//                    if (event.result.isRecord) {
-//                        record = event.result.newRecord
-//                        binding.scoreBoard.tvRecord.text = record.toString()
-//                    }
+                    if (event.result.isRecord) {
+                        record = event.result.newRecord
+                        binding.scoreLayout.scoreBoard.tvRecord.text = record.toString()
+                    }
                 }
 
                 is TemporaryEvent.SomethingWentWrong -> error()
@@ -143,15 +142,16 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             category?.let {
                 Glide.with(requireContext()).load(it.duckImage).into(loading.image)
                 (activity as MainActivity).toolbarText(it.toolbarText)
-                setSolutionType(it.longitudePV)
+                setMainText(it.longitudePV)
                 scoreLayout.btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
                 scoreLayout.scoreBoard.tvRecord.text = it.guesserRecord.toString()
             }
         }
     }
 
-    private fun setSolutionType(length: Int) {
-        solutionType = if (length < 4) SolutionType.AGES else SolutionType.DATES
+    private fun setMainText(length: Int) {
+        val text = if (length < 4) R.string.temporary_ages else R.string.temporary_dates
+        binding.tvTitle.text = getString(text)
     }
 
     private fun setData() {
@@ -227,6 +227,13 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         this.visibility = if (hide) View.INVISIBLE else View.VISIBLE
     }
 
+    private fun enableImages(clickable: Boolean = true) {
+        binding.apply {
+            llTop.isEnabled = clickable
+            llBottom.isEnabled = clickable
+        }
+    }
+
     private fun setSolution(result: Pair<TempSelectionType, ResultType>) {
         binding.apply {
             when (result.second) {
@@ -251,10 +258,12 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                 }
             }
         }
+        category?.let { viewModel.checkRecord(points.toString(), record.toString(), it.id) }
     }
 
     private fun btnNextClicked() {
         binding.apply {
+            enableImages()
             scoreLayout.btnNext.visibility = View.INVISIBLE
 
             imageOne.setBackgroundResource(0)
