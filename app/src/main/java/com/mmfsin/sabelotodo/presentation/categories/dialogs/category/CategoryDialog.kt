@@ -50,7 +50,7 @@ class CategoryDialog(private val id: String, private val listener: ICategoryDial
                 tvTitle.text = it.title
                 tvDescription.text = it.description
                 tvExamples.text = it.examples
-                tvRecord.text = it.record.toString()
+                tvRecord.text = it.guesserRecord.toString()
             }
         }
     }

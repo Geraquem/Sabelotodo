@@ -21,12 +21,10 @@ import com.mmfsin.sabelotodo.base.BaseFragment
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardTemporaryBinding
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
-import com.mmfsin.sabelotodo.domain.models.ResultType
-import com.mmfsin.sabelotodo.domain.models.ResultType.GOOD
+import com.mmfsin.sabelotodo.presentation.models.ResultType
+import com.mmfsin.sabelotodo.presentation.models.ResultType.GOOD
 import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.dashboard.dialog.NoMoreQuestionsDialog
-import com.mmfsin.sabelotodo.presentation.dashboard.temporary.TemporaryFragment.Stays.STAYS_BOTTOM
-import com.mmfsin.sabelotodo.presentation.dashboard.temporary.TemporaryFragment.Stays.STAYS_TOP
 import com.mmfsin.sabelotodo.presentation.models.SolutionType
 import com.mmfsin.sabelotodo.presentation.models.TempSelectionType
 import com.mmfsin.sabelotodo.presentation.models.TempSelectionType.BOTTOM
@@ -57,7 +55,6 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     private var solution2: String? = null
 
     private var solutionType: SolutionType? = null
-    private var stays: Stays? = null
 
     override fun inflateView(
         inflater: LayoutInflater, container: ViewGroup?
@@ -87,14 +84,12 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     override fun setListeners() {
         binding.apply {
             llTop.setOnClickListener {
-                stays = STAYS_TOP
                 checkNotNulls(solution1, solution2) { sol1, sol2 ->
                     viewModel.checkSolutions(TOP, sol1, sol2)
                 }
             }
 
             llBottom.setOnClickListener {
-                stays = STAYS_BOTTOM
                 checkNotNulls(solution1, solution2) { sol1, sol2 ->
                     viewModel.checkSolutions(BOTTOM, sol1, sol2)
                 }
@@ -119,14 +114,14 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             when (event) {
                 is TemporaryEvent.GetCategory -> {
                     category = event.result
-                    record = event.result.record ?: 0
+                    record = event.result.guesserRecord ?: 0
                     setCategoryData()
                     viewModel.getDashboardData(event.result.id)
                 }
 
                 is TemporaryEvent.GuesserData -> {
                     dataList = event.data
-                    setFirstData()
+                    setData()
                 }
 
                 is TemporaryEvent.Solution -> setSolution(event.solution)
@@ -150,7 +145,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                 (activity as MainActivity).toolbarText(it.toolbarText)
                 setSolutionType(it.longitudePV)
                 scoreLayout.btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
-                scoreLayout.scoreBoard.tvRecord.text = it.record.toString()
+                scoreLayout.scoreBoard.tvRecord.text = it.guesserRecord.toString()
             }
         }
     }
@@ -159,11 +154,11 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         solutionType = if (length < 4) SolutionType.AGES else SolutionType.DATES
     }
 
-    private fun setFirstData() {
+    private fun setData() {
         if (dataList.isNotEmpty()) {
             binding.apply {
                 try {
-                    val data = getFirstData()
+                    val data = getData()
                     data?.let { d ->
                         tvOne.text = d.first.secondText
                         solution1 = d.first.solution
@@ -180,7 +175,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         } else error()
     }
 
-    private fun getFirstData(): Pair<Data, Data>? {
+    private fun getData(): Pair<Data, Data>? {
         return try {
             val data1 = dataList[position]
             position++
@@ -192,7 +187,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                 null
             }
         } catch (e: Exception) {
-            Toast.makeText(mContext, e.message.toString(), Toast.LENGTH_SHORT).show()
+            showNoMoreQuestions()
             null
         }
     }
@@ -240,6 +235,8 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                         TOP -> imageOne.setBackgroundResource(R.drawable.bg_image_win)
                         BOTTOM -> imageTwo.setBackgroundResource(R.drawable.bg_image_win)
                     }
+                    points++
+                    scoreLayout.scoreBoard.tvPoints.text = points.toString()
                     scoreLayout.btnNext.isVisible = true
                 }
 
@@ -263,41 +260,13 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             imageOne.setBackgroundResource(0)
             imageTwo.setBackgroundResource(0)
 
-            when (stays) {
-                STAYS_TOP -> {
-                    solution2 = null
-                    setSingleData(STAYS_TOP)
-                }
-
-                STAYS_BOTTOM -> {
-                    solution1 = null
-                    setSingleData(STAYS_BOTTOM)
-                }
-
-                else -> error()
-            }
-        }
-    }
-
-    private fun setSingleData(image: Stays) {
-        binding.apply {
             position++
-            if (position < dataList.size) {
-                val newData = dataList[position]
-                when (image) {
-                    STAYS_TOP -> {
-                        tvTwo.text = newData.secondText
-                        solution2 = newData.solution
-                        setImage(newData.image, imageTwo, fromLeft = false)
-                    }
-
-                    STAYS_BOTTOM -> {
-                        tvOne.text = newData.secondText
-                        solution1 = newData.solution
-                        setImage(newData.image, imageOne)
-                    }
-                }
-            } else showNoMoreQuestions()
+            if (position < dataList.size) setData()
+            else {
+                (activity as MainActivity).inDashboard = false
+                activity?.let { NoMoreQuestionsDialog().show(it.supportFragmentManager, "") }
+            }
+            if (position % 20 == 0) (activity as MainActivity).showInterstitial()
         }
     }
 
@@ -314,9 +283,5 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
-    }
-
-    enum class Stays {
-        STAYS_TOP, STAYS_BOTTOM
     }
 }

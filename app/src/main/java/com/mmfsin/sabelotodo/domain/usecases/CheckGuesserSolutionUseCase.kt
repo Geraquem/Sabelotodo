@@ -1,8 +1,8 @@
 package com.mmfsin.sabelotodo.domain.usecases
 
 import com.mmfsin.sabelotodo.base.BaseUseCase
-import com.mmfsin.sabelotodo.domain.models.ResultType
-import com.mmfsin.sabelotodo.domain.models.ResultType.*
+import com.mmfsin.sabelotodo.presentation.models.ResultType
+import com.mmfsin.sabelotodo.presentation.models.ResultType.*
 import javax.inject.Inject
 import kotlin.math.absoluteValue
 

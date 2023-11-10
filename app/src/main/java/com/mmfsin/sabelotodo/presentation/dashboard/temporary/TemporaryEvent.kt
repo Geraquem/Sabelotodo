@@ -3,7 +3,7 @@ package com.mmfsin.sabelotodo.presentation.dashboard.temporary
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
 import com.mmfsin.sabelotodo.domain.models.Record
-import com.mmfsin.sabelotodo.domain.models.ResultType
+import com.mmfsin.sabelotodo.presentation.models.ResultType
 import com.mmfsin.sabelotodo.presentation.models.TempSelectionType
 
 sealed class TemporaryEvent {

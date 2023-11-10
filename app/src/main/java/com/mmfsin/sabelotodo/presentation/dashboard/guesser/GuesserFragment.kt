@@ -20,10 +20,10 @@ import com.mmfsin.sabelotodo.base.BaseFragment
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardGuesserBinding
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
-import com.mmfsin.sabelotodo.domain.models.ResultType
-import com.mmfsin.sabelotodo.domain.models.ResultType.ALMOST_GOOD
-import com.mmfsin.sabelotodo.domain.models.ResultType.BAD
-import com.mmfsin.sabelotodo.domain.models.ResultType.GOOD
+import com.mmfsin.sabelotodo.presentation.models.ResultType
+import com.mmfsin.sabelotodo.presentation.models.ResultType.ALMOST_GOOD
+import com.mmfsin.sabelotodo.presentation.models.ResultType.BAD
+import com.mmfsin.sabelotodo.presentation.models.ResultType.GOOD
 import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.dashboard.dialog.NoMoreQuestionsDialog
 import com.mmfsin.sabelotodo.presentation.models.SolutionType
@@ -112,7 +112,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
             when (event) {
                 is GuesserEvent.GetCategory -> {
                     category = event.result
-                    record = event.result.record ?: 0
+                    record = event.result.guesserRecord ?: 0
                     setCategoryData()
                     viewModel.getDashboardData(event.result.id)
                 }
@@ -142,7 +142,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                 (activity as MainActivity).toolbarText(it.toolbarText)
                 setPinView(it.longitudePV)
                 scoreLayout.btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
-                scoreLayout.scoreBoard.tvRecord.text = it.record.toString()
+                scoreLayout.scoreBoard.tvRecord.text = it.guesserRecord.toString()
             }
         }
     }

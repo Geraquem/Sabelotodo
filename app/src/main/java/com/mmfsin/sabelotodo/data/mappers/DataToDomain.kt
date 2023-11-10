@@ -1,7 +1,9 @@
 package com.mmfsin.sabelotodo.data.mappers
 
 import android.annotation.SuppressLint
+import com.mmfsin.sabelotodo.data.models.CategoryDTO
 import com.mmfsin.sabelotodo.data.models.DataDTO
+import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
 import java.text.SimpleDateFormat
 import java.time.LocalDate.now
@@ -26,6 +28,7 @@ fun String.getBirth(): List<String> {
         val age = this.split("/")
         try {
             val birth = mutableListOf<String>()
+
             /** DAY */
             val day = age[0]
             if (day.substring(0, 1) == "0") birth.add(day.substring(1, 2))
@@ -58,3 +61,23 @@ fun String.getSolution(): String {
         }
     } else this
 }
+
+fun CategoryDTO.toCategory() = Category(
+    id = id,
+    title = title,
+    image = image,
+    duckImage = duckImage,
+    shortDescription = shortDescription,
+    description = description,
+    examples = examples,
+    colorDashboard = colorDashboard,
+    colorStart = colorStart,
+    colorEnd = colorEnd,
+    order = order,
+    guesserRecord = guesserRecord,
+    temporaryRecord = temporaryRecord,
+    toolbarText = toolbarText,
+    longitudePV = longitudePV
+)
+
+fun List<CategoryDTO>.toCategoryList() = this.map { element -> element.toCategory() }.toList()

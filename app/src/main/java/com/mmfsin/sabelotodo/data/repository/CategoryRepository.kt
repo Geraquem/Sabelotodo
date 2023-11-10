@@ -4,10 +4,18 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.mmfsin.sabelotodo.data.mappers.toCategory
+import com.mmfsin.sabelotodo.data.mappers.toCategoryList
+import com.mmfsin.sabelotodo.data.models.CategoryDTO
 import com.mmfsin.sabelotodo.domain.interfaces.ICategoryRepository
 import com.mmfsin.sabelotodo.domain.interfaces.IRealmDatabase
 import com.mmfsin.sabelotodo.domain.models.Category
-import com.mmfsin.sabelotodo.utils.*
+import com.mmfsin.sabelotodo.utils.AVAILABLE_MUSICMASTER
+import com.mmfsin.sabelotodo.utils.CATEGORIES
+import com.mmfsin.sabelotodo.utils.MUSIC_MASTER
+import com.mmfsin.sabelotodo.utils.MY_SHARED_PREFS
+import com.mmfsin.sabelotodo.utils.SAVED_VERSION
+import com.mmfsin.sabelotodo.utils.VERSION
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.realm.kotlin.where
 import kotlinx.coroutines.Dispatchers
@@ -24,12 +32,12 @@ class CategoryRepository @Inject constructor(
 
     override fun getCategory(id: String): Category? {
         val categories =
-            realmDatabase.getObjectsFromRealm { where<Category>().equalTo("id", id).findAll() }
-        return if (categories.isEmpty()) null else categories.first()
+            realmDatabase.getObjectsFromRealm { where<CategoryDTO>().equalTo("id", id).findAll() }
+        return if (categories.isEmpty()) null else categories.first().toCategory()
     }
 
     override fun getCategoriesFromRealm(): List<Category> {
-        return realmDatabase.getObjectsFromRealm { where<Category>().findAll() }
+        return realmDatabase.getObjectsFromRealm { where<CategoryDTO>().findAll() }.toCategoryList()
     }
 
     override suspend fun getCategories(): List<Category> {
@@ -51,7 +59,7 @@ class CategoryRepository @Inject constructor(
 
                 val fbCategories = it.child(CATEGORIES)
                 for (child in fbCategories.children) {
-                    child.getValue(Category::class.java)?.let { deck ->
+                    child.getValue(CategoryDTO::class.java)?.let { deck ->
                         saveCategory(deck)
                     }
                 }
@@ -88,5 +96,5 @@ class CategoryRepository @Inject constructor(
 
     private fun getSharedPreferences() = context.getSharedPreferences(MY_SHARED_PREFS, MODE_PRIVATE)
 
-    private fun saveCategory(category: Category) = realmDatabase.addObject { category }
+    private fun saveCategory(category: CategoryDTO) = realmDatabase.addObject { category }
 }

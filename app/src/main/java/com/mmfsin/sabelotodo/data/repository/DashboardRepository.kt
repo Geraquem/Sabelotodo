@@ -45,7 +45,7 @@ class DashboardRepository @Inject constructor(
         }
         val category = if (categories.isEmpty()) null else categories.first()
         category?.let {
-            it.record = record
+            it.guesserRecord = record
             realmDatabase.addObject { category }
         }
     }

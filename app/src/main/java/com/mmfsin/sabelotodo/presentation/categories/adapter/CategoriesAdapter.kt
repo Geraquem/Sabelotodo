@@ -25,8 +25,8 @@ class CategoriesAdapter(
             binding.apply {
                 tvTitle.text = category.title
                 Glide.with(context).load(category.image).into(image)
-                tvDescription.text = category.short_description
-                tvRecord.text = category.record.toString()
+                tvDescription.text = category.shortDescription
+                tvRecord.text = category.guesserRecord.toString()
 
                 val startColor = category.colorStart
                 val endColor = category.colorEnd

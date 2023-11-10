@@ -1,4 +1,4 @@
-package com.mmfsin.sabelotodo.domain.models
+package com.mmfsin.sabelotodo.presentation.models
 
 enum class ResultType {
     GOOD,

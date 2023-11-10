@@ -1,22 +1,19 @@
 package com.mmfsin.sabelotodo.domain.models
 
-import io.realm.RealmObject
-import io.realm.annotations.PrimaryKey
-
 open class Category(
-    @PrimaryKey
-    var id: String = "",
-    var title: String = "",
-    var image: String = "",
-    var duckImage: String = "",
-    var short_description: String = "",
-    var description: String = "",
-    var examples: String = "",
-    var colorDashboard: String = "#FFFFFFFF",
-    var colorStart: String = "#FFFFFFFF",
-    var colorEnd: String = "#FFFFFFFF",
-    var order: Long = 0,
-    var record: Int? = 0,
-    var toolbarText: String = "",
-    var longitudePV: Int = 0,
-) : RealmObject()
+    var id: String,
+    var title: String,
+    var image: String,
+    var duckImage: String,
+    var shortDescription: String,
+    var description: String,
+    var examples: String,
+    var colorDashboard: String,
+    var colorStart: String,
+    var colorEnd: String,
+    var order: Long,
+    var guesserRecord: Int?,
+    var temporaryRecord: Int?,
+    var toolbarText: String,
+    var longitudePV: Int,
+)
