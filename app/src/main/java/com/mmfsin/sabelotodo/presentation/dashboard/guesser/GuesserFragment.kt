@@ -30,7 +30,7 @@ import com.mmfsin.sabelotodo.presentation.models.SolutionType
 import com.mmfsin.sabelotodo.presentation.models.SolutionType.AGES
 import com.mmfsin.sabelotodo.presentation.models.SolutionType.DATES
 import com.mmfsin.sabelotodo.utils.CATEGORY_ID
-import com.mmfsin.sabelotodo.utils.countDown
+import com.mmfsin.sabelotodo.utils.loadingCountDown
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -195,7 +195,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     resetSolution()
                     if (firstAccess) {
                         firstAccess = false
-                        countDown { loading.root.isVisible = false }
+                        loadingCountDown { loading.root.isVisible = false }
                     } else loading.root.isVisible = false
                 } catch (e: java.lang.Exception) {
                     error()

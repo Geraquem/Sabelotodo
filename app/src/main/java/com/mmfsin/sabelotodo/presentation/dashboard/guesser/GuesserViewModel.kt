@@ -2,7 +2,7 @@ package com.mmfsin.sabelotodo.presentation.dashboard.guesser
 
 import com.mmfsin.sabelotodo.base.BaseViewModel
 import com.mmfsin.sabelotodo.domain.usecases.CheckRecordUseCase
-import com.mmfsin.sabelotodo.domain.usecases.CheckSolutionUseCase
+import com.mmfsin.sabelotodo.domain.usecases.CheckGuesserSolutionUseCase
 import com.mmfsin.sabelotodo.domain.usecases.GetCategoryByIdUseCase
 import com.mmfsin.sabelotodo.domain.usecases.GetDashboardDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class GuesserViewModel @Inject constructor(
     private val getCategoryByIdUseCase: GetCategoryByIdUseCase,
     private val getDashboardDataUseCase: GetDashboardDataUseCase,
-    private val checkSolutionUseCase: CheckSolutionUseCase,
+    private val checkGuesserSolutionUseCase: CheckGuesserSolutionUseCase,
     private val checkRecordUseCase: CheckRecordUseCase
 ) : BaseViewModel<GuesserEvent>() {
 
@@ -37,7 +37,7 @@ class GuesserViewModel @Inject constructor(
 
     fun checkSolution(answer: String, solution: String) {
         executeUseCase(
-            { checkSolutionUseCase.execute(CheckSolutionUseCase.Params(answer, solution)) },
+            { checkGuesserSolutionUseCase.execute(CheckGuesserSolutionUseCase.Params(answer, solution)) },
             { result ->
                 _event.value = result?.let { GuesserEvent.Solution(it) }
                     ?: run { GuesserEvent.SomethingWentWrong }

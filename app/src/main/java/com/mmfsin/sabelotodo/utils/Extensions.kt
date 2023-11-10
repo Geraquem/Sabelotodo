@@ -31,11 +31,30 @@ fun Dialog.animateDialog() {
     }
 }
 
-fun countDown(action: () -> Unit) {
+fun loadingCountDown(action: () -> Unit) {
     object : CountDownTimer(100, 1000) {
         override fun onTick(millisUntilFinished: Long) {}
         override fun onFinish() {
             action()
         }
     }.start()
+}
+
+fun countDown(duration: Long, action: () -> Unit) {
+    object : CountDownTimer(duration, 1000) {
+        override fun onTick(millisUntilFinished: Long) {}
+        override fun onFinish() {
+            action()
+        }
+    }.start()
+}
+
+fun View.animateY(pos: Float, duration: Long) =
+    this.animate().translationY(pos).setDuration(duration)
+
+fun View.animateX(pos: Float, duration: Long) =
+    this.animate().translationX(pos).setDuration(duration)
+
+fun <T1 : Any, T2 : Any, R : Any> checkNotNulls(p1: T1?, p2: T2?, block: (T1, T2) -> R): R? {
+    return if (p1 != null && p2 != null) block(p1, p2) else null
 }

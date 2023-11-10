@@ -6,8 +6,8 @@ import com.mmfsin.sabelotodo.domain.models.ResultType.*
 import javax.inject.Inject
 import kotlin.math.absoluteValue
 
-class CheckSolutionUseCase @Inject constructor() :
-    BaseUseCase<CheckSolutionUseCase.Params, ResultType?>() {
+class CheckGuesserSolutionUseCase @Inject constructor() :
+    BaseUseCase<CheckGuesserSolutionUseCase.Params, ResultType?>() {
 
     override suspend fun execute(params: Params): ResultType? {
         return try {

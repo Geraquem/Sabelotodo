@@ -47,6 +47,9 @@
     <string name="guesser_points">Puntos</string>
     <string name="guesser_no_more_questions">De momento no hay más preguntas</string>
 
+    <!-- TEMPORARY -->
+    <string name="temporary_older">¿Cuál es más antiguo?</string>
+
     <!-- SOLUTION AGE -->
     <string name="solution_age_was_born">Nació el</string>
     <string name="solution_age_of">de</string>
