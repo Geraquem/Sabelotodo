@@ -20,4 +20,5 @@ open class CategoryDTO(
     var temporaryRecord: Int? = 0,
     var toolbarText: String = "",
     var longitudePV: Int = 0,
+    var mainImage: String = ""
 ) : RealmObject()

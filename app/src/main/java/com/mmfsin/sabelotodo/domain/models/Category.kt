@@ -16,4 +16,5 @@ open class Category(
     var temporaryRecord: Int?,
     var toolbarText: String,
     var longitudePV: Int,
+    var mainImage: String
 )

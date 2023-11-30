@@ -11,32 +11,36 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.base.BaseFragment
-import com.mmfsin.sabelotodo.databinding.FragmentCategoriesBinding
+import com.mmfsin.sabelotodo.databinding.FragmentCategoriesImagesBinding
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToGuesser
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToTemporary
-import com.mmfsin.sabelotodo.presentation.categories.adapter.CategoriesAdapter
+import com.mmfsin.sabelotodo.presentation.categories.adapter.ImageAdapter
 import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.CategoryDialog
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import com.mmfsin.sabelotodo.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.abs
 
 @AndroidEntryPoint
-class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesViewModel>(),
+class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, CategoriesViewModel>(),
     ICategoryListener {
 
     override val viewModel: CategoriesViewModel by viewModels()
 
+    private var adapter: ImageAdapter? = null
     private lateinit var mContext: Context
 
-    override fun inflateView(
-        inflater: LayoutInflater, container: ViewGroup?
-    ) = FragmentCategoriesBinding.inflate(inflater, container, false)
+    override fun inflateView(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentCategoriesImagesBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,36 +60,63 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
 
     private fun setUpToolbar() {
         (activity as MainActivity).apply {
-            showBanner(visible = false)
-            toolbarIcon(showDuck = true)
-            toolbarText(getString(R.string.app_name))
+            hideToolbar()
         }
     }
 
     override fun observe() {
         viewModel.event.observe(this) { event ->
             when (event) {
-                is CategoriesEvent.Categories -> setCategoryRecycler(event.result)
+                is CategoriesEvent.Categories -> setUpViewPager(event.result)
                 is CategoriesEvent.SomethingWentWrong -> activity?.showErrorDialog()
             }
         }
     }
 
-    override fun onCategoryScrolled(title: String, description: String) {    }
+    private fun setUpViewPager(categories: List<Category>) {
+        binding.apply {
+            if (categories.isNotEmpty()) {
+                adapter = ImageAdapter(categories, this@CategoryImagesFragment)
+                viewpager.adapter = adapter
+                viewpager.offscreenPageLimit = 1
+                viewpager.clipToPadding = false
+                viewpager.clipChildren = false
+                viewpager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+                setUpTransformer()
 
-    private fun setCategoryRecycler(categories: List<Category>) {
-        if (categories.isNotEmpty()) {
-            binding.rvCategory.apply {
-                layoutManager = LinearLayoutManager(mContext)
-                adapter =
-                    CategoriesAdapter(categories.sortedBy { it.order }, this@CategoriesFragment)
+                adapter?.updateTexts(0)
+
+                viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        adapter?.updateTexts(position)
+                    }
+                })
+
+                loading.root.isVisible = false
             }
-            binding.loading.root.isVisible = false
+        }
+    }
+
+    private fun setUpTransformer() {
+        val transformer = CompositePageTransformer()
+        transformer.addTransformer(MarginPageTransformer(40))
+        transformer.addTransformer { page, pos ->
+            val r = 1 - abs(pos)
+            page.scaleY = 0.85f + r * 0.15f
+        }
+        binding.viewpager.setPageTransformer(transformer)
+    }
+
+    override fun onCategoryScrolled(title: String, description: String) {
+        binding.apply {
+            tvTop.text = title
+            tvBottom.text = description
         }
     }
 
     override fun onCategoryClick(id: String) {
-        activity?.showFragmentDialog(CategoryDialog.newInstance(id, this@CategoriesFragment))
+        activity?.showFragmentDialog(CategoryDialog.newInstance(id, this@CategoryImagesFragment))
     }
 
     override fun startGuesserGame(categoryId: String) =

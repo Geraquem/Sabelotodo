@@ -19,4 +19,7 @@
     <color name="color_almost">#B6893A</color>
     <color name="color_bad">#871111</color>
 
+    <color name="blue">#0E66C5</color>
+    <color name="gray">#707070</color>
+
 </resources>

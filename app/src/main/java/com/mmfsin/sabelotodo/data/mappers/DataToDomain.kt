@@ -77,7 +77,8 @@ fun CategoryDTO.toCategory() = Category(
     guesserRecord = guesserRecord,
     temporaryRecord = temporaryRecord,
     toolbarText = toolbarText,
-    longitudePV = longitudePV
+    longitudePV = longitudePV,
+    mainImage = mainImage
 )
 
 fun List<CategoryDTO>.toCategoryList() = this.map { element -> element.toCategory() }.toList()

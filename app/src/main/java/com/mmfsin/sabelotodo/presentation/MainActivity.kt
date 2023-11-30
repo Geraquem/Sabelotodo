@@ -3,6 +3,7 @@ package com.mmfsin.sabelotodo.presentation
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -69,6 +70,10 @@ class MainActivity : AppCompatActivity() {
             ivDuck.isVisible = showDuck
             ivBack.isVisible = !showDuck
         }
+    }
+
+    fun hideToolbar(){
+        binding.appBar.visibility = View.GONE
     }
 
     fun toolbarText(title: String) {

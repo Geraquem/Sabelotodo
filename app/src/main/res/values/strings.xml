@@ -27,6 +27,7 @@
 
     <!-- LOADING -->
     <string name="loading">Un momentito</string>
+    <string name="loading_two">Estamos en ello…</string>
 
     <!-- CATEGORY -->
     <string name="category_record">Máxima puntuación:</string>
