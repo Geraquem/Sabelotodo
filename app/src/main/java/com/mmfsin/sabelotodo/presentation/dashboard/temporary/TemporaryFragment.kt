@@ -105,6 +105,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         (activity as MainActivity).apply {
             showBanner(visible = true)
             toolbarIcon(showDuck = false)
+            toolbarVisibility(visible = true)
         }
     }
 

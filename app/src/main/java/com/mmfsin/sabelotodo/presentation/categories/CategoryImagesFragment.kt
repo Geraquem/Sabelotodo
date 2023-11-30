@@ -20,11 +20,14 @@ import com.mmfsin.sabelotodo.base.BaseFragment
 import com.mmfsin.sabelotodo.databinding.FragmentCategoriesImagesBinding
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.presentation.MainActivity
-import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToGuesser
-import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToTemporary
+import com.mmfsin.sabelotodo.presentation.categories.CategoryImagesFragmentDirections.Companion.actionCategoriesToGuesser
+import com.mmfsin.sabelotodo.presentation.categories.CategoryImagesFragmentDirections.Companion.actionCategoriesToTemporary
 import com.mmfsin.sabelotodo.presentation.categories.adapter.ImageAdapter
 import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.CategoryDialog
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
+import com.mmfsin.sabelotodo.utils.animateX
+import com.mmfsin.sabelotodo.utils.animateY
+import com.mmfsin.sabelotodo.utils.countDown
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import com.mmfsin.sabelotodo.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,13 +57,15 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
     override fun setUI() {
         binding.apply {
             setUpToolbar()
+            setItemsVisible(visible = false)
             loading.root.isVisible
         }
     }
 
     private fun setUpToolbar() {
         (activity as MainActivity).apply {
-            hideToolbar()
+            showBanner(visible = false)
+            toolbarVisibility(visible = false)
         }
     }
 
@@ -85,7 +90,6 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
                 setUpTransformer()
 
                 adapter?.updateTexts(0)
-
                 viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
@@ -94,7 +98,35 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
                 })
 
                 loading.root.isVisible = false
+                doAnimations()
             }
+        }
+    }
+
+    private fun doAnimations() {
+        binding.apply {
+            if ((activity as MainActivity).firstTime) {
+                (activity as MainActivity).firstTime = false
+                clTop.animateY(-200f, 10)
+                clBottom.animateY(200f, 10)
+                viewpager.animateX(300f, 10)
+                countDown(1000) {
+                    clTop.visibility = View.VISIBLE
+                    clTop.animateY(0f, 400)
+                    clBottom.visibility = View.VISIBLE
+                    clBottom.animateY(0f, 400)
+                    viewpager.visibility = View.VISIBLE
+                    viewpager.animateX(0f, 400)
+                }
+            } else setItemsVisible(visible = true)
+        }
+    }
+
+    private fun setItemsVisible(visible: Boolean) {
+        binding.apply {
+            clTop.isVisible = visible
+            viewpager.isVisible = visible
+            clBottom.isVisible = visible
         }
     }
 

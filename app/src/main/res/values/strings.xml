@@ -21,7 +21,6 @@
 
     <!-- EXIT -->
     <string name="exit_title">¿Seguro que quieres salir?</string>
-    <string name="exit_description">Perderás todos los puntos que hayas conseguido</string>
     <string name="exit_yes">SALIR</string>
     <string name="exit_no">QUEDARME</string>
 
@@ -30,6 +29,7 @@
     <string name="loading_two">Estamos en ello…</string>
 
     <!-- CATEGORY -->
+    <string name="category_title_description">El que sabe, sabe, y el que no…</string>
     <string name="category_record">Máxima puntuación:</string>
     <string name="category_music">music</string>
     <string name="music_master_url">https://play.google.com/store/apps/details?id=com.mmfsin.musicmaster</string>

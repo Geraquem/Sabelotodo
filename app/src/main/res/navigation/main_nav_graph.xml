@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/auxFragment">
+    app:startDestination="@id/categoriesImagesFragment">
 
     <fragment
         android:id="@+id/categoriesFragment"
@@ -28,14 +28,30 @@
     </fragment>
 
     <fragment
-        android:id="@+id/guesserFragment"
-        android:name="com.mmfsin.sabelotodo.presentation.dashboard.guesser.GuesserFragment"
+        android:id="@+id/categoriesImagesFragment"
+        android:name="com.mmfsin.sabelotodo.presentation.categories.CategoryImagesFragment"
         android:label="guesserFragment"
-        tools:layout="@layout/fragment_dashboard_guesser" />
+        tools:layout="@layout/fragment_dashboard_guesser">
+        <action
+            android:id="@+id/action_categories_to_guesser"
+            app:destination="@id/guesserFragment">
+            <argument
+                android:name="category_id"
+                app:argType="string" />
+
+        </action>
+        <action
+            android:id="@+id/action_categories_to_temporary"
+            app:destination="@id/temporaryFragment">
+            <argument
+                android:name="category_id"
+                app:argType="string" />
+        </action>
+    </fragment>
 
     <fragment
-        android:id="@+id/auxFragment"
-        android:name="com.mmfsin.sabelotodo.presentation.categories.CategoryImagesFragment"
+        android:id="@+id/guesserFragment"
+        android:name="com.mmfsin.sabelotodo.presentation.dashboard.guesser.GuesserFragment"
         android:label="guesserFragment"
         tools:layout="@layout/fragment_dashboard_guesser" />
 

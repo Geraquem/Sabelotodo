@@ -3,7 +3,6 @@ package com.mmfsin.sabelotodo.presentation
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -26,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     var fromRealm = false
     var inDashboard = false
+    var firstTime = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Thread.sleep(500)
@@ -72,8 +72,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun hideToolbar(){
-        binding.appBar.visibility = View.GONE
+    fun toolbarVisibility(visible: Boolean){
+        binding.appBar.isVisible = visible
     }
 
     fun toolbarText(title: String) {

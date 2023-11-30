@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="@color/light_grey"
     android:clipChildren="false"
     android:clipToPadding="false">
@@ -13,14 +14,14 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.16" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_bottom"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.75" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_top"
@@ -38,27 +39,49 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.96" />
+            app:layout_constraintGuide_percent="0.95" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl1_left"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.04" />
+            app:layout_constraintGuide_percent="0.05" />
 
-        <TextView
-            android:id="@+id/tv_app_name"
-            style="@style/BigTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
             android:text="@string/app_name"
             android:textAllCaps="true"
-            android:textSize="36sp"
+            android:textSize="42sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/gl1_left"
             app:layout_constraintRight_toRightOf="@id/gl1_right"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_app_name"
+                style="@style/BigTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/x_typewriter"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textAllCaps="true"
+                android:textSize="42sp" />
+
+            <TextView
+                style="@style/SmallTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/crazy_regular"
+                android:text="@string/category_title_description"
+                android:textAllCaps="true" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -72,12 +95,11 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl_top" />
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_bottom"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/white"
+        android:background="@drawable/bg_category_bottom"
         android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -89,18 +111,18 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.96" />
+            app:layout_constraintGuide_percent="0.95" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl2_left"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.04" />
+            app:layout_constraintGuide_percent="0.05" />
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -111,18 +133,24 @@
             <TextView
                 android:id="@+id/tv_top"
                 style="@style/BigTextView"
-                android:textSize="26sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/crazy_regular"
+                android:gravity="center"
                 android:textAllCaps="true"
+                android:textSize="26sp"
+                android:textStyle="bold"
                 tools:text="Dibujos y animación" />
 
             <TextView
                 android:id="@+id/tv_bottom"
-                style="@style/MediumTextView"
+                style="@style/SmallTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
                 tools:text="Adivina las fechas de estreno." />
 
         </LinearLayout>
