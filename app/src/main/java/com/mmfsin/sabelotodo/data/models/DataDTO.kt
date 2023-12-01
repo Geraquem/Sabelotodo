@@ -4,5 +4,5 @@ data class DataDTO(
     var image: String = "",
     var text: String = "",
     var solution: String = "",
-    var auxText: String? = "Cuando se fundó"
+    var auxText: String? = null
 )
