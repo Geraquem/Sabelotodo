@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -71,7 +73,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         binding.apply {
             setUpToolbar()
             loading.root.isVisible = true
-            scoreLayout.btnNext.visibility = View.INVISIBLE
+//            scoreLayout.btnNext.visibility = View.INVISIBLE
             scoreLayout.scoreBoard.tvPoints.text = points.toString()
             imageOne.hideImage()
             imageTwo.hideImage()
@@ -80,24 +82,29 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
 
     override fun setListeners() {
         binding.apply {
-            llTop.setOnClickListener {
-                enableImages(false)
-                checkNotNulls(solution1, solution2) { sol1, sol2 ->
-                    viewModel.checkSolutions(TOP, sol1, sol2)
-                }
+            tvOne.setOnClickListener { selectOption(TOP) }
+            clImageOne.setOnClickListener { selectOption(TOP) }
+
+            btnSameYear.setOnClickListener {
+                Toast.makeText(
+                    mContext, "same year", Toast.LENGTH_SHORT
+                ).show()
             }
 
-            llBottom.setOnClickListener {
-                enableImages(false)
-                checkNotNulls(solution1, solution2) { sol1, sol2 ->
-                    viewModel.checkSolutions(BOTTOM, sol1, sol2)
-                }
-            }
+            tvTwo.setOnClickListener { selectOption(BOTTOM) }
+            clImageTwo.setOnClickListener { selectOption(BOTTOM) }
 
             scoreLayout.btnNext.setOnClickListener {
                 btnNextClicked()
                 if (position % 20 == 0) (activity as MainActivity).showInterstitial()
             }
+        }
+    }
+
+    private fun selectOption(option: TempSelectionType) {
+        enableImages(false)
+        checkNotNulls(solution1, solution2) { sol1, sol2 ->
+            viewModel.checkSolutions(option, sol1, sol2)
         }
     }
 
@@ -230,18 +237,23 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
 
     private fun enableImages(clickable: Boolean = true) {
         binding.apply {
-            llTop.isEnabled = clickable
-            llBottom.isEnabled = clickable
+            tvOne.isEnabled = clickable
+            clImageOne.isEnabled = clickable
+            tvTwo.isEnabled = clickable
+            clImageTwo.isEnabled = clickable
         }
     }
 
     private fun setSolution(result: Pair<TempSelectionType, ResultType>) {
         binding.apply {
+            val bgGood = getDrawable(mContext, R.drawable.bg_temporary_good)
+            val bgBad = getDrawable(mContext, R.drawable.bg_temporary_bad)
+
             when (result.second) {
                 GOOD -> {
                     when (result.first) {
-                        TOP -> imageOne.setBackgroundResource(R.drawable.bg_image_win)
-                        BOTTOM -> imageTwo.setBackgroundResource(R.drawable.bg_image_win)
+                        TOP -> tvOne.background = bgGood
+                        BOTTOM -> tvTwo.background = bgGood
                     }
                     points++
                     scoreLayout.scoreBoard.tvPoints.text = points.toString()
@@ -250,8 +262,8 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
 
                 else -> {
                     when (result.first) {
-                        TOP -> imageOne.setBackgroundResource(R.drawable.bg_image_loose)
-                        BOTTOM -> imageTwo.setBackgroundResource(R.drawable.bg_image_loose)
+                        TOP -> tvOne.background = bgBad
+                        BOTTOM -> tvTwo.background = bgBad
                     }
                     countDown(1000) {
                         Toast.makeText(mContext, "perdiste", Toast.LENGTH_SHORT).show()
@@ -265,10 +277,10 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     private fun btnNextClicked() {
         binding.apply {
             enableImages()
-            scoreLayout.btnNext.visibility = View.INVISIBLE
+//            scoreLayout.btnNext.visibility = View.INVISIBLE
 
-            imageOne.setBackgroundResource(0)
-            imageTwo.setBackgroundResource(0)
+            tvOne.background = null
+            tvTwo.background = null
 
             position++
             if (position < dataList.size) setData()

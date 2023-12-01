@@ -9,6 +9,7 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="half_white">#A6FFFFFF</color>
     <color name="light_white">#ECECEC</color>
     <color name="light_grey">#DFDCDC</color>
 
@@ -18,6 +19,9 @@
     <color name="color_good">#518E4A</color>
     <color name="color_almost">#B6893A</color>
     <color name="color_bad">#871111</color>
+
+    <color name="temporary_good">#92DC8B</color>
+    <color name="temporary_bad">#E77E7E</color>
 
     <color name="blue">#0E66C5</color>
     <color name="gray">#707070</color>

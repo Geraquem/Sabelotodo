@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner"
+        ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintLeft_toLeftOf="parent"
-        ads:layout_constraintRight_toRightOf="parent"
-        ads:layout_constraintTop_toBottomOf="@id/appBar" />
+        ads:layout_constraintRight_toRightOf="parent" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -92,9 +92,9 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        ads:layout_constraintTop_toBottomOf="@id/adView"
+        ads:layout_constraintBottom_toTopOf="@id/adView"
+        ads:layout_constraintTop_toBottomOf="@id/appBar"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:navGraph="@navigation/main_nav_graph" />
