@@ -21,6 +21,7 @@
     <color name="color_bad">#871111</color>
 
     <color name="temporary_good">#92DC8B</color>
+    <color name="temporary_almost">#FFBD4C</color>
     <color name="temporary_bad">#E77E7E</color>
 
     <color name="blue">#0E66C5</color>

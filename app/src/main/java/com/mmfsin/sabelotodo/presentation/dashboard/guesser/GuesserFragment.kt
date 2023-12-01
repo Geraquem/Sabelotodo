@@ -267,6 +267,10 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     tvPoints.text = getString(R.string.solution_bad_answer)
                     tvPoints.setTextColor(getColor(mContext, R.color.color_bad))
                 }
+
+                else -> {
+                    /** Shouldn't go this way */
+                }
             }
 
             when (solutionType) {

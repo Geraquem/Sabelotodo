@@ -9,8 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.*
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -26,9 +25,11 @@ import com.mmfsin.sabelotodo.domain.models.Data
 import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.dashboard.dialog.NoMoreQuestionsDialog
 import com.mmfsin.sabelotodo.presentation.models.ResultType
+import com.mmfsin.sabelotodo.presentation.models.ResultType.BAD
 import com.mmfsin.sabelotodo.presentation.models.ResultType.GOOD
 import com.mmfsin.sabelotodo.presentation.models.TempSelectionType
 import com.mmfsin.sabelotodo.presentation.models.TempSelectionType.BOTTOM
+import com.mmfsin.sabelotodo.presentation.models.TempSelectionType.SAME_YEAR
 import com.mmfsin.sabelotodo.presentation.models.TempSelectionType.TOP
 import com.mmfsin.sabelotodo.utils.CATEGORY_ID
 import com.mmfsin.sabelotodo.utils.animateX
@@ -85,11 +86,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             tvOne.setOnClickListener { selectOption(TOP) }
             clImageOne.setOnClickListener { selectOption(TOP) }
 
-            btnSameYear.setOnClickListener {
-                Toast.makeText(
-                    mContext, "same year", Toast.LENGTH_SHORT
-                ).show()
-            }
+            btnSameYear.setOnClickListener { selectOption(SAME_YEAR) }
 
             tvTwo.setOnClickListener { selectOption(BOTTOM) }
             clImageTwo.setOnClickListener { selectOption(BOTTOM) }
@@ -247,6 +244,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     private fun setSolution(result: Pair<TempSelectionType, ResultType>) {
         binding.apply {
             val bgGood = getDrawable(mContext, R.drawable.bg_temporary_good)
+            val bgAlmost = getDrawable(mContext, R.drawable.bg_temporary_almost)
             val bgBad = getDrawable(mContext, R.drawable.bg_temporary_bad)
 
             when (result.second) {
@@ -254,20 +252,28 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                     when (result.first) {
                         TOP -> tvOne.background = bgGood
                         BOTTOM -> tvTwo.background = bgGood
+                        SAME_YEAR -> tvSameYear.background = bgGood
                     }
                     points++
                     scoreLayout.scoreBoard.tvPoints.text = points.toString()
                     scoreLayout.btnNext.isVisible = true
                 }
 
-                else -> {
+                BAD -> {
                     when (result.first) {
                         TOP -> tvOne.background = bgBad
                         BOTTOM -> tvTwo.background = bgBad
+                        SAME_YEAR -> tvSameYear.background = bgBad
                     }
                     countDown(1000) {
                         Toast.makeText(mContext, "perdiste", Toast.LENGTH_SHORT).show()
                     }
+                }
+
+                ResultType.SAME_YEAR -> tvSameYear.background = bgAlmost
+
+                else -> {
+                    /** Shouldn't go this way */
                 }
             }
         }
@@ -280,6 +286,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
 //            scoreLayout.btnNext.visibility = View.INVISIBLE
 
             tvOne.background = null
+            tvSameYear.background = getDrawable(mContext, R.drawable.bg_button_same_year)
             tvTwo.background = null
 
             position++
