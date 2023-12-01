@@ -74,7 +74,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         binding.apply {
             setUpToolbar()
             loading.root.isVisible = true
-//            scoreLayout.btnNext.visibility = View.INVISIBLE
+            scoreLayout.btnNext.visibility = View.INVISIBLE
             scoreLayout.scoreBoard.tvPoints.text = points.toString()
             imageOne.hideImage()
             imageTwo.hideImage()
@@ -90,11 +90,6 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
 
             tvTwo.setOnClickListener { selectOption(BOTTOM) }
             clImageTwo.setOnClickListener { selectOption(BOTTOM) }
-
-            scoreLayout.btnNext.setOnClickListener {
-                btnNextClicked()
-                if (position % 20 == 0) (activity as MainActivity).showInterstitial()
-            }
         }
     }
 
@@ -147,15 +142,18 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             category?.let {
                 Glide.with(requireContext()).load(it.duckImage).into(loading.image)
                 (activity as MainActivity).toolbarText(it.toolbarText)
-                setMainText(it.longitudePV)
-                scoreLayout.btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
+                setMainText(it.longitudePV, it.id)
+//                scoreLayout.btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
                 scoreLayout.scoreBoard.tvRecord.text = it.guesserRecord.toString()
             }
         }
     }
 
-    private fun setMainText(length: Int) {
-        val text = if (length < 4) R.string.temporary_ages else R.string.temporary_dates
+    private fun setMainText(length: Int, id: String) {
+        val text = if (length < 4) R.string.temporary_ages else {
+            if (id == getString(R.string.id_important_dates)) R.string.temporary_dates_important_dates
+            else R.string.temporary_dates
+        }
         binding.tvTitle.text = getString(text)
     }
 
@@ -165,10 +163,19 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                 try {
                     val data = getData()
                     data?.let { d ->
-                        tvOne.text = d.first.secondText
+                        val textOne = d.first.auxText?.let {
+                            it + " " + d.first.secondText
+                        } ?: run { d.first.secondText }
+                        tvOne.text = textOne
+
                         solution1 = d.first.solution
                         setImage(d.first.image, imageOne)
-                        tvTwo.text = d.second.secondText
+
+                        val textTwo = d.second.auxText?.let {
+                            it + " " + d.second.secondText
+                        } ?: run { d.second.secondText }
+                        tvTwo.text = textTwo
+
                         solution2 = d.second.solution
                         setImage(d.second.image, imageTwo, fromLeft = false)
                         loadingCountDown { loading.root.isVisible = false }
@@ -236,6 +243,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         binding.apply {
             tvOne.isEnabled = clickable
             clImageOne.isEnabled = clickable
+            btnSameYear.isEnabled = clickable
             tvTwo.isEnabled = clickable
             clImageTwo.isEnabled = clickable
         }
@@ -256,7 +264,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                     }
                     points++
                     scoreLayout.scoreBoard.tvPoints.text = points.toString()
-                    scoreLayout.btnNext.isVisible = true
+                    automaticContinue()
                 }
 
                 BAD -> {
@@ -270,7 +278,10 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                     }
                 }
 
-                ResultType.SAME_YEAR -> tvSameYear.background = bgAlmost
+                ResultType.SAME_YEAR -> {
+                    tvSameYear.background = bgAlmost
+                    automaticContinue()
+                }
 
                 else -> {
                     /** Shouldn't go this way */
@@ -280,22 +291,24 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         category?.let { viewModel.checkRecord(points.toString(), record.toString(), it.id) }
     }
 
-    private fun btnNextClicked() {
-        binding.apply {
-            enableImages()
-//            scoreLayout.btnNext.visibility = View.INVISIBLE
+    private fun automaticContinue() {
+        /** continue */
+        countDown(1000) {
+            binding.apply {
+                enableImages()
 
-            tvOne.background = null
-            tvSameYear.background = getDrawable(mContext, R.drawable.bg_button_same_year)
-            tvTwo.background = null
+                tvOne.background = null
+                tvSameYear.background = getDrawable(mContext, R.drawable.bg_button_same_year)
+                tvTwo.background = null
 
-            position++
-            if (position < dataList.size) setData()
-            else {
-                (activity as MainActivity).inDashboard = false
-                activity?.let { NoMoreQuestionsDialog().show(it.supportFragmentManager, "") }
+                position++
+                if (position < dataList.size) setData()
+                else {
+                    (activity as MainActivity).inDashboard = false
+                    activity?.let { NoMoreQuestionsDialog().show(it.supportFragmentManager, "") }
+                }
+                if (position % 20 == 0) (activity as MainActivity).showInterstitial()
             }
-            if (position % 20 == 0) (activity as MainActivity).showInterstitial()
         }
     }
 

@@ -6,4 +6,5 @@ open class Data(
     var secondText: String,
     var birth: List<String>,
     var solution: String,
+    var auxText: String?,
 )

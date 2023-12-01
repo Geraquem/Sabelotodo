@@ -17,7 +17,8 @@ fun DataDTO.toData() = Data(
     firstText = text.split("%%%")[0],
     secondText = text.split("%%%")[1],
     birth = solution.getBirth(),
-    solution = solution.getSolution()
+    solution = solution.getSolution(),
+    auxText = auxText
 )
 
 fun List<DataDTO>.toDataList() = this.map { element -> element.toData() }.toList()
