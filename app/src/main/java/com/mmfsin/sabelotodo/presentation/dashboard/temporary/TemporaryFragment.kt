@@ -276,6 +276,10 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                     countDown(1000) {
                         Toast.makeText(mContext, "perdiste", Toast.LENGTH_SHORT).show()
                     }
+
+                    /***********************************************/
+                    automaticContinue()
+
                 }
 
                 ResultType.SAME_YEAR -> {

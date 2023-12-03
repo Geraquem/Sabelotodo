@@ -20,7 +20,7 @@ import com.mmfsin.sabelotodo.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CategoryDialog(private val id: String, private val listener: ICategoryListener) :
+class MusicDialog(private val id: String, private val listener: ICategoryListener) :
     BaseDialog<DialogCategoryBinding>() {
 
     private val viewModel: CategoryDialogViewModel by viewModels()

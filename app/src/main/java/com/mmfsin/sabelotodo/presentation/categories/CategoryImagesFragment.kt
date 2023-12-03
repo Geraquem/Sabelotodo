@@ -148,7 +148,7 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
     }
 
     override fun onCategoryClick(id: String) {
-        activity?.showFragmentDialog(CategoryDialog.newInstance(id, this@CategoryImagesFragment))
+        activity?.showFragmentDialog(CategoryDialog(id, this@CategoryImagesFragment))
     }
 
     override fun startGuesserGame(categoryId: String) =

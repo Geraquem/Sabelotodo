@@ -12,6 +12,7 @@
     <color name="half_white">#A6FFFFFF</color>
     <color name="light_white">#ECECEC</color>
     <color name="light_grey">#DFDCDC</color>
+    <color name="light_light_grey">#F1F1F1</color>
 
     <color name="button_disabled">#80C6C6C6</color>
     <color name="text_button_disabled">#858585</color>

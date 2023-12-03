@@ -39,6 +39,8 @@
 
     <!-- CATEGORY DIALOG-->
     <string name="category_dialog_example">Algunos ejemplos:</string>
+    <string name="category_dialog_guess_age">Adivinar la edad</string>
+    <string name="category_dialog_guess_date">Adivinar la fecha</string>
     <string name="category_dialog_guesser_start">Empezar</string>
     <string name="category_dialog_temporary_start">Cuál es mas antiguo</string>
     <string name="category_dialog_download">Descargar</string>

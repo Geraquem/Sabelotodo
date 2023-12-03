@@ -3,150 +3,79 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_category_bottom"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="36dp">
 
-    <View
-        android:id="@+id/v_bg"
+    <LinearLayout
+        android:id="@+id/ll_main"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/bg_category_dialog"
-        app:layout_constraintBottom_toBottomOf="@id/cl_main"
-        app:layout_constraintLeft_toLeftOf="@id/cl_main"
-        app:layout_constraintRight_toRightOf="@id/cl_main"
-        app:layout_constraintTop_toTopOf="@id/cl_main" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_main"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:padding="24dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/BigTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:clipToPadding="false"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/crazy_regular"
             android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:textAllCaps="true"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="EDADES DE FAMOSOS" />
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/crazy_regular"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="EDADES DE FAMOSOS" />
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/MediumTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/roboto_regular"
+            android:visibility="gone"
+            tools:text="Adivina las edades de blablabla" />
 
-            <TextView
-                android:id="@+id/tv_description"
-                style="@style/MediumTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginBottom="12dp"
-                android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/white"
-                tools:text="Adivina las edades de blablabla" />
-
-            <ImageView
-                android:id="@+id/duck_image"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="16dp"
-                android:contentDescription="@string/app_name"
-                android:visibility="gone"
-                tools:src="@color/black" />
-
-            <TextView
-                android:id="@+id/tv_title_examples"
-                style="@style/MediumTextView_Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:fontFamily="@font/crazy_regular"
-                android:gravity="start"
-                android:text="@string/category_dialog_example"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_examples"
-                style="@style/MediumTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="start"
-                android:textColor="@color/white"
-                android:textStyle="italic"
-                tools:text="Los simpsons, los picapiedra blablabla" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/btn_guesser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/bg_category_dialog"
+        android:background="@drawable/bg_mode_selector"
+        android:elevation="6dp"
+        android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingVertical="12dp"
+        android:paddingVertical="18dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_main">
+        app:layout_constraintTop_toBottomOf="@id/ll_main">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/btn_guesser_text"
+            style="@style/BigTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
-
-            <TextView
-                android:id="@+id/btn_guesser_text"
-                style="@style/BigTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/crazy_regular"
-                android:gravity="center"
-                android:text="@string/category_dialog_guesser_start"
-                android:textAllCaps="true"
-                android:textColor="@color/white" />
-
-            <ImageView
-                android:id="@+id/btn_guesser_image"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:contentDescription="@string/content_description"
-                android:src="@drawable/ic_play" />
-
-        </LinearLayout>
+            android:fontFamily="@font/crazy_regular"
+            android:gravity="center"
+            android:text="@string/category_dialog_guess_date"
+            android:textAllCaps="true" />
 
         <LinearLayout
             android:id="@+id/ll_high_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_record"
+            android:layout_marginTop="6dp"
             android:elevation="6dp"
             android:paddingHorizontal="12dp"
             android:paddingVertical="8dp">
@@ -182,7 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/bg_category_dialog"
+        android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingVertical="12dp"
@@ -197,14 +126,12 @@
             android:fontFamily="@font/crazy_regular"
             android:gravity="center"
             android:text="@string/category_dialog_temporary_start"
-            android:textAllCaps="true"
-            android:textColor="@color/white" />
+            android:textAllCaps="true" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/bg_record"
             android:elevation="6dp"
             android:paddingHorizontal="12dp"
             android:paddingVertical="8dp">
