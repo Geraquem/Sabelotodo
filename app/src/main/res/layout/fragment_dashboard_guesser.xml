@@ -138,7 +138,7 @@
 
                 <TextView
                     android:id="@+id/tv_in_the"
-                    style="@style/BigTextView"
+                    style="@style/MediumTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -162,24 +162,24 @@
                         android:layout_gravity="center"
                         android:cursorVisible="false"
                         android:fontFamily="sans-serif-condensed-medium"
+                        android:imeOptions="actionDone"
                         android:inputType="number"
                         android:itemBackground="@color/light_white"
                         android:textColor="@color/black"
-                        android:textSize="20sp"
+                        android:textSize="22sp"
                         android:textStyle="bold"
                         app:cursorWidth="0dp"
                         app:hideLineWhenFilled="true"
                         app:itemCount="4"
-                        app:itemRadius="4dp"
+                        app:itemRadius="8dp"
                         app:itemSpacing="2dp"
-                        app:itemWidth="52dp"
-                        app:lineColor="@color/black"
+                        app:lineColor="#99000000"
                         app:lineWidth="2dp"
                         app:viewType="rectangle" />
 
                     <TextView
                         android:id="@+id/tv_years"
-                        style="@style/BigTextView"
+                        style="@style/MediumTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
