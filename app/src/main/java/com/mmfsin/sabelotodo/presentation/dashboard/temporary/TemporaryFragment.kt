@@ -1,7 +1,6 @@
 package com.mmfsin.sabelotodo.presentation.dashboard.temporary
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -74,8 +73,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         binding.apply {
             setUpToolbar()
             loading.root.isVisible = true
-            scoreLayout.btnNext.visibility = View.INVISIBLE
-            scoreLayout.scoreBoard.tvPoints.text = points.toString()
+            scoreLayout.tvPoints.text = points.toString()
             imageOne.hideImage()
             imageTwo.hideImage()
         }
@@ -86,7 +84,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             tvOne.setOnClickListener { selectOption(TOP) }
             clImageOne.setOnClickListener { selectOption(TOP) }
 
-            //btnSameYear.setOnClickListener { selectOption(SAME_YEAR) }
+            btnSameYear.setOnClickListener { selectOption(SAME_YEAR) }
 
             tvTwo.setOnClickListener { selectOption(BOTTOM) }
             clImageTwo.setOnClickListener { selectOption(BOTTOM) }
@@ -128,7 +126,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                 is TemporaryEvent.IsRecord -> {
                     if (event.result.isRecord) {
                         record = event.result.newRecord
-                        binding.scoreLayout.scoreBoard.tvRecord.text = record.toString()
+                        binding.scoreLayout.tvRecord.text = record.toString()
                     }
                 }
 
@@ -143,8 +141,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                 Glide.with(requireContext()).load(it.duckImage).into(loading.image)
                 (activity as MainActivity).toolbarText(it.toolbarText)
                 setMainText(it.longitudePV, it.id)
-//                scoreLayout.btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
-                scoreLayout.scoreBoard.tvRecord.text = it.guesserRecord.toString()
+                scoreLayout.tvRecord.text = it.guesserRecord.toString()
             }
         }
     }
@@ -243,7 +240,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         binding.apply {
             tvOne.isEnabled = clickable
             clImageOne.isEnabled = clickable
-//            btnSameYear.isEnabled = clickable
+            btnSameYear.isEnabled = clickable
             tvTwo.isEnabled = clickable
             clImageTwo.isEnabled = clickable
         }
@@ -251,19 +248,19 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
 
     private fun setSolution(result: Pair<TempSelectionType, ResultType>) {
         binding.apply {
-            val bgGood = getDrawable(mContext, R.drawable.bg_temporary_good)
-            val bgAlmost = getDrawable(mContext, R.drawable.bg_temporary_almost)
-            val bgBad = getDrawable(mContext, R.drawable.bg_temporary_bad)
+            val bgGood = setBackground(R.drawable.bg_temporary_good)
+            val bgBad = setBackground(R.drawable.bg_temporary_bad)
 
             when (result.second) {
                 GOOD -> {
                     when (result.first) {
                         TOP -> cvOne.background = bgGood
                         BOTTOM -> cvTwo.background = bgGood
-                        SAME_YEAR -> {}//tvSameYear.background = bgGood
+                        SAME_YEAR -> btnSameYear.background =
+                            setBackground(R.drawable.bg_button_same_year_good)
                     }
                     points++
-                    scoreLayout.scoreBoard.tvPoints.text = points.toString()
+                    scoreLayout.tvPoints.text = points.toString()
                     automaticContinue()
                 }
 
@@ -271,7 +268,8 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                     when (result.first) {
                         TOP -> cvOne.background = bgBad
                         BOTTOM -> cvTwo.background = bgBad
-                        SAME_YEAR -> {}//tvSameYear.background = bgBad
+                        SAME_YEAR -> btnSameYear.background =
+                            setBackground(R.drawable.bg_button_same_year_bad)
                     }
                     countDown(1000) {
                         Toast.makeText(mContext, "perdiste", Toast.LENGTH_SHORT).show()
@@ -283,7 +281,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                 }
 
                 ResultType.SAME_YEAR -> {
-                    //tvSameYear.background = bgAlmost
+                    btnSameYear.background = setBackground(R.drawable.bg_button_same_year_almost)
                     automaticContinue()
                 }
 
@@ -301,10 +299,9 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             binding.apply {
                 enableImages()
 
-                val bgNeutro = getDrawable(mContext, R.drawable.bg_temporary_neutro)
-                cvOne.background = bgNeutro
-                //tvSameYear.background = getDrawable(mContext, R.drawable.bg_button_same_year)
-                cvTwo.background = bgNeutro
+                cvOne.background = setBackground(R.drawable.bg_temporary_neutro)
+                btnSameYear.background = setBackground(R.drawable.bg_button_same_year_neutro)
+                cvTwo.background = setBackground(R.drawable.bg_temporary_neutro)
 
                 position++
                 if (position < dataList.size) setData()
@@ -316,6 +313,8 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             }
         }
     }
+
+    private fun setBackground(bg: Int) = getDrawable(mContext, bg)
 
     private fun showNoMoreQuestions() {
         (activity as MainActivity).inDashboard = false

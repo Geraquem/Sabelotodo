@@ -5,8 +5,7 @@
     android:id="@+id/rl_bottom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_view_score"
-    android:paddingVertical="8dp">
+    android:background="@drawable/bg_view_score">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl2_left"
@@ -38,7 +37,6 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:contentDescription="@string/content_description"
-        android:elevation="5dp"
         android:src="@drawable/ic_next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="@id/gl2_right"

@@ -9,14 +9,14 @@
     android:clipToPadding="false">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_right"
+        android:id="@+id/gl2_right"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_left"
+        android:id="@+id/gl2_left"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -31,8 +31,8 @@
         android:overScrollMode="never"
         android:paddingTop="16dp"
         android:scrollbars="none"
-        app:layout_constraintLeft_toLeftOf="@id/gl_left"
-        app:layout_constraintRight_toRightOf="@id/gl_right"
+        app:layout_constraintLeft_toLeftOf="@id/gl2_left"
+        app:layout_constraintRight_toRightOf="@id/gl2_right"
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="7"
         tools:listitem="@layout/item_category" />

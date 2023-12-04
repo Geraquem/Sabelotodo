@@ -58,7 +58,7 @@
     <string name="temporary_ages">¿Quién es más joven?</string>
     <string name="temporary_dates">¿Cuál es más antiguo?</string>
     <string name="temporary_dates_important_dates">¿Cuál ocurrió antes?</string>
-    <string name="temporary_same_year">Mismo año</string>
+    <string name="temporary_same_year">Son del mismo año</string>
 
     <!-- SOLUTION AGE -->
     <string name="solution_age_was_born">Nació el</string>

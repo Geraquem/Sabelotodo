@@ -8,6 +8,20 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_left"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_right"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
@@ -30,14 +44,14 @@
             android:clipToPadding="false">
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_left"
+                android:id="@+id/gl2_left"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.05" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_right"
+                android:id="@+id/gl2_right"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:orientation="vertical"
@@ -54,8 +68,8 @@
                 android:textAllCaps="true"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="@id/gl_left"
-                app:layout_constraintRight_toRightOf="@id/gl_right"
+                app:layout_constraintLeft_toLeftOf="@id/gl2_left"
+                app:layout_constraintRight_toRightOf="@id/gl2_right"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/temporary_ages" />
 
@@ -66,8 +80,8 @@
                 android:layout_marginTop="16dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="8dp"
-                app:layout_constraintLeft_toLeftOf="@id/gl_left"
-                app:layout_constraintRight_toRightOf="@id/gl_right"
+                app:layout_constraintLeft_toLeftOf="@id/gl2_left"
+                app:layout_constraintRight_toRightOf="@id/gl2_right"
                 app:layout_constraintTop_toBottomOf="@id/tv_title">
 
                 <LinearLayout
@@ -131,8 +145,8 @@
                 android:layout_marginTop="16dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="8dp"
-                app:layout_constraintLeft_toLeftOf="@id/gl_left"
-                app:layout_constraintRight_toRightOf="@id/gl_right"
+                app:layout_constraintLeft_toLeftOf="@id/gl2_left"
+                app:layout_constraintRight_toRightOf="@id/gl2_right"
                 app:layout_constraintTop_toBottomOf="@id/cv_one">
 
                 <LinearLayout
@@ -193,14 +207,41 @@
 
     </ScrollView>
 
-    <include
-        android:id="@+id/score_layout"
-        layout="@layout/include_bottom_dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_score_board_temporary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="@id/score_layout"
+        app:layout_constraintTop_toTopOf="@id/score_layout" />
+
+    <include
+        android:id="@+id/score_layout"
+        layout="@layout/include_score_board"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/gl_left" />
+
+    <TextView
+        android:id="@+id/btn_same_year"
+        style="@style/MediumTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/bg_button_same_year_neutro"
+        android:elevation="6dp"
+        android:fontFamily="@font/crazy_regular"
+        android:gravity="center"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:text="@string/temporary_same_year"
+        android:textAllCaps="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/score_layout"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/score_layout" />
 
     <include
         android:id="@+id/loading"
