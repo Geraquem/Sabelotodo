@@ -20,10 +20,8 @@ import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToGuesser
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToTemporary
 import com.mmfsin.sabelotodo.presentation.categories.adapter.CategoriesAdapter
-import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.CategoryDialog
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
 import com.mmfsin.sabelotodo.utils.showErrorDialog
-import com.mmfsin.sabelotodo.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -71,14 +69,13 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
         }
     }
 
-    override fun onCategoryScrolled(title: String, description: String) {    }
+    override fun onCategoryScrolled(title: String, description: String) {}
 
     private fun setCategoryRecycler(categories: List<Category>) {
         if (categories.isNotEmpty()) {
             binding.rvCategory.apply {
                 layoutManager = LinearLayoutManager(mContext)
-                adapter =
-                    CategoriesAdapter(categories.sortedBy { it.order }, this@CategoriesFragment)
+                adapter = CategoriesAdapter(categories, this@CategoriesFragment)
             }
             binding.loading.root.isVisible = false
         }

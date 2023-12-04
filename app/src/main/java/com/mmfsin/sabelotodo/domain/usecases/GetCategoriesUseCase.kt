@@ -9,8 +9,9 @@ class GetCategoriesUseCase @Inject constructor(private val repository: ICategory
     BaseUseCase<GetCategoriesUseCase.Params, List<Category>>() {
 
     override suspend fun execute(params: Params): List<Category> {
-        return if (params.fromRealm) repository.getCategoriesFromRealm()
+        val data = if (params.fromRealm) repository.getCategoriesFromRealm()
         else repository.getCategories()
+        return data.sortedBy { it.order }
     }
 
     data class Params(

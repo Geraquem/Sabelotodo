@@ -17,9 +17,12 @@ class GetDashboardDataUseCase @Inject constructor(private val repository: IDashb
 
             if (lastPosition > 3) lastPosition = 3
             for (i in 1..lastPosition) {
-                data.shuffled()
+//                data.shuffled()
             }
-            data.shuffled()
+//            data.shuffled()
+            data
+                /****** delete after *******/
+//                .filter { t -> t.secondText.contains("Zatu") }
 
         } catch (e: Exception) {
             data.shuffled()

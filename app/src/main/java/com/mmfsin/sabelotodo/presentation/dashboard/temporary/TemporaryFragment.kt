@@ -86,7 +86,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             tvOne.setOnClickListener { selectOption(TOP) }
             clImageOne.setOnClickListener { selectOption(TOP) }
 
-            btnSameYear.setOnClickListener { selectOption(SAME_YEAR) }
+            //btnSameYear.setOnClickListener { selectOption(SAME_YEAR) }
 
             tvTwo.setOnClickListener { selectOption(BOTTOM) }
             clImageTwo.setOnClickListener { selectOption(BOTTOM) }
@@ -243,7 +243,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         binding.apply {
             tvOne.isEnabled = clickable
             clImageOne.isEnabled = clickable
-            btnSameYear.isEnabled = clickable
+//            btnSameYear.isEnabled = clickable
             tvTwo.isEnabled = clickable
             clImageTwo.isEnabled = clickable
         }
@@ -258,9 +258,9 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             when (result.second) {
                 GOOD -> {
                     when (result.first) {
-                        TOP -> tvOne.background = bgGood
-                        BOTTOM -> tvTwo.background = bgGood
-                        SAME_YEAR -> tvSameYear.background = bgGood
+                        TOP -> cvOne.background = bgGood
+                        BOTTOM -> cvTwo.background = bgGood
+                        SAME_YEAR -> {}//tvSameYear.background = bgGood
                     }
                     points++
                     scoreLayout.scoreBoard.tvPoints.text = points.toString()
@@ -269,9 +269,9 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
 
                 BAD -> {
                     when (result.first) {
-                        TOP -> tvOne.background = bgBad
-                        BOTTOM -> tvTwo.background = bgBad
-                        SAME_YEAR -> tvSameYear.background = bgBad
+                        TOP -> cvOne.background = bgBad
+                        BOTTOM -> cvTwo.background = bgBad
+                        SAME_YEAR -> {}//tvSameYear.background = bgBad
                     }
                     countDown(1000) {
                         Toast.makeText(mContext, "perdiste", Toast.LENGTH_SHORT).show()
@@ -283,7 +283,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                 }
 
                 ResultType.SAME_YEAR -> {
-                    tvSameYear.background = bgAlmost
+                    //tvSameYear.background = bgAlmost
                     automaticContinue()
                 }
 
@@ -301,9 +301,10 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             binding.apply {
                 enableImages()
 
-                tvOne.background = null
-                tvSameYear.background = getDrawable(mContext, R.drawable.bg_button_same_year)
-                tvTwo.background = null
+                val bgNeutro = getDrawable(mContext, R.drawable.bg_temporary_neutro)
+                cvOne.background = bgNeutro
+                //tvSameYear.background = getDrawable(mContext, R.drawable.bg_button_same_year)
+                cvTwo.background = bgNeutro
 
                 position++
                 if (position < dataList.size) setData()
