@@ -102,7 +102,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
 
     private fun setUpToolbar() {
         (activity as MainActivity).apply {
-            showBanner(visible = true)
+            showBanner(visible = true, bannerBgColor = R.color.white)
             toolbarIcon(showDuck = false)
             toolbarVisibility(visible = true)
         }

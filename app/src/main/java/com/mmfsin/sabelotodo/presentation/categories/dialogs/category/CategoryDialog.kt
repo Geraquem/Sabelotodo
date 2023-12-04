@@ -41,40 +41,32 @@ class CategoryDialog(private val id: String, private val listener: ICategoryList
         isCancelable = true
         binding.apply {
             category?.let {
-                checkIfMusic(it.id)
-                setBackground(it.colorStart, it.colorEnd)
                 tvTitle.text = it.title
-                tvDescription.text = it.description
+                setTexts(it)
                 tvGuesserRecord.text = it.guesserRecord.toString()
                 tvTemporaryRecord.text = it.temporaryRecord.toString()
             }
         }
     }
 
-    private fun setBackground(colorStart: String, colorEnd: String) {
+    private fun setTexts(category: Category) {
         binding.apply {
-//            val colors = intArrayOf(Color.parseColor(colorStart), Color.parseColor(colorEnd))
-//            val newGradient =
-//                GradientDrawable(BOTTOM_TOP, colors).apply {
-//                    gradientType = GradientDrawable.LINEAR_GRADIENT
-//                    cornerRadius = 30f
-//                    setGradientCenter(0.5f, 0.5f)
-//                }
-//            vBg.background = newGradient
-//            btnGuesser.background = newGradient
-//            btnTemporary.background = newGradient
-        }
-    }
+            when (category.longitudePV) {
+                2 -> {
+                    btnGuesserText.text = getString(R.string.category_dialog_guess_age)
+                    btnGuesserDescription.text = category.shortDescription
+                    btnTemporaryText.text = "aaaaaaaaaaaaaaa"
+                    btnTemporaryDescription.text = "aaaaaaaaaaaaaaa"
+                }
 
-    private fun checkIfMusic(id: String) {
-        if (id == getString(R.string.category_music)) {
-            binding.apply {
-//                duckImage.visibility = View.VISIBLE
-//                tvTitleExamples.visibility = View.GONE
-                llHighScore.visibility = View.GONE
-                btnGuesserText.text = getString(R.string.category_dialog_download)
-//                btnGuesserImage.setImageResource(R.drawable.ic_download)
-                viewModel.checkIfAvailable()
+                4 -> {
+                    btnGuesserText.text = getString(R.string.category_dialog_guess_date)
+                    btnGuesserDescription.text = category.shortDescription
+                    btnTemporaryText.text = "aaaaaaaaaaaaaaa"
+                    btnTemporaryDescription.text = "aaaaaaaaaaaaaaa"
+                }
+
+                else -> {}
             }
         }
     }
@@ -83,21 +75,15 @@ class CategoryDialog(private val id: String, private val listener: ICategoryList
         binding.apply {
             btnGuesser.setOnClickListener {
                 category?.let {
-                    if (id == getString(R.string.category_music)) listener.openMusicMaster()
-                    else {
-                        listener.startGuesserGame(it.id)
-                        dismiss()
-                    }
+                    listener.startGuesserGame(it.id)
+                    dismiss()
                 }
             }
 
             btnTemporary.setOnClickListener {
                 category?.let {
-                    if (id == getString(R.string.category_music)) listener.openMusicMaster()
-                    else {
-                        listener.startCTemporaryGame(it.id)
-                        dismiss()
-                    }
+                    listener.startCTemporaryGame(it.id)
+                    dismiss()
                 }
             }
         }

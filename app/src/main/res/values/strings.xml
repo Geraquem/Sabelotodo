@@ -10,6 +10,12 @@
     <!--        <string name="interstitial">ca-app-pub-4515698012373396/9980090620</string>-->
 
     <!-- IDs -->
+    <string name="id_cartoon_creations">cartoon-creations</string>
+    <string name="id_films_series">films-series</string>
+    <string name="id_global_age">global-age</string>
+    <string name="id_music">music</string>
+    <string name="id_spanish_age">spanish-age</string>
+    <string name="id_videogames">videogames</string>
     <string name="id_important_dates">important-dates</string>
 
     <!-- ERROR -->
@@ -33,14 +39,13 @@
 
     <!-- CATEGORY -->
     <string name="category_title_description">El que sabe, sabe, y el que no…</string>
-    <string name="category_record">Máxima puntuación:</string>
-    <string name="category_music">music</string>
+    <string name="category_record">Récord:</string>
     <string name="music_master_url">https://play.google.com/store/apps/details?id=com.mmfsin.musicmaster</string>
 
     <!-- CATEGORY DIALOG-->
     <string name="category_dialog_example">Algunos ejemplos:</string>
-    <string name="category_dialog_guess_age">Adivinar la edad</string>
-    <string name="category_dialog_guess_date">Adivinar la fecha</string>
+    <string name="category_dialog_guess_age">Adivina la edad</string>
+    <string name="category_dialog_guess_date">Adivina la fecha</string>
     <string name="category_dialog_guesser_start">Empezar</string>
     <string name="category_dialog_temporary_start">Cuál es mas antiguo</string>
     <string name="category_dialog_download">Descargar</string>

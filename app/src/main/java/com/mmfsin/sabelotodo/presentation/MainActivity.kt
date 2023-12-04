@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun toolbarVisibility(visible: Boolean){
+    fun toolbarVisibility(visible: Boolean) {
         binding.appBar.isVisible = visible
     }
 
@@ -110,8 +111,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun showBanner(visible: Boolean) {
-        binding.adView.isVisible = visible
+    fun showBanner(visible: Boolean, bannerBgColor: Int? = null) {
+        binding.apply {
+            adView.isVisible = visible
+            val background = bannerBgColor ?: R.color.light_grey
+            clMain.background = ContextCompat.getDrawable(this@MainActivity, background)
+        }
     }
 
     @Deprecated("Deprecated in Java")
