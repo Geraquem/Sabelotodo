@@ -21,16 +21,70 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
 
-    <include
-        android:id="@+id/score_board"
-        layout="@layout/include_score_board"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="start"
+        android:orientation="vertical"
+        android:paddingVertical="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/gl2_left"
         app:layout_constraintRight_toLeftOf="@id/btn_next"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/MediumTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/guesser_actual_record"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:id="@+id/tv_record"
+                style="@style/MediumTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                tools:text="19" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/BigTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:text="@string/guesser_points"
+                android:textAllCaps="true"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_points"
+                style="@style/BigTextView_Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:text="15" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/btn_next"

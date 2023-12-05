@@ -73,7 +73,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
             setUpToolbar()
             loading.root.isVisible
             llSolutions.isVisible = false
-            scoreLayout.scoreBoard.tvPoints.text = points.toString()
+            scoreLayout.tvPoints.text = points.toString()
         }
     }
 
@@ -127,7 +127,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                 is GuesserEvent.IsRecord -> {
                     if (event.result.isRecord) {
                         record = event.result.newRecord
-                        binding.scoreLayout.scoreBoard.tvRecord.text = record.toString()
+                        binding.scoreLayout.tvRecord.text = record.toString()
                     }
                 }
 
@@ -143,7 +143,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                 (activity as MainActivity).toolbarText(it.toolbarText)
                 setPinView(it.longitudePV)
                 scoreLayout.btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
-                scoreLayout.scoreBoard.tvRecord.text = it.guesserRecord.toString()
+                scoreLayout.tvRecord.text = it.guesserRecord.toString()
             }
         }
     }
@@ -289,7 +289,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                 /**if null*/
                 else -> {}
             }
-            scoreLayout.scoreBoard.tvPoints.text = points.toString()
+            scoreLayout.tvPoints.text = points.toString()
             category?.let { viewModel.checkRecord(points.toString(), record.toString(), it.id) }
         }
     }
