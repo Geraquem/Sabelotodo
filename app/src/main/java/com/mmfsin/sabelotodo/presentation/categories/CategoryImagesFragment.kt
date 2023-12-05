@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.base.BaseFragment
 import com.mmfsin.sabelotodo.databinding.FragmentCategoriesImagesBinding
@@ -88,6 +89,8 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
                 viewpager.clipChildren = false
                 viewpager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
                 setUpTransformer()
+
+                TabLayoutMediator(tabLayout, viewpager) { _, _ -> }.attach()
 
                 adapter?.updateTexts(0)
                 viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
