@@ -31,7 +31,7 @@ class ImageAdapter(
 
     fun updateTexts(position: Int) {
         val category = imageList[position]
-        listener.onCategoryScrolled(category.title, category.examples)
+        listener.onCategoryScrolled(category.title, category.examples, category.colorEnd)
     }
 
     class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -69,7 +69,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
         }
     }
 
-    override fun onCategoryScrolled(title: String, description: String) {}
+    override fun onCategoryScrolled(title: String, description: String, color: String) {}
 
     private fun setCategoryRecycler(categories: List<Category>) {
         if (categories.isNotEmpty()) {

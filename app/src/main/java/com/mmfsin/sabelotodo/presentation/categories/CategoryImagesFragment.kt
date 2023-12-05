@@ -1,8 +1,11 @@
 package com.mmfsin.sabelotodo.presentation.categories
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -34,6 +37,7 @@ import com.mmfsin.sabelotodo.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
+
 @AndroidEntryPoint
 class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, CategoriesViewModel>(),
     ICategoryListener {
@@ -41,6 +45,9 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
     override val viewModel: CategoriesViewModel by viewModels()
 
     private var adapter: ImageAdapter? = null
+    private lateinit var previousColor: String
+    private var firstColorTime = true
+
     private lateinit var mContext: Context
 
     override fun inflateView(inflater: LayoutInflater, container: ViewGroup?) =
@@ -143,12 +150,30 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
         binding.viewpager.setPageTransformer(transformer)
     }
 
-    override fun onCategoryScrolled(title: String, description: String) {
+    override fun onCategoryScrolled(title: String, description: String, color: String) {
         binding.apply {
             tvTop.text = title
             tvBottom.text = description
+//            changeColor(color)
         }
     }
+
+    private fun changeColor(color: String) {
+        if (firstColorTime) {
+            previousColor = color
+            firstColorTime = false
+        }
+        val colorFrom = Color.parseColor(previousColor)
+        val colorTo = Color.parseColor(color)
+        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
+        colorAnimation.duration = 750
+        colorAnimation.addUpdateListener { animator ->
+            binding.clMain.setBackgroundColor(animator.animatedValue as Int)
+        }
+        colorAnimation.start()
+        previousColor = color
+    }
+
 
     override fun onCategoryClick(id: String) {
         activity?.showFragmentDialog(CategoryDialog(id, this@CategoryImagesFragment))
