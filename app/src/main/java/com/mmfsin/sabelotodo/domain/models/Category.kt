@@ -12,9 +12,9 @@ open class Category(
     var colorStart: String,
     var colorEnd: String,
     var order: Long,
-    var guesserRecord: Int?,
-    var temporaryRecord: Int?,
     var toolbarText: String,
     var longitudePV: Int,
-    var mainImage: String
+    var mainImage: String,
+    var guesserRecord: Int?,
+    var temporaryRecord: Int?,
 )

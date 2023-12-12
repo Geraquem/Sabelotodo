@@ -3,8 +3,10 @@ package com.mmfsin.sabelotodo.data.mappers
 import android.annotation.SuppressLint
 import com.mmfsin.sabelotodo.data.models.CategoryDTO
 import com.mmfsin.sabelotodo.data.models.DataDTO
+import com.mmfsin.sabelotodo.data.models.UserRecordDTO
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
+import com.mmfsin.sabelotodo.domain.models.UserRecord
 import java.text.SimpleDateFormat
 import java.time.LocalDate.now
 import java.time.LocalDate.of
@@ -63,7 +65,7 @@ fun String.getSolution(): String {
     } else this
 }
 
-fun CategoryDTO.toCategory() = Category(
+fun CategoryDTO.toCategory(guesserRecord: Int? = 0, temporaryRecord: Int? = 0) = Category(
     id = id,
     title = title,
     image = image,
@@ -75,11 +77,16 @@ fun CategoryDTO.toCategory() = Category(
     colorStart = colorStart,
     colorEnd = colorEnd,
     order = order,
-    guesserRecord = guesserRecord,
-    temporaryRecord = temporaryRecord,
     toolbarText = toolbarText,
     longitudePV = longitudePV,
-    mainImage = mainImage
+    mainImage = mainImage,
+    guesserRecord = guesserRecord,
+    temporaryRecord = temporaryRecord
 )
 
 fun List<CategoryDTO>.toCategoryList() = this.map { element -> element.toCategory() }.toList()
+
+fun UserRecordDTO.toUserRecord() = UserRecord(
+    guesserRecord = guesserRecord ?: 0,
+    temporaryRecord = temporaryRecord ?: 0
+)

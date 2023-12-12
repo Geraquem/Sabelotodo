@@ -16,8 +16,6 @@ open class CategoryDTO(
     var colorStart: String = "#FFFFFFFF",
     var colorEnd: String = "#FFFFFFFF",
     var order: Long = 0,
-    var guesserRecord: Int? = 0,
-    var temporaryRecord: Int? = 0,
     var toolbarText: String = "",
     var longitudePV: Int = 0,
     var mainImage: String = ""

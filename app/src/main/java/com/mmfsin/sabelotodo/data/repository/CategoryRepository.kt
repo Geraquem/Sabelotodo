@@ -6,10 +6,13 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.mmfsin.sabelotodo.data.mappers.toCategory
 import com.mmfsin.sabelotodo.data.mappers.toCategoryList
+import com.mmfsin.sabelotodo.data.mappers.toUserRecord
 import com.mmfsin.sabelotodo.data.models.CategoryDTO
+import com.mmfsin.sabelotodo.data.models.UserRecordDTO
 import com.mmfsin.sabelotodo.domain.interfaces.ICategoryRepository
 import com.mmfsin.sabelotodo.domain.interfaces.IRealmDatabase
 import com.mmfsin.sabelotodo.domain.models.Category
+import com.mmfsin.sabelotodo.domain.models.UserRecord
 import com.mmfsin.sabelotodo.utils.AVAILABLE_MUSICMASTER
 import com.mmfsin.sabelotodo.utils.CATEGORIES
 import com.mmfsin.sabelotodo.utils.MUSIC_MASTER
@@ -24,8 +27,7 @@ import java.util.concurrent.CountDownLatch
 import javax.inject.Inject
 
 class CategoryRepository @Inject constructor(
-    @ApplicationContext val context: Context,
-    private val realmDatabase: IRealmDatabase
+    @ApplicationContext val context: Context, private val realmDatabase: IRealmDatabase
 ) : ICategoryRepository {
 
     private val reference = Firebase.database.reference
@@ -33,7 +35,9 @@ class CategoryRepository @Inject constructor(
     override fun getCategory(id: String): Category? {
         val categories =
             realmDatabase.getObjectsFromRealm { where<CategoryDTO>().equalTo("id", id).findAll() }
-        return if (categories.isEmpty()) null else categories.first().toCategory()
+        val records = getRecordsFromCategoryId(id)
+        return if (categories.isEmpty()) null else categories.first()
+            .toCategory(records.guesserRecord, records.temporaryRecord)
     }
 
     override fun getCategoriesFromRealm(): List<Category> {
@@ -97,4 +101,12 @@ class CategoryRepository @Inject constructor(
     private fun getSharedPreferences() = context.getSharedPreferences(MY_SHARED_PREFS, MODE_PRIVATE)
 
     private fun saveCategory(category: CategoryDTO) = realmDatabase.addObject { category }
+
+    private fun getRecordsFromCategoryId(categoryId: String): UserRecord {
+        val records = realmDatabase.getObjectsFromRealm {
+            where<UserRecordDTO>().equalTo("id", categoryId).findAll()
+        }
+        return if (records.isEmpty()) return UserRecord(0, 0)
+        else records.first().toUserRecord()
+    }
 }

@@ -3,8 +3,8 @@ package com.mmfsin.sabelotodo.data.repository
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.mmfsin.sabelotodo.data.mappers.toDataList
-import com.mmfsin.sabelotodo.data.models.CategoryDTO
 import com.mmfsin.sabelotodo.data.models.DataDTO
+import com.mmfsin.sabelotodo.data.models.UserRecordDTO
 import com.mmfsin.sabelotodo.domain.interfaces.IDashboardRepository
 import com.mmfsin.sabelotodo.domain.interfaces.IRealmDatabase
 import com.mmfsin.sabelotodo.domain.models.Data
@@ -40,24 +40,34 @@ class DashboardRepository @Inject constructor(
     }
 
     override fun updateGuesserRecord(categoryId: String, record: Int) {
-        val categories = realmDatabase.getObjectsFromRealm {
-            where<CategoryDTO>().equalTo("id", categoryId).findAll()
+        val userRecords = realmDatabase.getObjectsFromRealm {
+            where<UserRecordDTO>().equalTo("id", categoryId).findAll()
         }
-        val category = if (categories.isEmpty()) null else categories.first()
-        category?.let {
-            it.guesserRecord = record
-            realmDatabase.addObject { category }
+        /** Si empty significa que es la primera vez que guardo */
+        if (userRecords.isEmpty()) {
+            val userRecord = UserRecordDTO(categoryId, record, 0)
+            realmDatabase.addObject { userRecord }
+
+        } else {
+            val userRecord = userRecords.first()
+            userRecord.guesserRecord = record
+            realmDatabase.addObject { userRecord }
         }
     }
 
     override fun updateTemporaryRecord(categoryId: String, record: Int) {
-        val categories = realmDatabase.getObjectsFromRealm {
-            where<CategoryDTO>().equalTo("id", categoryId).findAll()
+        val userRecords = realmDatabase.getObjectsFromRealm {
+            where<UserRecordDTO>().equalTo("id", categoryId).findAll()
         }
-        val category = if (categories.isEmpty()) null else categories.first()
-        category?.let {
-            it.temporaryRecord = record
-            realmDatabase.addObject { category }
+        /** Si empty significa que es la primera vez que guardo */
+        if (userRecords.isEmpty()) {
+            val userRecord = UserRecordDTO(categoryId, 0, record)
+            realmDatabase.addObject { userRecord }
+
+        } else {
+            val userRecord = userRecords.first()
+            userRecord.temporaryRecord = record
+            realmDatabase.addObject { userRecord }
         }
     }
 }
