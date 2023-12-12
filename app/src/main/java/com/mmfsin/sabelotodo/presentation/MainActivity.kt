@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     var firstTime = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Thread.sleep(500)
+        Thread.sleep(100)
         setTheme(R.style.Theme_Sabelotodo)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
