@@ -47,9 +47,7 @@ class MusicDialog(private val id: String, private val listener: ICategoryListene
             category?.let {
                 tvTitle.text = getString(R.string.category_dialog_music_master)
                 tvDescription.text = it.description
-                context?.let { c ->
-                    Glide.with(c).load(it.image).into(ivMusic)
-                }
+                context?.let { c -> Glide.with(c).load(it.image).into(ivMusic) }
             }
         }
     }

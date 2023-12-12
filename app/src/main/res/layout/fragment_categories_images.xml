@@ -164,6 +164,10 @@
                 app:layout_constraintBottom_toTopOf="@id/cl_bottom"
                 app:tabBackground="@drawable/tab_selector"
                 app:tabGravity="center"
+                app:tabIndicator="@drawable/tab_dot_selected"
+                app:tabIndicatorAnimationMode="elastic"
+                app:tabIndicatorColor="@color/black"
+                app:tabIndicatorGravity="stretch"
                 app:tabIndicatorHeight="0dp" />
 
         </LinearLayout>

@@ -1,13 +1,8 @@
 package com.mmfsin.sabelotodo.presentation.categories.dialogs.category
 
 import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.GradientDrawable.Orientation.BOTTOM_TOP
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
@@ -15,7 +10,6 @@ import com.mmfsin.sabelotodo.base.BaseDialog
 import com.mmfsin.sabelotodo.databinding.DialogCategoryBinding
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
-import com.mmfsin.sabelotodo.utils.animateDialog
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,6 +35,7 @@ class CategoryDialog(private val id: String, private val listener: ICategoryList
         isCancelable = true
         binding.apply {
             category?.let {
+                context?.let { c -> Glide.with(c).load(it.image).into(ivTitle) }
                 tvTitle.text = it.title
                 setTexts(it)
                 tvGuesserRecord.text = it.guesserRecord.toString()
