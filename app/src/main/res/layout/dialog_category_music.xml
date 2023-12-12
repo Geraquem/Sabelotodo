@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_temporary_neutro"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="36dp">
+
+    <LinearLayout
+        android:id="@+id/ll_main"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/BigTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/crazy_regular"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/category_dialog_music_master" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/black"
+                app:layout_constraintLeft_toLeftOf="@id/tv_title"
+                app:layout_constraintRight_toRightOf="@id/tv_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/SmallTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textAllCaps="true"
+            tools:text="Descarga ahora blablabla..." />
+
+        <ImageView
+            android:id="@+id/iv_music"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:contentDescription="@string/content_description"
+            tools:src="@color/black" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btn_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_mode_selector"
+        android:elevation="6dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_main">
+
+        <TextView
+            android:id="@+id/btn_download_text"
+            style="@style/BigTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/crazy_regular"
+            android:gravity="center"
+            android:textAllCaps="true"
+            tools:text="@string/category_dialog_download" />
+
+        <ImageView
+            android:id="@+id/iv_download"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="12dp"
+            android:contentDescription="@string/content_description"
+            android:src="@drawable/ic_download"
+            app:tint="@color/black" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

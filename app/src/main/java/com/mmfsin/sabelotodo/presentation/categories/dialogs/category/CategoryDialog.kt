@@ -51,19 +51,24 @@ class CategoryDialog(private val id: String, private val listener: ICategoryList
 
     private fun setTexts(category: Category) {
         binding.apply {
-            when (category.longitudePV) {
-                2 -> {
+            when (category.id) {
+                getString(R.string.id_spanish_age),
+                getString(R.string.id_global_age) -> {
                     btnGuesserText.text = getString(R.string.category_dialog_guess_age)
-                    btnGuesserDescription.text = category.shortDescription
-                    btnTemporaryText.text = "aaaaaaaaaaaaaaa"
-                    btnTemporaryDescription.text = "aaaaaaaaaaaaaaa"
+                    btnTemporaryText.text = getString(R.string.category_dialog_temporary_age)
                 }
 
-                4 -> {
+                getString(R.string.id_films_series),
+                getString(R.string.id_cartoon_creations),
+                getString(R.string.id_videogames) -> {
                     btnGuesserText.text = getString(R.string.category_dialog_guess_date)
-                    btnGuesserDescription.text = category.shortDescription
-                    btnTemporaryText.text = "aaaaaaaaaaaaaaa"
-                    btnTemporaryDescription.text = "aaaaaaaaaaaaaaa"
+                    btnTemporaryText.text = getString(R.string.category_dialog_temporary_date)
+                }
+
+                getString(R.string.id_important_dates) -> {
+                    btnGuesserText.text = getString(R.string.category_dialog_guess_date)
+                    btnTemporaryText.text =
+                        getString(R.string.category_dialog_temporary_important_dates)
                 }
 
                 else -> {}
@@ -97,22 +102,8 @@ class CategoryDialog(private val id: String, private val listener: ICategoryList
                     setUI()
                 }
 
-                is CategoryDialogEvent.AvailableMusicMaster -> availableMusicMaster(event.available)
+                is CategoryDialogEvent.AvailableMusicMaster -> {}
                 is CategoryDialogEvent.SomethingWentWrong -> error()
-            }
-        }
-    }
-
-    private fun availableMusicMaster(available: Boolean) {
-        binding.apply {
-            btnTemporary.isVisible = false
-            btnGuesser.isEnabled = available
-            if (available) {
-                btnGuesserText.text = getString(R.string.category_dialog_download)
-//                btnGuesserImage.setImageResource(R.drawable.ic_download)
-            } else {
-                btnGuesserText.text = getString(R.string.category_dialog_soon)
-//                btnGuesserImage.visibility = View.GONE
             }
         }
     }

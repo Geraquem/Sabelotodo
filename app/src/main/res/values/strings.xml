@@ -42,12 +42,18 @@
     <string name="category_record">Récord:</string>
     <string name="music_master_url">https://play.google.com/store/apps/details?id=com.mmfsin.musicmaster</string>
 
-    <!-- CATEGORY DIALOG-->
-    <string name="category_dialog_example">Algunos ejemplos:</string>
+    <!-- CATEGORY DIALOG -->
     <string name="category_dialog_guess_age">Adivina la edad</string>
+    <string name="category_dialog_guess_age_description">¿Conoces las edades de los famosos?</string>
     <string name="category_dialog_guess_date">Adivina la fecha</string>
     <string name="category_dialog_guesser_start">Empezar</string>
-    <string name="category_dialog_temporary_start">Cuál es mas antiguo</string>
+
+    <string name="category_dialog_temporary_age">¿Quién es más joven?</string>
+    <string name="category_dialog_temporary_date">¿Qué salió antes?</string>
+    <string name="category_dialog_temporary_important_dates">¿Qué ocurrió antes?</string>
+
+    <!-- CATEGORY DIALOG MUSIC -->
+    <string name="category_dialog_music_master">Music Master</string>
     <string name="category_dialog_download">Descargar</string>
     <string name="category_dialog_soon">¡Proximamente!</string>
 
@@ -61,8 +67,8 @@
 
     <!-- TEMPORARY -->
     <string name="temporary_ages">¿Quién es más joven?</string>
-    <string name="temporary_dates">¿Cuál es más antiguo?</string>
-    <string name="temporary_dates_important_dates">¿Cuál ocurrió antes?</string>
+    <string name="temporary_dates">¿Cuál se estrenó antes?</string>
+    <string name="temporary_dates_important_dates">¿Qué ocurrió antes?</string>
     <string name="temporary_same_year">Son del mismo año</string>
 
     <!-- TEMPORARY LOOSER -->

@@ -8,7 +8,8 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:paddingHorizontal="24dp"
-    android:paddingVertical="36dp">
+    android:paddingTop="36dp"
+    android:paddingBottom="80dp">
 
     <LinearLayout
         android:id="@+id/ll_main"
@@ -43,10 +44,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@drawable/bg_mode_selector"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:elevation="6dp"
         android:foreground="?attr/selectableItemBackground"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_main">
@@ -56,26 +59,18 @@
             style="@style/BigTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
             android:fontFamily="@font/crazy_regular"
             android:gravity="center"
             android:textAllCaps="true"
-            tools:text="@string/category_dialog_guess_date" />
-
-        <TextView
-            android:id="@+id/btn_guesser_description"
-            style="@style/MediumTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="start"
             tools:text="@string/category_dialog_guess_date" />
 
         <LinearLayout
             android:id="@+id/ll_guesser_high_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="8dp"
+            android:clipChildren="false"
+            android:clipToPadding="false">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -112,7 +107,7 @@
         android:elevation="6dp"
         android:foreground="?attr/selectableItemBackground"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_guesser">
@@ -122,26 +117,16 @@
             style="@style/BigTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
             android:fontFamily="@font/crazy_regular"
             android:gravity="center"
             android:textAllCaps="true"
-            tools:text="@string/category_dialog_guess_date" />
-
-        <TextView
-            android:id="@+id/btn_temporary_description"
-            style="@style/MediumTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="start"
             tools:text="@string/category_dialog_guess_date" />
 
         <LinearLayout
             android:id="@+id/ll_temporary_high_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="8dp">
 
             <TextView
                 android:layout_width="wrap_content"

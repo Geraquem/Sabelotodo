@@ -12,8 +12,7 @@ import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
 
 class ImageAdapter(
-    private val imageList: List<Category>,
-    private val listener: ICategoryListener
+    private val imageList: List<Category>, private val listener: ICategoryListener
 ) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
@@ -31,7 +30,9 @@ class ImageAdapter(
 
     fun updateTexts(position: Int) {
         val category = imageList[position]
-        listener.onCategoryScrolled(category.title, category.examples, category.colorEnd)
+        listener.onCategoryScrolled(
+            category.id, category.title, category.examples, category.colorEnd
+        )
     }
 
     class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {

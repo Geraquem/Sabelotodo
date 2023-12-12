@@ -28,6 +28,7 @@ import com.mmfsin.sabelotodo.presentation.categories.CategoryImagesFragmentDirec
 import com.mmfsin.sabelotodo.presentation.categories.CategoryImagesFragmentDirections.Companion.actionCategoriesToTemporary
 import com.mmfsin.sabelotodo.presentation.categories.adapter.ImageAdapter
 import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.CategoryDialog
+import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.MusicDialog
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
 import com.mmfsin.sabelotodo.utils.animateX
 import com.mmfsin.sabelotodo.utils.animateY
@@ -44,6 +45,7 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
 
     override val viewModel: CategoriesViewModel by viewModels()
 
+    private var categoryId: String? = null
     private var adapter: ImageAdapter? = null
     private lateinit var previousColor: String
     private var firstColorTime = true
@@ -74,6 +76,12 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
         (activity as MainActivity).apply {
             showBanner(visible = false)
             toolbarVisibility(visible = false)
+        }
+    }
+
+    override fun setListeners() {
+        binding.clBottom.setOnClickListener {
+            categoryId?.let { id -> onCategoryClick(id) }
         }
     }
 
@@ -150,7 +158,8 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
         binding.viewpager.setPageTransformer(transformer)
     }
 
-    override fun onCategoryScrolled(title: String, description: String, color: String) {
+    override fun onCategoryScrolled(id: String, title: String, description: String, color: String) {
+        categoryId = id
         binding.apply {
             tvTop.text = title
             tvBottom.text = description
@@ -176,7 +185,12 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
 
 
     override fun onCategoryClick(id: String) {
-        activity?.showFragmentDialog(CategoryDialog(id, this@CategoryImagesFragment))
+        val dialog = if (id == getString(R.string.id_music)) {
+            MusicDialog.newInstance(id, this@CategoryImagesFragment)
+        } else {
+            CategoryDialog(id, this@CategoryImagesFragment)
+        }
+        activity?.showFragmentDialog(dialog)
     }
 
     override fun startGuesserGame(categoryId: String) =
