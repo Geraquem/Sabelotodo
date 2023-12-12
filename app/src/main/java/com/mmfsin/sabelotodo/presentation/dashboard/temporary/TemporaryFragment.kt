@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -23,6 +22,8 @@ import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
 import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.dashboard.dialog.NoMoreQuestionsDialog
+import com.mmfsin.sabelotodo.presentation.dashboard.temporary.dialog.LooserDialog
+import com.mmfsin.sabelotodo.presentation.dashboard.temporary.interfaces.ITemporaryListener
 import com.mmfsin.sabelotodo.presentation.models.ResultType
 import com.mmfsin.sabelotodo.presentation.models.ResultType.BAD
 import com.mmfsin.sabelotodo.presentation.models.ResultType.GOOD
@@ -36,10 +37,12 @@ import com.mmfsin.sabelotodo.utils.checkNotNulls
 import com.mmfsin.sabelotodo.utils.countDown
 import com.mmfsin.sabelotodo.utils.loadingCountDown
 import com.mmfsin.sabelotodo.utils.showErrorDialog
+import com.mmfsin.sabelotodo.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, TemporaryViewModel>() {
+class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, TemporaryViewModel>(),
+    ITemporaryListener {
 
     override val viewModel: TemporaryViewModel by viewModels()
     private lateinit var mContext: Context
@@ -271,12 +274,11 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                         SAME_YEAR -> btnSameYear.background = bgBad
                     }
                     countDown(1000) {
-                        Toast.makeText(mContext, "perdiste", Toast.LENGTH_SHORT).show()
+                        activity?.showFragmentDialog(LooserDialog.newInstance(this@TemporaryFragment))
                     }
 
-                    /***********************************************/
-                    automaticContinue()
-
+                    /*****************  DELETE **********************/
+//                    automaticContinue()
                 }
 
                 ResultType.SAME_YEAR -> {
@@ -284,23 +286,18 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                     automaticContinue()
                 }
 
-                else -> {
-                    /** Shouldn't go this way */
-                }
+                /** Never this way */
+                else -> {}
             }
         }
         category?.let { viewModel.checkRecord(points.toString(), record.toString(), it.id) }
     }
 
     private fun automaticContinue() {
-        /** continue */
         countDown(1000) {
             binding.apply {
                 enableImages()
-
-                cvOne.background = setBackground(R.drawable.bg_temporary_neutro)
-                btnSameYear.background = setBackground(R.drawable.bg_temporary_neutro)
-                cvTwo.background = setBackground(R.drawable.bg_temporary_neutro)
+                restartBackgrounds()
 
                 position++
                 if (position < dataList.size) setData()
@@ -313,11 +310,37 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         }
     }
 
+    private fun restartBackgrounds() {
+        binding.apply {
+            cvOne.background = setBackground(R.drawable.bg_temporary_neutro)
+            btnSameYear.background = setBackground(R.drawable.bg_temporary_neutro)
+            cvTwo.background = setBackground(R.drawable.bg_temporary_neutro)
+        }
+    }
+
     private fun setBackground(bg: Int) = getDrawable(mContext, bg)
 
     private fun showNoMoreQuestions() {
         (activity as MainActivity).inDashboard = false
         activity?.let { NoMoreQuestionsDialog().show(it.supportFragmentManager, "") }
+    }
+
+    override fun rematch() {
+        category?.let {
+            position = 0
+            points = 0
+            binding.scoreLayout.tvPoints.text = points.toString()
+            viewModel.getDashboardData(it.id)
+            enableImages()
+            restartBackgrounds()
+        } ?: run { error() }
+    }
+
+    override fun exitGame() {
+        (activity as MainActivity).apply {
+            inDashboard = false
+            this.onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun error() {

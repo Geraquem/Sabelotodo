@@ -13,7 +13,7 @@ class NoMoreQuestionsDialog : BaseDialog<DialogNoMoreBinding>() {
 
     override fun setListeners() {
         binding.btnAccept.setOnClickListener {
-            activity?.onBackPressed()
+            activity?.onBackPressedDispatcher?.onBackPressed()
             dismiss()
         }
     }
