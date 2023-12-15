@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     var bsHeightSetted = false
     var bsCollapsedHeight = 0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Thread.sleep(100)
         setTheme(R.style.Theme_Sabelotodo)
