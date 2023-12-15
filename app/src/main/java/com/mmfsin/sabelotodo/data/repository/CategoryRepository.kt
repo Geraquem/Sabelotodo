@@ -5,7 +5,6 @@ import android.content.Context.MODE_PRIVATE
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.mmfsin.sabelotodo.data.mappers.toCategory
-import com.mmfsin.sabelotodo.data.mappers.toCategoryList
 import com.mmfsin.sabelotodo.data.mappers.toUserRecord
 import com.mmfsin.sabelotodo.data.models.CategoryDTO
 import com.mmfsin.sabelotodo.data.models.UserRecordDTO
@@ -41,7 +40,13 @@ class CategoryRepository @Inject constructor(
     }
 
     override fun getCategoriesFromRealm(): List<Category> {
-        return realmDatabase.getObjectsFromRealm { where<CategoryDTO>().findAll() }.toCategoryList()
+        val totalCategories = realmDatabase.getObjectsFromRealm { where<CategoryDTO>().findAll() }
+        val result = mutableListOf<Category>()
+        totalCategories.forEach { category ->
+            val aux = getCategory(category.id)
+            aux?.let { result.add(it) }
+        }
+        return result
     }
 
     override suspend fun getCategories(): List<Category> {

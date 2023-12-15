@@ -65,7 +65,7 @@ fun String.getSolution(): String {
     } else this
 }
 
-fun CategoryDTO.toCategory(guesserRecord: Int? = 0, temporaryRecord: Int? = 0) = Category(
+fun CategoryDTO.toCategory(guesserRecord: Int, temporaryRecord: Int) = Category(
     id = id,
     title = title,
     image = image,
@@ -84,7 +84,7 @@ fun CategoryDTO.toCategory(guesserRecord: Int? = 0, temporaryRecord: Int? = 0) =
     temporaryRecord = temporaryRecord
 )
 
-fun List<CategoryDTO>.toCategoryList() = this.map { element -> element.toCategory() }.toList()
+//fun List<CategoryDTO>.toCategoryList() = this.map { element -> element.toCategory() }.toList()
 
 fun UserRecordDTO.toUserRecord() = UserRecord(
     guesserRecord = guesserRecord ?: 0,

@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
+import com.google.android.material.bottomsheet.BottomSheetBehavior.from
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.base.BaseFragment
@@ -172,7 +174,7 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
             tvTemporaryRecord.text = category.temporaryRecord.toString()
 
             bottomSheetCollapsedHeight = tvTop.height + tvBottom.height + tabLayout.height + 100
-            bottomSheetAction(BottomSheetBehavior.STATE_COLLAPSED)
+            bottomSheetAction(STATE_COLLAPSED)
         }
     }
 
@@ -204,8 +206,8 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
 
     private fun bottomSheetAction(state: Int) {
         binding.apply {
-            BottomSheetBehavior.from(bottomSheet.sheet).apply {
-                peekHeight = bottomSheetCollapsedHeight
+            from(bottomSheet.sheet).apply {
+                if (state == STATE_COLLAPSED) peekHeight = bottomSheetCollapsedHeight
                 this.state = state
             }
         }
@@ -235,7 +237,7 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
 //            CategoryDialog(id, this@CategoryImagesFragment)
 //        }
 //        activity?.showFragmentDialog(dialog)
-        bottomSheetAction(BottomSheetBehavior.STATE_EXPANDED)
+        bottomSheetAction(STATE_EXPANDED)
     }
 
     override fun startGuesserGame(categoryId: String) =
