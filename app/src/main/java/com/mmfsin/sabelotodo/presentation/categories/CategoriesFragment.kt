@@ -65,14 +65,12 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
             when (event) {
                 is CategoriesEvent.Categories -> setCategoryRecycler(event.result)
                 is CategoriesEvent.SomethingWentWrong -> activity?.showErrorDialog()
+                else -> {}
             }
         }
     }
 
-    override fun onCategoryScrolled(
-        id: String, title: String, description: String, color: String
-    ) {
-    }
+    override fun onCategoryScrolled(category: Category) {}
 
     private fun setCategoryRecycler(categories: List<Category>) {
         if (categories.isNotEmpty()) {
@@ -91,7 +89,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
     override fun startGuesserGame(categoryId: String) =
         findNavController().navigate(actionCategoriesToGuesser(categoryId))
 
-    override fun startCTemporaryGame(categoryId: String) =
+    override fun startTemporaryGame(categoryId: String) =
         findNavController().navigate(actionCategoriesToTemporary(categoryId))
 
     override fun openMusicMaster() =

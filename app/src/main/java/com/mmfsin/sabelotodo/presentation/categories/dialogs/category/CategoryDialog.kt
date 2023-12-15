@@ -82,7 +82,7 @@ class CategoryDialog(private val id: String, private val listener: ICategoryList
 
             btnTemporary.setOnClickListener {
                 category?.let {
-                    listener.startCTemporaryGame(it.id)
+                    listener.startTemporaryGame(it.id)
                     dismiss()
                 }
             }

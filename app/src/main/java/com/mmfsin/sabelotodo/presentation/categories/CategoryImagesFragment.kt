@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.base.BaseFragment
@@ -27,14 +28,11 @@ import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.categories.CategoryImagesFragmentDirections.Companion.actionCategoriesToGuesser
 import com.mmfsin.sabelotodo.presentation.categories.CategoryImagesFragmentDirections.Companion.actionCategoriesToTemporary
 import com.mmfsin.sabelotodo.presentation.categories.adapter.ImageAdapter
-import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.CategoryDialog
-import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.MusicDialog
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
 import com.mmfsin.sabelotodo.utils.animateX
 import com.mmfsin.sabelotodo.utils.animateY
 import com.mmfsin.sabelotodo.utils.countDown
 import com.mmfsin.sabelotodo.utils.showErrorDialog
-import com.mmfsin.sabelotodo.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
@@ -49,6 +47,8 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
     private var adapter: ImageAdapter? = null
     private lateinit var previousColor: String
     private var firstColorTime = true
+
+    private var bottomSheetCollapsedHeight = 0
 
     private lateinit var mContext: Context
 
@@ -80,8 +80,12 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
     }
 
     override fun setListeners() {
-        binding.clBottom.setOnClickListener {
-            categoryId?.let { id -> onCategoryClick(id) }
+        binding.apply {
+            clBottom.setOnClickListener { categoryId?.let { id -> onCategoryClick(id) } }
+            bottomSheet.apply {
+                btnGuesser.setOnClickListener { categoryId?.let { id -> startGuesserGame(id) } }
+                btnTemporary.setOnClickListener { categoryId?.let { id -> startTemporaryGame(id) } }
+            }
         }
     }
 
@@ -105,7 +109,7 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
                 viewpager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
                 setUpTransformer()
 
-                TabLayoutMediator(tabLayout, viewpager) { _, _ -> }.attach()
+                TabLayoutMediator(bottomSheet.tabLayout, viewpager) { _, _ -> }.attach()
 
                 adapter?.updateTexts(0)
                 viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -158,12 +162,52 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
         binding.viewpager.setPageTransformer(transformer)
     }
 
-    override fun onCategoryScrolled(id: String, title: String, description: String, color: String) {
-        categoryId = id
+    override fun onCategoryScrolled(category: Category) {
+        categoryId = category.id
+        binding.bottomSheet.apply {
+            tvTop.text = category.title
+            tvBottom.text = category.description
+            setBottomSheetTextButtons(category.id)
+            tvGuesserRecord.text = category.guesserRecord.toString()
+            tvTemporaryRecord.text = category.temporaryRecord.toString()
+
+            bottomSheetCollapsedHeight = tvTop.height + tvBottom.height + tabLayout.height + 100
+            bottomSheetAction(BottomSheetBehavior.STATE_COLLAPSED)
+        }
+    }
+
+    private fun setBottomSheetTextButtons(id: String) {
+        binding.bottomSheet.apply {
+            when (id) {
+                getString(R.string.id_spanish_age), getString(R.string.id_global_age) -> {
+                    btnGuesserText.text = getString(R.string.category_dialog_guess_age)
+                    btnTemporaryText.text = getString(R.string.category_dialog_temporary_age)
+                }
+
+                getString(R.string.id_films_series), getString(R.string.id_cartoon_creations), getString(
+                    R.string.id_videogames
+                ) -> {
+                    btnGuesserText.text = getString(R.string.category_dialog_guess_date)
+                    btnTemporaryText.text = getString(R.string.category_dialog_temporary_date)
+                }
+
+                getString(R.string.id_important_dates) -> {
+                    btnGuesserText.text = getString(R.string.category_dialog_guess_date)
+                    btnTemporaryText.text =
+                        getString(R.string.category_dialog_temporary_important_dates)
+                }
+
+                else -> {}
+            }
+        }
+    }
+
+    private fun bottomSheetAction(state: Int) {
         binding.apply {
-            tvTop.text = title
-            tvBottom.text = description
-//            changeColor(color)
+            BottomSheetBehavior.from(bottomSheet.sheet).apply {
+                peekHeight = bottomSheetCollapsedHeight
+                this.state = state
+            }
         }
     }
 
@@ -185,18 +229,19 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
 
 
     override fun onCategoryClick(id: String) {
-        val dialog = if (id == getString(R.string.id_music)) {
-            MusicDialog.newInstance(id, this@CategoryImagesFragment)
-        } else {
-            CategoryDialog(id, this@CategoryImagesFragment)
-        }
-        activity?.showFragmentDialog(dialog)
+//        val dialog = if (id == getString(R.string.id_music)) {
+//            MusicDialog.newInstance(id, this@CategoryImagesFragment)
+//        } else {
+//            CategoryDialog(id, this@CategoryImagesFragment)
+//        }
+//        activity?.showFragmentDialog(dialog)
+        bottomSheetAction(BottomSheetBehavior.STATE_EXPANDED)
     }
 
     override fun startGuesserGame(categoryId: String) =
         findNavController().navigate(actionCategoriesToGuesser(categoryId))
 
-    override fun startCTemporaryGame(categoryId: String) =
+    override fun startTemporaryGame(categoryId: String) =
         findNavController().navigate(actionCategoriesToTemporary(categoryId))
 
     override fun openMusicMaster() =
