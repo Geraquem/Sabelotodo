@@ -28,6 +28,10 @@ class MainActivity : AppCompatActivity() {
     var inDashboard = false
     var firstTime = true
 
+    var bsHeightSetted = false
+    var bsCollapsedHeight = 0
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Thread.sleep(100)
         setTheme(R.style.Theme_Sabelotodo)

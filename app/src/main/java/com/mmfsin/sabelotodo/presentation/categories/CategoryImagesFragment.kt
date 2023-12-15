@@ -50,8 +50,6 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
     private lateinit var previousColor: String
     private var firstColorTime = true
 
-    private var bottomSheetCollapsedHeight = 0
-
     private lateinit var mContext: Context
 
     override fun inflateView(inflater: LayoutInflater, container: ViewGroup?) =
@@ -173,7 +171,12 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
             tvGuesserRecord.text = category.guesserRecord.toString()
             tvTemporaryRecord.text = category.temporaryRecord.toString()
 
-            bottomSheetCollapsedHeight = tvTop.height + tvBottom.height + tabLayout.height + 100
+            (activity as MainActivity).apply {
+                if (!bsHeightSetted) {
+                    bsCollapsedHeight = tvTop.height + tvBottom.height + tabLayout.height + 100
+                    bsHeightSetted = true
+                }
+            }
             bottomSheetAction(STATE_COLLAPSED)
         }
     }
@@ -207,7 +210,9 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
     private fun bottomSheetAction(state: Int) {
         binding.apply {
             from(bottomSheet.sheet).apply {
-                if (state == STATE_COLLAPSED) peekHeight = bottomSheetCollapsedHeight
+                if (state == STATE_COLLAPSED) {
+                    peekHeight = (activity as MainActivity).bsCollapsedHeight
+                }
                 this.state = state
             }
         }
