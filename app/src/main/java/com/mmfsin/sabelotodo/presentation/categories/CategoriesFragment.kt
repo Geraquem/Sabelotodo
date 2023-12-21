@@ -65,7 +65,6 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
             when (event) {
                 is CategoriesEvent.Categories -> setCategoryRecycler(event.result)
                 is CategoriesEvent.SomethingWentWrong -> activity?.showErrorDialog()
-                else -> {}
             }
         }
     }

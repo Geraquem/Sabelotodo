@@ -173,7 +173,7 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
 
             (activity as MainActivity).apply {
                 if (!bsHeightSetted) {
-                    bsCollapsedHeight = tvTop.height + tvBottom.height + tabLayout.height + 100
+                    bsCollapsedHeight = tvTop.height * 2 + tvBottom.height + tabLayout.height
                     bsHeightSetted = true
                 }
             }
