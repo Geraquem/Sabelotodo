@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.base.BaseFragment
 import com.mmfsin.sabelotodo.databinding.FragmentCategoriesBinding
@@ -20,8 +21,11 @@ import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToGuesser
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToTemporary
 import com.mmfsin.sabelotodo.presentation.categories.adapter.CategoriesAdapter
+import com.mmfsin.sabelotodo.presentation.categories.dialogs.CuackDialog
+import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.MusicDialog
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
 import com.mmfsin.sabelotodo.utils.showErrorDialog
+import com.mmfsin.sabelotodo.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,11 +56,16 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
         }
     }
 
+    override fun setListeners() {
+        binding.apply {
+            ivDuck.setOnClickListener { activity?.showFragmentDialog(CuackDialog()) }
+        }
+    }
+
     private fun setUpToolbar() {
         (activity as MainActivity).apply {
             showBanner(visible = false)
-            toolbarIcon(showDuck = true)
-            toolbarText(getString(R.string.app_name))
+            toolbarVisibility(visible = false)
         }
     }
 
@@ -74,6 +83,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
     private fun setCategoryRecycler(categories: List<Category>) {
         if (categories.isNotEmpty()) {
             binding.rvCategory.apply {
+                (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
                 layoutManager = LinearLayoutManager(mContext)
                 adapter = CategoriesAdapter(categories, this@CategoriesFragment)
             }
@@ -90,6 +100,10 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
 
     override fun startTemporaryGame(categoryId: String) =
         findNavController().navigate(actionCategoriesToTemporary(categoryId))
+
+    override fun openMusicMasterDialog(categoryId: String) {
+        activity?.showFragmentDialog(MusicDialog.newInstance(categoryId, this@CategoriesFragment))
+    }
 
     override fun openMusicMaster() =
         startActivity(Intent(ACTION_VIEW, Uri.parse(getString(R.string.music_master_url))))

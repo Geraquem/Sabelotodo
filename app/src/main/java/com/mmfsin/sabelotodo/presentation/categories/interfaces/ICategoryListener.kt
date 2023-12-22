@@ -7,5 +7,6 @@ interface ICategoryListener {
     fun onCategoryClick(id: String)
     fun startGuesserGame(categoryId: String)
     fun startTemporaryGame(categoryId: String)
+    fun openMusicMasterDialog(categoryId: String)
     fun openMusicMaster()
 }

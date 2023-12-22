@@ -251,6 +251,8 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
     override fun startTemporaryGame(categoryId: String) =
         findNavController().navigate(actionCategoriesToTemporary(categoryId))
 
+    override fun openMusicMasterDialog(categoryId: String) {}
+
     override fun openMusicMaster() =
         startActivity(Intent(ACTION_VIEW, Uri.parse(getString(R.string.music_master_url))))
 

@@ -17,4 +17,5 @@ open class Category(
     var mainImage: String,
     var guesserRecord: Int?,
     var temporaryRecord: Int?,
+    var buttonsOpened: Boolean = false
 )
