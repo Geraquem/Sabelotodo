@@ -27,11 +27,8 @@ class CategoriesAdapter(
                 tvDescription.text = category.examples
 
                 setTextButtons(category.id)
-                if (category.buttonsOpened) {
-                    if (category.id == c.getString(R.string.id_music)) {
-                        listener.openMusicMasterDialog(category.id)
-                    } else llButtons.visibility = View.VISIBLE
-                } else llButtons.visibility = View.GONE
+                val visibility = if (category.buttonsOpened) View.VISIBLE else View.GONE
+                llButtons.visibility = visibility
 
                 tvGuesserRecord.text = category.guesserRecord.toString()
                 tvTemporaryRecord.text = category.temporaryRecord.toString()
@@ -90,8 +87,12 @@ class CategoriesAdapter(
         val category = categories[position]
         holder.bind(category, listener)
         holder.itemView.setOnClickListener {
-            category.buttonsOpened = !category.buttonsOpened
-            notifyItemChanged(position)
+            if (category.id == "music") {
+                listener.openMusicMasterDialog(category.id)
+            } else {
+                category.buttonsOpened = !category.buttonsOpened
+                notifyItemChanged(position)
+            }
         }
     }
 
