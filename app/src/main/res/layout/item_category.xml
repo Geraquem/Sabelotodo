@@ -146,7 +146,7 @@
                 android:id="@+id/btn_temporary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/bg_mode_selector"
                 android:clipChildren="false"
                 android:clipToPadding="false"

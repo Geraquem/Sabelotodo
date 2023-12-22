@@ -20,16 +20,18 @@ import com.mmfsin.sabelotodo.base.BaseFragment
 import com.mmfsin.sabelotodo.databinding.FragmentDashboardGuesserBinding
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
+import com.mmfsin.sabelotodo.presentation.MainActivity
+import com.mmfsin.sabelotodo.presentation.dashboard.dialog.NoMoreQuestionsDialog
 import com.mmfsin.sabelotodo.presentation.models.ResultType
 import com.mmfsin.sabelotodo.presentation.models.ResultType.ALMOST_GOOD
 import com.mmfsin.sabelotodo.presentation.models.ResultType.BAD
 import com.mmfsin.sabelotodo.presentation.models.ResultType.GOOD
-import com.mmfsin.sabelotodo.presentation.MainActivity
-import com.mmfsin.sabelotodo.presentation.dashboard.dialog.NoMoreQuestionsDialog
 import com.mmfsin.sabelotodo.presentation.models.SolutionType
 import com.mmfsin.sabelotodo.presentation.models.SolutionType.AGES
 import com.mmfsin.sabelotodo.presentation.models.SolutionType.DATES
 import com.mmfsin.sabelotodo.utils.CATEGORY_ID
+import com.mmfsin.sabelotodo.utils.animateX
+import com.mmfsin.sabelotodo.utils.countDown
 import com.mmfsin.sabelotodo.utils.loadingCountDown
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,6 +75,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
             setUpToolbar()
             loading.root.isVisible
             llSolutions.isVisible = false
+            restartAnimations()
             scoreLayout.tvPoints.text = points.toString()
         }
     }
@@ -82,10 +85,19 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
             btnCheck.setOnClickListener {
                 val answer = pvResponse.text.toString()
                 if (answer.length == pinViewLength) {
+
                     pvResponse.isEnabled = false
                     btnCheck.isEnabled = false
-                    setButtonColor(null)
-                    viewModel.checkSolution(answer, currentSolution)
+//                    setButtonColor(null)
+
+                    btnCheck.animate().alpha(0.0f).duration = 200
+                    countDown(200) {
+                        btnCheck.visibility = View.GONE
+                    }
+
+                    countDown(200) {
+                        viewModel.checkSolution(answer, currentSolution)
+                    }
                 }
             }
             scoreLayout.btnNext.setOnClickListener {
@@ -182,6 +194,10 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
         if (dataList.isNotEmpty()) {
             binding.apply {
                 try {
+
+                    btnCheck.animate().alpha(1.0f).duration = 500
+                    btnCheck.visibility = View.VISIBLE
+
                     val data = dataList[position]
                     llSolutions.isVisible = false
                     setBirth(data.birth)
@@ -193,7 +209,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     tvFirstText.text = data.firstText
                     tvSecondText.text = data.secondText
                     category?.let { setButtonColor(Color.parseColor(it.colorDashboard)) }
-                    resetSolution()
+                    restartAnimations()
                     if (firstAccess) {
                         firstAccess = false
                         loadingCountDown { loading.root.isVisible = false }
@@ -210,26 +226,6 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
             val of = getString(R.string.solution_age_of)
             val birthText = "${birth[0]} $of ${birth[1]} $of ${birth[2]}"
             binding.solutionAge.tvBirthDate.text = birthText
-        }
-    }
-
-    private fun resetSolution() {
-        binding.apply {
-            when (solutionType) {
-                AGES -> {
-                    solutionAge.tvCorrectAnswer.text = currentSolution
-                    animateProgress(solutionAge.progressBarLeft, 0, 0)
-                    animateProgress(solutionAge.progressBarRight, 0, 0)
-                }
-
-                DATES -> {
-                    solutionDate.tvCorrectAnswer.text = currentSolution
-                    animateProgress(solutionDate.progressBarLeft, 0, 0)
-                    animateProgress(solutionDate.progressBarRight, 0, 0)
-                }
-                /** if null */
-                else -> {}
-            }
         }
     }
 
@@ -273,24 +269,41 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                 }
             }
 
+            doAnimations()
+
+            scoreLayout.tvPoints.text = points.toString()
+            category?.let { viewModel.checkRecord(points.toString(), record.toString(), it.id) }
+        }
+    }
+
+    private fun doAnimations() {
+        binding.apply {
+            llSolutions.visibility = View.VISIBLE
+            when (solutionType) {
+                AGES -> solutionAge.llMain.animate().alpha(1.0f).duration = 200
+                DATES -> solutionDate.llMain.animate().alpha(1.0f).duration = 200
+                else -> {}
+            }
+            tvPoints.animate().alpha(1.0f).duration = 200
+            countDown(400) { animateProgress() }
+        }
+    }
+
+    private fun animateProgress() {
+        binding.apply {
             when (solutionType) {
                 AGES -> {
-                    llSolutions.isVisible = true
                     animateProgress(solutionAge.progressBarLeft, 100, 100)
                     animateProgress(solutionAge.progressBarRight, 100, 100)
-
                 }
 
                 DATES -> {
-                    llSolutions.isVisible = true
                     animateProgress(solutionDate.progressBarLeft, 100, 100)
                     animateProgress(solutionDate.progressBarRight, 100, 100)
                 }
                 /**if null*/
                 else -> {}
             }
-            scoreLayout.tvPoints.text = points.toString()
-            category?.let { viewModel.checkRecord(points.toString(), record.toString(), it.id) }
         }
     }
 
@@ -300,6 +313,29 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
         animation.duration = 2000
         animation.interpolator = DecelerateInterpolator()
         animation.start()
+    }
+
+    private fun restartAnimations() {
+        binding.apply {
+            when (solutionType) {
+                AGES -> {
+                    solutionAge.tvCorrectAnswer.text = currentSolution
+                    solutionAge.llMain.animate().alpha(0f).duration = 10
+                    animateProgress(solutionAge.progressBarLeft, 0, 0)
+                    animateProgress(solutionAge.progressBarRight, 0, 0)
+                }
+
+                DATES -> {
+                    solutionDate.tvCorrectAnswer.text = currentSolution
+                    solutionDate.llMain.animate().alpha(0f).duration = 10
+                    animateProgress(solutionDate.progressBarLeft, 0, 0)
+                    animateProgress(solutionDate.progressBarRight, 0, 0)
+                }
+                /** if null */
+                else -> {}
+            }
+            tvPoints.animate().alpha(0f).duration = 10
+        }
     }
 
     private fun error() {

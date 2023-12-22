@@ -39,7 +39,7 @@ class CuackDialog : BaseDialog<DialogCuackBinding>() {
                 countDown(500) {
                     tvSound.visibility = View.INVISIBLE
                     countDown(400) {
-                        dismiss()
+                        activity?.let { dismiss() }
                     }
                 }
             }

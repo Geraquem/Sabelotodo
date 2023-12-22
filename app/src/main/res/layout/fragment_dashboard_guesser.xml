@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="@color/light_grey"
     android:clipChildren="false"
     android:clipToPadding="false">
@@ -191,53 +192,59 @@
 
                 </LinearLayout>
 
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btn_check"
+                style="@style/button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_button"
+                android:clipToPadding="false"
+                android:elevation="4dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingVertical="16dp"
+                android:text="@string/guesser_check"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="@id/gl2_left"
+                app:layout_constraintRight_toRightOf="@id/gl2_right"
+                app:layout_constraintTop_toBottomOf="@id/ll_response" />
+
+            <LinearLayout
+                android:id="@+id/ll_solutions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="@id/gl2_left"
+                app:layout_constraintRight_toRightOf="@id/gl2_right"
+                app:layout_constraintTop_toBottomOf="@id/ll_response">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <include
+                        android:id="@+id/solution_date"
+                        layout="@layout/include_solution_date" />
+
+                    <include
+                        android:id="@+id/solution_age"
+                        layout="@layout/include_solution_age" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <TextView
-                    android:id="@+id/btn_check"
-                    style="@style/button"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_points"
+                    style="@style/BigTextView_Bold"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:background="@drawable/bg_button"
-                    android:clipToPadding="false"
-                    android:elevation="4dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingVertical="16dp"
-                    android:text="@string/guesser_check"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <LinearLayout
-                    android:id="@+id/ll_solutions"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <include
-                            android:id="@+id/solution_date"
-                            layout="@layout/include_solution_date" />
-
-                        <include
-                            android:id="@+id/solution_age"
-                            layout="@layout/include_solution_age" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:id="@+id/tv_points"
-                        style="@style/BigTextView_Bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:textSize="26sp"
-                        tools:text="@string/solution_correct_answer" />
-
-                </LinearLayout>
+                    android:layout_gravity="center"
+                    android:textSize="26sp"
+                    tools:text="@string/solution_correct_answer" />
 
             </LinearLayout>
 
