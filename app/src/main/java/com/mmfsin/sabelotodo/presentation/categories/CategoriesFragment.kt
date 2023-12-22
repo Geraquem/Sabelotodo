@@ -24,6 +24,9 @@ import com.mmfsin.sabelotodo.presentation.categories.adapter.CategoriesAdapter
 import com.mmfsin.sabelotodo.presentation.categories.dialogs.CuackDialog
 import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.MusicDialog
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
+import com.mmfsin.sabelotodo.utils.animateX
+import com.mmfsin.sabelotodo.utils.animateY
+import com.mmfsin.sabelotodo.utils.countDown
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import com.mmfsin.sabelotodo.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,6 +55,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
     override fun setUI() {
         binding.apply {
             setUpToolbar()
+            setItemsVisible(visible = false)
             loading.root.isVisible
         }
     }
@@ -88,6 +92,30 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
                 adapter = CategoriesAdapter(categories, this@CategoriesFragment)
             }
             binding.loading.root.isVisible = false
+            doAnimations()
+        }
+    }
+
+    private fun doAnimations() {
+        binding.apply {
+            if ((activity as MainActivity).firstTime) {
+                (activity as MainActivity).firstTime = false
+                llTop.animateY(-200f, 10)
+                rvCategory.animateY(1500f, 10)
+                countDown(500) {
+                    llTop.visibility = View.VISIBLE
+                    llTop.animateY(0f, 500)
+                    rvCategory.visibility = View.VISIBLE
+                    rvCategory.animateY(0f, 1000)
+                }
+            } else setItemsVisible(visible = true)
+        }
+    }
+
+    private fun setItemsVisible(visible: Boolean) {
+        binding.apply {
+            llTop.isVisible = visible
+            rvCategory.isVisible = visible
         }
     }
 
@@ -102,7 +130,12 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
         findNavController().navigate(actionCategoriesToTemporary(categoryId))
 
     override fun openMusicMasterDialog(categoryId: String) {
-        activity?.showFragmentDialog(MusicDialog.newInstance(categoryId, this@CategoriesFragment))
+        activity?.showFragmentDialog(
+            MusicDialog.newInstance(
+                categoryId,
+                this@CategoriesFragment
+            )
+        )
     }
 
     override fun openMusicMaster() =
