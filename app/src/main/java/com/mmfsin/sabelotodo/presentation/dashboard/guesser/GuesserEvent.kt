@@ -6,6 +6,7 @@ import com.mmfsin.sabelotodo.domain.models.Record
 import com.mmfsin.sabelotodo.presentation.models.ResultType
 
 sealed class GuesserEvent {
+    class ImageHeight(val height: Int) : GuesserEvent()
     class GetCategory(val result: Category) : GuesserEvent()
     class GuesserData(val data: List<Data>) : GuesserEvent()
     class Solution(val solution: ResultType) : GuesserEvent()

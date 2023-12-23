@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -47,7 +48,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     override val viewModel: TemporaryViewModel by viewModels()
     private lateinit var mContext: Context
 
-    private var id: String? = null
+    private var categoryId: String? = null
     private var category: Category? = null
     private var dataList: List<Data> = emptyList()
 
@@ -65,11 +66,11 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).inDashboard = true
-        id?.let { viewModel.getCategory(it) } ?: run { error() }
+        viewModel.checkIfTablet()
     }
 
     override fun getBundleArgs() {
-        arguments?.let { id = it.getString(CATEGORY_ID) }
+        arguments?.let { categoryId = it.getString(CATEGORY_ID) }
     }
 
     override fun setUI() {
@@ -112,6 +113,11 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     override fun observe() {
         viewModel.event.observe(this) { event ->
             when (event) {
+                is TemporaryEvent.ImageHeight -> {
+                    setHeights(event.height)
+                    categoryId?.let { viewModel.getCategory(it) } ?: run { error() }
+                }
+
                 is TemporaryEvent.GetCategory -> {
                     category = event.result
                     record = event.result.temporaryRecord ?: 0
@@ -138,6 +144,18 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         }
     }
 
+    private fun setHeights(height: Int) {
+        binding.apply {
+            val layoutParamsOne = imageOne.layoutParams as ConstraintLayout.LayoutParams
+            layoutParamsOne.height = height
+            imageOne.layoutParams = layoutParamsOne
+
+            val layoutParamsTwo = imageTwo.layoutParams as ConstraintLayout.LayoutParams
+            layoutParamsTwo.height = height
+            imageTwo.layoutParams = layoutParamsTwo
+        }
+    }
+
     private fun setCategoryData() {
         binding.apply {
             category?.let {
@@ -151,12 +169,11 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
 
     private fun setMainText(id: String) {
         val text = when (id) {
-            getString(R.string.id_spanish_age),
-            getString(R.string.id_global_age) -> R.string.temporary_ages
+            getString(R.string.id_spanish_age), getString(R.string.id_global_age) -> R.string.temporary_ages
 
-            getString(R.string.id_films_series),
-            getString(R.string.id_cartoon_creations),
-            getString(R.string.id_videogames) -> R.string.temporary_dates
+            getString(R.string.id_films_series), getString(R.string.id_cartoon_creations), getString(
+                R.string.id_videogames
+            ) -> R.string.temporary_dates
 
             getString(R.string.id_important_dates) -> R.string.temporary_dates_important_dates
 

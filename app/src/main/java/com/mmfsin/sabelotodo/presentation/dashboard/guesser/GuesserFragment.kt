@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.ProgressBar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -30,7 +31,6 @@ import com.mmfsin.sabelotodo.presentation.models.SolutionType
 import com.mmfsin.sabelotodo.presentation.models.SolutionType.AGES
 import com.mmfsin.sabelotodo.presentation.models.SolutionType.DATES
 import com.mmfsin.sabelotodo.utils.CATEGORY_ID
-import com.mmfsin.sabelotodo.utils.animateX
 import com.mmfsin.sabelotodo.utils.countDown
 import com.mmfsin.sabelotodo.utils.loadingCountDown
 import com.mmfsin.sabelotodo.utils.showErrorDialog
@@ -42,7 +42,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
     override val viewModel: GuesserViewModel by viewModels()
     private lateinit var mContext: Context
 
-    private var id: String? = null
+    private var categoryId: String? = null
     private var category: Category? = null
     private var dataList: List<Data> = emptyList()
 
@@ -63,11 +63,11 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).inDashboard = true
-        id?.let { viewModel.getCategory(it) } ?: run { error() }
+        viewModel.checkIfTablet()
     }
 
     override fun getBundleArgs() {
-        arguments?.let { id = it.getString(CATEGORY_ID) }
+        arguments?.let { categoryId = it.getString(CATEGORY_ID) }
     }
 
     override fun setUI() {
@@ -123,6 +123,13 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
     override fun observe() {
         viewModel.event.observe(this) { event ->
             when (event) {
+                is GuesserEvent.ImageHeight -> {
+                    val layoutParams = binding.image.layoutParams as ConstraintLayout.LayoutParams
+                    layoutParams.height = event.height
+                    binding.image.layoutParams = layoutParams
+                    categoryId?.let { viewModel.getCategory(it) } ?: run { error() }
+                }
+
                 is GuesserEvent.GetCategory -> {
                     category = event.result
                     record = event.result.guesserRecord ?: 0
