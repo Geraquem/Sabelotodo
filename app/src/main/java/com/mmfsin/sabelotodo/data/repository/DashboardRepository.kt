@@ -3,11 +3,14 @@ package com.mmfsin.sabelotodo.data.repository
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.mmfsin.sabelotodo.data.mappers.toDataList
+import com.mmfsin.sabelotodo.data.mappers.toLoserImagesList
 import com.mmfsin.sabelotodo.data.models.DataDTO
+import com.mmfsin.sabelotodo.data.models.LoserImagesDTO
 import com.mmfsin.sabelotodo.data.models.UserRecordDTO
 import com.mmfsin.sabelotodo.domain.interfaces.IDashboardRepository
 import com.mmfsin.sabelotodo.domain.interfaces.IRealmDatabase
 import com.mmfsin.sabelotodo.domain.models.Data
+import com.mmfsin.sabelotodo.domain.models.LoserImages
 import com.mmfsin.sabelotodo.utils.QUESTIONS
 import io.realm.kotlin.where
 import kotlinx.coroutines.Dispatchers
@@ -69,5 +72,12 @@ class DashboardRepository @Inject constructor(
             userRecord.temporaryRecord = record
             realmDatabase.addObject { userRecord }
         }
+    }
+
+    override fun getLoserImages(): List<LoserImages> {
+        val loserImages = realmDatabase.getObjectsFromRealm {
+            where<LoserImagesDTO>().findAll()
+        }
+        return loserImages.toLoserImagesList()
     }
 }

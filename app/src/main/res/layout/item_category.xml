@@ -95,7 +95,8 @@
                 android:elevation="6dp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp">
 
                 <TextView
                     android:id="@+id/btn_guesser_text"
@@ -153,7 +154,8 @@
                 android:elevation="6dp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp">
 
                 <TextView
                     android:id="@+id/btn_temporary_text"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_temporary_neutro"
+    android:background="@drawable/bg_dialog_music"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:paddingHorizontal="24dp"
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="@font/crazy_regular"
             android:textAllCaps="true"
             tools:text="Descarga ahora blablabla..." />
 

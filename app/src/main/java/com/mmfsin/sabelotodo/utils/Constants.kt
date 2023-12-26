@@ -8,6 +8,7 @@ const val VERSION = "version"
 const val CATEGORIES = "categories"
 const val QUESTIONS = "questions"
 const val MUSIC_MASTER = "availableMusicMaster"
+const val LOSER_IMAGES = "loserImages"
 
 //SHARED PREFS
 const val MY_SHARED_PREFS = "mSharedPrefs"

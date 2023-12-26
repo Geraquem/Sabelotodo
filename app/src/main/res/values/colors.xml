@@ -26,6 +26,10 @@
     <color name="temporary_almost">#FFBD4C</color>
     <color name="temporary_bad">#E77E7E</color>
 
+    <color name="color_music_one">#309AF6</color>
+    <color name="color_music_two">#75B9F4</color>
+    <color name="color_music_three">#BFDAF1</color>
+
     <color name="blue">#0E66C5</color>
     <color name="gray">#707070</color>
 

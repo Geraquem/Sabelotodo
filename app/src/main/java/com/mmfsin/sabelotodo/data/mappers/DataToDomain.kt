@@ -3,9 +3,11 @@ package com.mmfsin.sabelotodo.data.mappers
 import android.annotation.SuppressLint
 import com.mmfsin.sabelotodo.data.models.CategoryDTO
 import com.mmfsin.sabelotodo.data.models.DataDTO
+import com.mmfsin.sabelotodo.data.models.LoserImagesDTO
 import com.mmfsin.sabelotodo.data.models.UserRecordDTO
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
+import com.mmfsin.sabelotodo.domain.models.LoserImages
 import com.mmfsin.sabelotodo.domain.models.UserRecord
 import java.text.SimpleDateFormat
 import java.time.LocalDate.now
@@ -87,6 +89,10 @@ fun CategoryDTO.toCategory(guesserRecord: Int, temporaryRecord: Int) = Category(
 //fun List<CategoryDTO>.toCategoryList() = this.map { element -> element.toCategory() }.toList()
 
 fun UserRecordDTO.toUserRecord() = UserRecord(
-    guesserRecord = guesserRecord ?: 0,
-    temporaryRecord = temporaryRecord ?: 0
+    guesserRecord = guesserRecord ?: 0, temporaryRecord = temporaryRecord ?: 0
 )
+
+fun LoserImagesDTO.toLoserImages() = LoserImages(id, image)
+
+fun List<LoserImagesDTO>.toLoserImagesList() =
+    this.map { element -> element.toLoserImages() }.toList()

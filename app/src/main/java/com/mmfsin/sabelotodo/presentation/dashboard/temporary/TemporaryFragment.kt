@@ -23,7 +23,7 @@ import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.Data
 import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.dashboard.dialog.NoMoreQuestionsDialog
-import com.mmfsin.sabelotodo.presentation.dashboard.temporary.dialog.LooserDialog
+import com.mmfsin.sabelotodo.presentation.dashboard.temporary.dialog.LoserDialog
 import com.mmfsin.sabelotodo.presentation.dashboard.temporary.interfaces.ITemporaryListener
 import com.mmfsin.sabelotodo.presentation.models.ResultType
 import com.mmfsin.sabelotodo.presentation.models.ResultType.BAD
@@ -299,7 +299,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                         SAME_YEAR -> btnSameYear.background = bgBad
                     }
                     countDown(1000) {
-                        activity?.showFragmentDialog(LooserDialog.newInstance(this@TemporaryFragment))
+                        activity?.showFragmentDialog(LoserDialog.newInstance(this@TemporaryFragment))
                     }
 
                     /*****************  DELETE **********************/

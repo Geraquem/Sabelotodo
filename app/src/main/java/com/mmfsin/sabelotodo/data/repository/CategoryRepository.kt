@@ -7,6 +7,7 @@ import com.google.firebase.ktx.Firebase
 import com.mmfsin.sabelotodo.data.mappers.toCategory
 import com.mmfsin.sabelotodo.data.mappers.toUserRecord
 import com.mmfsin.sabelotodo.data.models.CategoryDTO
+import com.mmfsin.sabelotodo.data.models.LoserImagesDTO
 import com.mmfsin.sabelotodo.data.models.UserRecordDTO
 import com.mmfsin.sabelotodo.domain.interfaces.ICategoryRepository
 import com.mmfsin.sabelotodo.domain.interfaces.IRealmDatabase
@@ -14,6 +15,7 @@ import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.domain.models.UserRecord
 import com.mmfsin.sabelotodo.utils.AVAILABLE_MUSICMASTER
 import com.mmfsin.sabelotodo.utils.CATEGORIES
+import com.mmfsin.sabelotodo.utils.LOSER_IMAGES
 import com.mmfsin.sabelotodo.utils.MUSIC_MASTER
 import com.mmfsin.sabelotodo.utils.MY_SHARED_PREFS
 import com.mmfsin.sabelotodo.utils.SAVED_VERSION
@@ -58,13 +60,20 @@ class CategoryRepository @Inject constructor(
         val latch = CountDownLatch(1)
         reference.get().addOnSuccessListener {
             val version = it.child(VERSION).value as Long
-            if (version == savedVersion) {
+            if (version != savedVersion) {
                 latch.countDown()
             } else {
-                saveVersion(newVersion = version)
+//                saveVersion(newVersion = version)
 
                 val availableMM = it.child(MUSIC_MASTER).value as Boolean
                 updateAvailableMM(availableMM)
+
+                val loserImages = it.child(LOSER_IMAGES)
+                for (image in loserImages.children) {
+                    saveLoserImages(
+                        LoserImagesDTO(id = image.key.toString(), image = image.value.toString())
+                    )
+                }
 
                 val fbCategories = it.child(CATEGORIES)
                 for (child in fbCategories.children) {
@@ -106,6 +115,8 @@ class CategoryRepository @Inject constructor(
     private fun getSharedPreferences() = context.getSharedPreferences(MY_SHARED_PREFS, MODE_PRIVATE)
 
     private fun saveCategory(category: CategoryDTO) = realmDatabase.addObject { category }
+
+    private fun saveLoserImages(image: LoserImagesDTO) = realmDatabase.addObject { image }
 
     private fun getRecordsFromCategoryId(categoryId: String): UserRecord {
         val records = realmDatabase.getObjectsFromRealm {

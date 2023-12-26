@@ -71,11 +71,11 @@
     <string name="temporary_dates_important_dates">¿Qué ocurrió antes?</string>
     <string name="temporary_same_year">Son del mismo año</string>
 
-    <!-- TEMPORARY LOOSER -->
-    <string name="temporary_looser_title">¡Vaya!</string>
-    <string name="temporary_looser_description">Parece que no es así</string>
-    <string name="temporary_looser_rematch">Intentarlo de nuevo</string>
-    <string name="temporary_looser_exit">Salir</string>
+    <!-- TEMPORARY LOSER -->
+    <string name="temporary_loser_title">¡Vaya!</string>
+    <string name="temporary_loser_description">Parece que no es así</string>
+    <string name="temporary_loser_rematch">Intentarlo de nuevo</string>
+    <string name="temporary_loser_exit">Salir</string>
 
     <!-- SOLUTION AGE -->
     <string name="solution_age_was_born">Nació el</string>
