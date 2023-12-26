@@ -32,7 +32,7 @@ class CheckTemporarySolutionUseCase @Inject constructor() :
 
                 SAME_YEAR -> if (sol1 == sol2) GOOD else BAD
             }
-            Pair(params.answer, BAD)
+            Pair(params.answer, resultType)
 
         } catch (e: Exception) {
             null
