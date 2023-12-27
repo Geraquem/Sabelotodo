@@ -10,7 +10,9 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:elevation="6dp"
-    android:padding="16dp">
+    android:paddingHorizontal="16dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -95,8 +97,8 @@
                 android:elevation="6dp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical"
-                android:paddingVertical="8dp"
-                android:paddingHorizontal="16dp">
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp">
 
                 <TextView
                     android:id="@+id/btn_guesser_text"
@@ -154,8 +156,8 @@
                 android:elevation="6dp"
                 android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical"
-                android:paddingVertical="8dp"
-                android:paddingHorizontal="16dp">
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp">
 
                 <TextView
                     android:id="@+id/btn_temporary_text"

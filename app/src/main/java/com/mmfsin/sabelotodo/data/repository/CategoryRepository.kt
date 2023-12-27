@@ -63,7 +63,7 @@ class CategoryRepository @Inject constructor(
             if (version != savedVersion) {
                 latch.countDown()
             } else {
-//                saveVersion(newVersion = version)
+                saveVersion(newVersion = version)
 
                 val availableMM = it.child(MUSIC_MASTER).value as Boolean
                 updateAvailableMM(availableMM)

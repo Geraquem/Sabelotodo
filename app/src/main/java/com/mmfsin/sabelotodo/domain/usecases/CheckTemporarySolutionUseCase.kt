@@ -2,7 +2,8 @@ package com.mmfsin.sabelotodo.domain.usecases
 
 import com.mmfsin.sabelotodo.base.BaseUseCase
 import com.mmfsin.sabelotodo.presentation.models.ResultType
-import com.mmfsin.sabelotodo.presentation.models.ResultType.*
+import com.mmfsin.sabelotodo.presentation.models.ResultType.BAD
+import com.mmfsin.sabelotodo.presentation.models.ResultType.GOOD
 import com.mmfsin.sabelotodo.presentation.models.TempSelectionType
 import com.mmfsin.sabelotodo.presentation.models.TempSelectionType.BOTTOM
 import com.mmfsin.sabelotodo.presentation.models.TempSelectionType.SAME_YEAR

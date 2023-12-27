@@ -158,7 +158,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
     private fun setCategoryData() {
         binding.apply {
             category?.let {
-                Glide.with(requireContext()).load(it.duckImage).into(loading.image)
+                Glide.with(mContext).load(it.duckImage).into(loading.image)
                 (activity as MainActivity).toolbarText(it.toolbarText)
                 setPinView(it.longitudePV)
                 scoreLayout.btnNext.setColorFilter(Color.parseColor(it.colorDashboard))

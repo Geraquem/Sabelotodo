@@ -20,9 +20,10 @@ class GetDashboardDataUseCase @Inject constructor(private val repository: IDashb
                 data.shuffled()
             }
             data.shuffled()
+
+            /****** delete after *******/
 //            data
-                /****** delete after *******/
-//                .filter { t -> t.secondText.contains("Zatu") }
+//                .filter { t -> t.secondText.contains("Ben Hur") }
 
         } catch (e: Exception) {
             data.shuffled()

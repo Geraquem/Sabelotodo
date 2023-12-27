@@ -298,7 +298,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                         BOTTOM -> cvTwo.background = bgBad
                         SAME_YEAR -> btnSameYear.background = bgBad
                     }
-                    countDown(1000) {
+                    countDown(750) {
                         activity?.showFragmentDialog(LoserDialog.newInstance(this@TemporaryFragment))
                     }
 
@@ -319,7 +319,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     }
 
     private fun automaticContinue() {
-        countDown(1000) {
+        countDown(750) {
             binding.apply {
                 enableImages()
                 restartBackgrounds()
