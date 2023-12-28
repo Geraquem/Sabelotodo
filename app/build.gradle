@@ -12,12 +12,12 @@ plugins {
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.mmfsin.sabelotodo"
         minSdk 26
-        targetSdk 33
+        targetSdk 34
         versionCode 9
         versionName "1.0.9"
 
