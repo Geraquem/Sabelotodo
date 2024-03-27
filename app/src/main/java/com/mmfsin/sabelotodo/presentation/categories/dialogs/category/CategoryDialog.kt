@@ -91,7 +91,7 @@ class CategoryDialog(private val id: String, private val listener: ICategoryList
 
     private fun observe() {
         viewModel.event.observe(this) { event ->
-            when (event) {
+            when (event) {  
                 is CategoryDialogEvent.GetCategory -> {
                     category = event.category
                     setUI()

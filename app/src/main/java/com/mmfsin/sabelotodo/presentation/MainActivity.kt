@@ -108,15 +108,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showInterstitial() {
-        mInterstitialAd?.let {
+        /*mInterstitialAd?.let {
             it.show(this)
             loadInterstitial(AdRequest.Builder().build())
-        }
+        }*/
     }
 
     fun showBanner(visible: Boolean, bannerBgColor: Int? = null) {
         binding.apply {
-            adView.isVisible = visible
+            adView.isVisible = false
             val background = bannerBgColor ?: R.color.light_grey
             clMain.background = ContextCompat.getDrawable(this@MainActivity, background)
         }
