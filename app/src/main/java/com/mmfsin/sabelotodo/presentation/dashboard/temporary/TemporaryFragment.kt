@@ -76,6 +76,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     override fun setUI() {
         binding.apply {
             setUpToolbar()
+            showBanner(show = false)
             loading.root.isVisible = true
             scoreLayout.tvPoints.text = points.toString()
             imageOne.hideImage()
@@ -104,9 +105,15 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
 
     private fun setUpToolbar() {
         (activity as MainActivity).apply {
-            showBanner(visible = true)
             toolbarIcon(showDuck = false)
             toolbarVisibility(visible = true)
+        }
+    }
+
+    private fun showBanner(show: Boolean) {
+        (activity as MainActivity).apply {
+            if (show) showBanner(visible = true)
+            else showBanner(visible = false)
         }
     }
 
@@ -203,7 +210,10 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
 
                         solution2 = d.second.solution
                         setImage(d.second.image, imageTwo, fromLeft = false)
-                        loadingCountDown { loading.root.isVisible = false }
+                        loadingCountDown {
+                            loading.root.isVisible = false
+                            showBanner(show = true)
+                        }
                     }
                 } catch (e: java.lang.Exception) {
                     error()
@@ -301,9 +311,6 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                     countDown(750) {
                         activity?.showFragmentDialog(LoserDialog.newInstance(this@TemporaryFragment))
                     }
-
-                    /*****************  DELETE **********************/
-//                    automaticContinue()
                 }
 
                 ResultType.SAME_YEAR -> {

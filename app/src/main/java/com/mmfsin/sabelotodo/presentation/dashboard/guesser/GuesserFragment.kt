@@ -73,6 +73,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
     override fun setUI() {
         binding.apply {
             setUpToolbar()
+            showBanner(show = false)
             loading.root.isVisible
             llSolutions.isVisible = false
             restartAnimations()
@@ -85,10 +86,8 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
             btnCheck.setOnClickListener {
                 val answer = pvResponse.text.toString()
                 if (answer.length == pinViewLength) {
-
                     pvResponse.isEnabled = false
                     btnCheck.isEnabled = false
-//                    setButtonColor(null)
 
                     btnCheck.animate().alpha(0.0f).duration = 200
                     countDown(200) {
@@ -114,9 +113,15 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
 
     private fun setUpToolbar() {
         (activity as MainActivity).apply {
-            showBanner(visible = true, bannerBgColor = R.color.white)
             toolbarIcon(showDuck = false)
             toolbarVisibility(visible = true)
+        }
+    }
+
+    private fun showBanner(show: Boolean) {
+        (activity as MainActivity).apply {
+            if (show) showBanner(visible = true, bannerBgColor = R.color.white)
+            else showBanner(visible = false)
         }
     }
 
@@ -219,7 +224,10 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     restartAnimations()
                     if (firstAccess) {
                         firstAccess = false
-                        loadingCountDown { loading.root.isVisible = false }
+                        loadingCountDown {
+                            loading.root.isVisible = false
+                            showBanner(show = true)
+                        }
                     } else loading.root.isVisible = false
                 } catch (e: java.lang.Exception) {
                     error()
