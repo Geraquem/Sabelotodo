@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -119,9 +120,13 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
     }
 
     private fun showBanner(show: Boolean) {
-        (activity as MainActivity).apply {
-            if (show) showBanner(visible = true, bannerBgColor = R.color.white)
-            else showBanner(visible = false)
+        try {
+            (activity as MainActivity).apply {
+                if (show) showBanner(visible = true, bannerBgColor = R.color.white)
+                else showBanner(visible = false)
+            }
+        } catch (e: Exception) {
+            Log.e("ACTIVITY", "Error hidding banner")
         }
     }
 

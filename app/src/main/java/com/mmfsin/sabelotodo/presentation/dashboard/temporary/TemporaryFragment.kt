@@ -3,6 +3,7 @@ package com.mmfsin.sabelotodo.presentation.dashboard.temporary
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -111,9 +112,10 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     }
 
     private fun showBanner(show: Boolean) {
-        (activity as MainActivity).apply {
-            if (show) showBanner(visible = true)
-            else showBanner(visible = false)
+        try {
+            (activity as MainActivity).apply { showBanner(visible = show) }
+        } catch (e: Exception) {
+            Log.e("ACTIVITY", "Error hidding banner")
         }
     }
 

@@ -58,6 +58,7 @@
                 <ImageView
                     android:id="@+id/iv_back"
                     android:layout_width="28dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:layout_height="28dp"
                     android:contentDescription="@string/content_description"
                     android:src="@drawable/ic_return"
