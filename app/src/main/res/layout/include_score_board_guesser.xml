@@ -90,6 +90,7 @@
         android:id="@+id/btn_next"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/content_description"
         android:src="@drawable/ic_next"
         app:layout_constraintBottom_toBottomOf="parent"

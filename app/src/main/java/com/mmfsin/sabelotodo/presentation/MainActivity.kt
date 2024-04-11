@@ -6,6 +6,7 @@ import android.os.CountDownTimer
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
@@ -38,8 +39,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        changeStatusBar()
         setAds()
         setToolbarListeners()
+    }
+
+    private fun changeStatusBar() {
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+        val controller = WindowInsetsControllerCompat(window, window.decorView)
+        controller.isAppearanceLightStatusBars = true
     }
 
     private fun setAds() {
