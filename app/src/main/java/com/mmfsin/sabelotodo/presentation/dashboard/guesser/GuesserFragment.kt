@@ -3,6 +3,8 @@ package com.mmfsin.sabelotodo.presentation.dashboard.guesser
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -171,10 +173,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                 Glide.with(mContext).load(it.duckImage).into(loading.image)
                 (activity as MainActivity).toolbarText(it.toolbarText)
                 setPinView(it.longitudePV)
-
-
-                /**/
-
+                setButtonColor(it.colorDashboard)
                 scoreLayout.btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
                 scoreLayout.tvRecord.text = it.guesserRecord.toString()
             }
@@ -229,7 +228,6 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     btnCheck.isEnabled = true
                     tvFirstText.text = data.firstText
                     tvSecondText.text = data.secondText
-                    category?.let { setButtonColor(Color.parseColor(it.colorDashboard)) }
                     restartAnimations()
                     if (firstAccess) {
                         firstAccess = false
@@ -253,8 +251,8 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
         }
     }
 
-    private fun setButtonColor(color: Int?) {
-        binding.btnCheck.apply {
+    private fun setButtonColor(color: String) {
+        binding.apply {
 //            color?.let {
 //                setTextColor(getColor(mContext, R.color.black))
 //                elevation = 5f
@@ -264,9 +262,13 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
 //                elevation = 0f
 //                background.setTint(getColor(mContext, R.color.button_disabled))
 //            }
-
-            color?.let {
-                setBackgroundColor(it)
+            val background = btnCheck.background
+            if (background is RippleDrawable) {
+                val contentDrawable = background.getDrawable(1)
+                if (contentDrawable is GradientDrawable) {
+                    val strokeColor = Color.parseColor(color)
+                    contentDrawable.setColor(strokeColor)
+                }
             }
         }
     }

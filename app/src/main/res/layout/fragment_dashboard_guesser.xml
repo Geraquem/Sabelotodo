@@ -194,17 +194,16 @@
 
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
+            <TextView
                 android:id="@+id/btn_check"
                 style="@style/button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/click_effect_dashboard"
                 android:clipToPadding="false"
                 android:elevation="4dp"
-                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:paddingVertical="12dp"
+                android:paddingVertical="16dp"
                 android:text="@string/guesser_check"
                 android:textAllCaps="true"
                 android:textColor="@color/black"

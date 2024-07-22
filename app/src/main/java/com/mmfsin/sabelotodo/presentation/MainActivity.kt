@@ -70,7 +70,10 @@ class MainActivity : AppCompatActivity() {
                 }.start()
             }
 
-            ivBack.setOnClickListener { onBackPressed() }
+            ivBack.setOnClickListener {
+                inDashboard = false
+                onBack()
+            }
         }
     }
 
