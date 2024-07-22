@@ -253,15 +253,6 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
 
     private fun setButtonColor(color: String) {
         binding.apply {
-//            color?.let {
-//                setTextColor(getColor(mContext, R.color.black))
-//                elevation = 5f
-//                background.setTint(it)
-//            } ?: run {
-//                setTextColor(getColor(mContext, R.color.text_button_disabled))
-//                elevation = 0f
-//                background.setTint(getColor(mContext, R.color.button_disabled))
-//            }
             val background = btnCheck.background
             if (background is RippleDrawable) {
                 val contentDrawable = background.getDrawable(1)
