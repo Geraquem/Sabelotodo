@@ -148,7 +148,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                 }
 
                 is GuesserEvent.GuesserData -> {
-                    dataList = event.data.take(2)
+                    dataList = event.data
                     setData()
                 }
 
@@ -171,7 +171,10 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                 Glide.with(mContext).load(it.duckImage).into(loading.image)
                 (activity as MainActivity).toolbarText(it.toolbarText)
                 setPinView(it.longitudePV)
-                setButtonColor(Color.parseColor(it.colorDashboard))
+
+
+                /**/
+
                 scoreLayout.btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
                 scoreLayout.tvRecord.text = it.guesserRecord.toString()
             }
@@ -226,6 +229,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     btnCheck.isEnabled = true
                     tvFirstText.text = data.firstText
                     tvSecondText.text = data.secondText
+                    category?.let { setButtonColor(Color.parseColor(it.colorDashboard)) }
                     restartAnimations()
                     if (firstAccess) {
                         firstAccess = false
@@ -251,14 +255,18 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
 
     private fun setButtonColor(color: Int?) {
         binding.btnCheck.apply {
+//            color?.let {
+//                setTextColor(getColor(mContext, R.color.black))
+//                elevation = 5f
+//                background.setTint(it)
+//            } ?: run {
+//                setTextColor(getColor(mContext, R.color.text_button_disabled))
+//                elevation = 0f
+//                background.setTint(getColor(mContext, R.color.button_disabled))
+//            }
+
             color?.let {
-                setTextColor(getColor(mContext, R.color.black))
-                elevation = 5f
-                background.setTint(it)
-            } ?: run {
-                setTextColor(getColor(mContext, R.color.text_button_disabled))
-                elevation = 0f
-                background.setTint(getColor(mContext, R.color.button_disabled))
+                setBackgroundColor(it)
             }
         }
     }
