@@ -3,10 +3,10 @@
     <string name="content_description">image</string>
 
     <!-- ADS -->
-<!--    <string name="banner">ca-app-pub-3940256099942544/6300978111</string>-->
-            <string name="banner">ca-app-pub-4515698012373396/2351444900</string>
-<!--    <string name="interstitial">ca-app-pub-3940256099942544/1033173712</string>-->
-            <string name="interstitial">ca-app-pub-4515698012373396/9980090620</string>
+    <string name="banner">ca-app-pub-3940256099942544/6300978111</string>
+<!--            <string name="banner">ca-app-pub-4515698012373396/2351444900</string>-->
+    <string name="interstitial">ca-app-pub-3940256099942544/1033173712</string>
+<!--            <string name="interstitial">ca-app-pub-4515698012373396/9980090620</string>-->
 
     <!-- IDs -->
     <string name="id_cartoon_creations">cartoon-creations</string>
@@ -29,6 +29,7 @@
 
     <!-- EXIT -->
     <string name="exit_title">¿Seguro que quieres salir?</string>
+    <string name="exit_description">Tus records se guardarán</string>
     <string name="exit_yes">SALIR</string>
     <string name="exit_no">QUEDARME</string>
 

@@ -38,6 +38,7 @@
                 android:layout_marginEnd="8dp"
                 android:gravity="start"
                 android:orientation="vertical"
+                android:paddingTop="6dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/image"
@@ -47,7 +48,7 @@
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="@font/crazy_regular"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
@@ -63,7 +64,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:maxLines="4"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     tools:text="Adivina las edades de blablabla" />
 
             </LinearLayout>
@@ -91,11 +92,10 @@
                 android:id="@+id/btn_guesser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_mode_selector"
+                android:background="@drawable/click_effect"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 android:elevation="6dp"
-                android:foreground="?attr/selectableItemBackground"
                 android:orientation="vertical"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp">
@@ -115,7 +115,7 @@
                     android:id="@+id/ll_guesser_high_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="2dp"
                     android:clipChildren="false"
                     android:clipToPadding="false">
 
@@ -150,7 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:background="@drawable/bg_mode_selector"
+                android:background="@drawable/click_effect"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 android:elevation="6dp"
@@ -174,7 +174,7 @@
                     android:id="@+id/ll_temporary_high_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
+                    android:layout_marginTop="2dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -196,7 +196,7 @@
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        tools:text="10" />
+                        tools:text="192" />
 
                 </LinearLayout>
 

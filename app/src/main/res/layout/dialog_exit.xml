@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_error"
+    android:background="@drawable/bg_white_box"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="16dp">
 
     <ImageView
-        android:layout_width="84dp"
-        android:layout_height="84dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/content_description"
         android:src="@drawable/ic_pato_exit" />
@@ -22,9 +22,18 @@
         style="@style/MediumTextView_Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
         android:gravity="center"
         android:text="@string/exit_title"
+        android:textAllCaps="true" />
+
+    <TextView
+        style="@style/SmallTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="@string/exit_description"
         android:textAllCaps="true" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +55,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_no_more_btn"
+            android:background="@drawable/click_effect"
+            android:backgroundTint="@color/green"
             android:elevation="6dp"
             android:gravity="center"
             android:padding="12dp"
@@ -65,7 +75,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="0.47"
-            android:background="@drawable/bg_error_btn"
+            android:background="@drawable/click_effect"
+            android:backgroundTint="@color/red"
             android:elevation="6dp"
             android:gravity="center"
             android:padding="12dp"

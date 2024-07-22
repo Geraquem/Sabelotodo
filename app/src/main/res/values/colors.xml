@@ -32,5 +32,7 @@
 
     <color name="blue">#0E66C5</color>
     <color name="gray">#707070</color>
+    <color name="green">#A5DC9C</color>
+    <color name="red">#FF9D9D</color>
 
 </resources>

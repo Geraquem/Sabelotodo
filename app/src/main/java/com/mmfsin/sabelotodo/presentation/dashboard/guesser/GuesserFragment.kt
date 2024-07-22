@@ -148,7 +148,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                 }
 
                 is GuesserEvent.GuesserData -> {
-                    dataList = event.data
+                    dataList = event.data.take(2)
                     setData()
                 }
 
@@ -171,6 +171,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                 Glide.with(mContext).load(it.duckImage).into(loading.image)
                 (activity as MainActivity).toolbarText(it.toolbarText)
                 setPinView(it.longitudePV)
+                setButtonColor(Color.parseColor(it.colorDashboard))
                 scoreLayout.btnNext.setColorFilter(Color.parseColor(it.colorDashboard))
                 scoreLayout.tvRecord.text = it.guesserRecord.toString()
             }
@@ -225,7 +226,6 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     btnCheck.isEnabled = true
                     tvFirstText.text = data.firstText
                     tvSecondText.text = data.secondText
-                    category?.let { setButtonColor(Color.parseColor(it.colorDashboard)) }
                     restartAnimations()
                     if (firstAccess) {
                         firstAccess = false
