@@ -3,13 +3,11 @@ package com.mmfsin.sabelotodo.presentation.categories.dialogs.category
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.base.BaseDialog
-import com.mmfsin.sabelotodo.databinding.DialogCategoryBinding
 import com.mmfsin.sabelotodo.databinding.DialogCategoryMusicBinding
 import com.mmfsin.sabelotodo.domain.models.Category
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
@@ -21,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MusicDialog(private val id: String, private val listener: ICategoryListener) :
     BaseDialog<DialogCategoryMusicBinding>() {
 
-    private val viewModel: CategoryDialogViewModel by viewModels()
+    private val viewModel: CategoryBSheetViewModel by viewModels()
 
     private var category: Category? = null
 
@@ -62,17 +60,17 @@ class MusicDialog(private val id: String, private val listener: ICategoryListene
     private fun observe() {
         viewModel.event.observe(this) { event ->
             when (event) {
-                is CategoryDialogEvent.GetCategory -> {
+                is CategoryBSheetEvent.GetCategory -> {
                     category = event.category
                     setUI()
                     viewModel.checkIfAvailable()
                 }
 
-                is CategoryDialogEvent.AvailableMusicMaster -> {
+                is CategoryBSheetEvent.AvailableMusicMaster -> {
                     availableMusicMaster(event.available)
                 }
 
-                is CategoryDialogEvent.SomethingWentWrong -> error()
+                is CategoryBSheetEvent.SomethingWentWrong -> error()
             }
         }
     }

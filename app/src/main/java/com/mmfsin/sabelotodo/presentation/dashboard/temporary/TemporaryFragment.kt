@@ -179,13 +179,11 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     private fun setMainText(id: String) {
         val text = when (id) {
             getString(R.string.id_spanish_age), getString(R.string.id_global_age) -> R.string.temporary_ages
-
             getString(R.string.id_films_series), getString(R.string.id_cartoon_creations), getString(
                 R.string.id_videogames
             ) -> R.string.temporary_dates
 
             getString(R.string.id_important_dates) -> R.string.temporary_dates_important_dates
-
             else -> R.string.error_title
         }
         binding.tvTitle.text = getString(text)

@@ -22,9 +22,9 @@ import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirection
 import com.mmfsin.sabelotodo.presentation.categories.CategoriesFragmentDirections.Companion.actionCategoriesToTemporary
 import com.mmfsin.sabelotodo.presentation.categories.adapter.CategoriesAdapter
 import com.mmfsin.sabelotodo.presentation.categories.dialogs.CuackDialog
+import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.CategoryBSheet
 import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.MusicDialog
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
-import com.mmfsin.sabelotodo.utils.animateX
 import com.mmfsin.sabelotodo.utils.animateY
 import com.mmfsin.sabelotodo.utils.countDown
 import com.mmfsin.sabelotodo.utils.showErrorDialog
@@ -120,7 +120,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
     }
 
     override fun onCategoryClick(id: String) {
-//        activity?.showFragmentDialog(CategoryDialog.newInstance(id, this@CategoriesFragment))
+        activity?.showFragmentDialog(CategoryBSheet(id, this@CategoriesFragment))
     }
 
     override fun startGuesserGame(categoryId: String) =

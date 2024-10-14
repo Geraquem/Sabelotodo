@@ -21,21 +21,21 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tv_title"
-                style="@style/BigTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:fontFamily="@font/x_typewriter"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/category_dialog_music_master" />
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/BigTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/x_typewriter"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/category_dialog_music_master" />
 
         <TextView
             android:id="@+id/tv_description"
@@ -44,8 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="6dp"
-            android:fontFamily="@font/crazy_regular"
             android:gravity="center"
+            android:textStyle="bold"
             tools:text="Descarga ahora blablabla..." />
 
         <TextView

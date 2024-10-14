@@ -44,35 +44,36 @@ class CategoriesAdapter(
                     }
                 item.background = newGradient
 
-                btnGuesser.setOnClickListener { listener.startGuesserGame(category.id) }
-                btnTemporary.setOnClickListener { listener.startTemporaryGame(category.id) }
+//                btnGuesser.setOnClickListener { listener.startGuesserGame(category.id) }
+//                btnTemporary.setOnClickListener { listener.startTemporaryGame(category.id) }
             }
         }
 
         private fun setTextButtons(id: String) {
             binding.apply {
-                when (id) {
-                    c.getString(R.string.id_spanish_age),
-                    c.getString(R.string.id_global_age) -> {
-                        btnGuesserText.text = c.getString(R.string.category_dialog_guess_age)
-                        btnTemporaryText.text = c.getString(R.string.category_dialog_temporary_age)
-                    }
-
-                    c.getString(R.string.id_films_series),
-                    c.getString(R.string.id_cartoon_creations),
-                    c.getString(R.string.id_videogames) -> {
-                        btnGuesserText.text = c.getString(R.string.category_dialog_guess_date)
-                        btnTemporaryText.text = c.getString(R.string.category_dialog_temporary_date)
-                    }
-
-                    c.getString(R.string.id_important_dates) -> {
-                        btnGuesserText.text = c.getString(R.string.category_dialog_guess_date)
-                        btnTemporaryText.text =
-                            c.getString(R.string.category_dialog_temporary_important_dates)
-                    }
-
-                    else -> {}
-                }
+                /** Hecho en el Extensions */
+//                when (id) {
+//                    c.getString(R.string.id_spanish_age),
+//                    c.getString(R.string.id_global_age) -> {
+//                        btnGuesserText.text = c.getString(R.string.category_dialog_guess_age)
+//                        btnTemporaryText.text = c.getString(R.string.category_dialog_temporary_age)
+//                    }
+//
+//                    c.getString(R.string.id_films_series),
+//                    c.getString(R.string.id_cartoon_creations),
+//                    c.getString(R.string.id_videogames) -> {
+//                        btnGuesserText.text = c.getString(R.string.category_dialog_guess_date)
+//                        btnTemporaryText.text = c.getString(R.string.category_dialog_temporary_date)
+//                    }
+//
+//                    c.getString(R.string.id_important_dates) -> {
+//                        btnGuesserText.text = c.getString(R.string.category_dialog_guess_date)
+//                        btnTemporaryText.text =
+//                            c.getString(R.string.category_dialog_temporary_important_dates)
+//                    }
+//
+//                    else -> {}
+//                }
             }
         }
     }
@@ -90,8 +91,9 @@ class CategoriesAdapter(
             if (category.id == "music") {
                 listener.openMusicMasterDialog(category.id)
             } else {
-                category.buttonsOpened = !category.buttonsOpened
-                notifyItemChanged(position)
+                listener.onCategoryClick(category.id)
+//                category.buttonsOpened = !category.buttonsOpened
+//                notifyItemChanged(position)
             }
         }
     }

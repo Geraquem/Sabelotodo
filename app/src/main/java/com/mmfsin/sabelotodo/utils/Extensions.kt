@@ -3,11 +3,13 @@ package com.mmfsin.sabelotodo.utils
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Dialog
+import android.content.Context
 import android.os.CountDownTimer
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
+import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.base.dialog.ErrorDialog
 
 fun FragmentActivity.showErrorDialog() = this.showFragmentDialog(ErrorDialog())
@@ -47,6 +49,36 @@ fun countDown(duration: Long, action: () -> Unit) {
             action()
         }
     }.start()
+}
+
+fun Context.getCategoryText(categoryId: String): Pair<String, String> {
+    return when (categoryId) {
+        this.getString(R.string.id_spanish_age),
+        this.getString(R.string.id_global_age) -> {
+            Pair(
+                this.getString(R.string.category_dialog_guess_age),
+                this.getString(R.string.category_dialog_temporary_age)
+            )
+        }
+
+        this.getString(R.string.id_films_series),
+        this.getString(R.string.id_cartoon_creations),
+        this.getString(R.string.id_videogames) -> {
+            Pair(
+                this.getString(R.string.category_dialog_guess_date),
+                this.getString(R.string.category_dialog_temporary_date)
+            )
+        }
+
+        this.getString(R.string.id_important_dates) -> {
+            Pair(
+                this.getString(R.string.category_dialog_guess_date),
+                this.getString(R.string.category_dialog_temporary_important_dates)
+            )
+        }
+
+        else -> Pair("", "")
+    }
 }
 
 fun View.animateY(pos: Float, duration: Long) =
