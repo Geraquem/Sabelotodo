@@ -35,4 +35,6 @@
     <color name="green">#B9F4AF</color>
     <color name="red">#FF9D9D</color>
 
+    <color name="color_ad_start">#959595</color>
+    <color name="color_ad_end">#BDBDBD</color>
 </resources>

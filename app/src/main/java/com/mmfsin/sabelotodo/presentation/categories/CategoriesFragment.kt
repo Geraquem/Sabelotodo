@@ -13,6 +13,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdView
 import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.base.BaseFragment
 import com.mmfsin.sabelotodo.databinding.FragmentCategoriesBinding
@@ -30,6 +36,7 @@ import com.mmfsin.sabelotodo.utils.countDown
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import com.mmfsin.sabelotodo.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesViewModel>(),
@@ -56,6 +63,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
         binding.apply {
             setUpToolbar()
             setItemsVisible(visible = false)
+            loadNativeAds()
             loading.root.isVisible
         }
     }
@@ -107,6 +115,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
                     llTop.animateY(0f, 500)
                     rvCategory.visibility = View.VISIBLE
                     rvCategory.animateY(0f, 1000)
+                    nativeAd.isVisible = true
                 }
             } else setItemsVisible(visible = true)
         }
@@ -116,6 +125,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
         binding.apply {
             llTop.isVisible = visible
             rvCategory.isVisible = visible
+            nativeAd.isVisible = visible
         }
     }
 
@@ -131,15 +141,43 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesVie
 
     override fun openMusicMasterDialog(categoryId: String) {
         activity?.showFragmentDialog(
-            MusicDialog.newInstance(
-                categoryId,
-                this@CategoriesFragment
-            )
+            MusicDialog.newInstance(categoryId, this@CategoriesFragment)
         )
     }
 
     override fun openMusicMaster() =
         startActivity(Intent(ACTION_VIEW, Uri.parse(getString(R.string.music_master_url))))
+
+    private fun loadNativeAds() {
+        val adLoader =
+            AdLoader.Builder(mContext, getString(R.string.nativo)).forNativeAd { nativeAd ->
+                populateNativeAdView(nativeAd, binding.nativeAd)
+            }.withAdListener(object : AdListener() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    binding.nativeAd.isVisible = false
+                }
+            }).build()
+        adLoader.loadAd(AdRequest.Builder().build())
+    }
+
+    private fun populateNativeAdView(nativeAd: NativeAd, adView: NativeAdView) {
+        binding.nativeContent.apply {
+            tvTitle.text = nativeAd.headline
+            tvDescription.text = nativeAd.body
+            val icon = nativeAd.icon
+            icon?.let {
+                image.setImageDrawable(icon.drawable)
+                image.isVisible = true
+            } ?: run { image.isVisible = false }
+
+            actionBtn.text = nativeAd.callToAction
+            actionBtn.isVisible = !nativeAd.callToAction.isNullOrBlank()
+            adView.callToActionView = actionBtn
+
+            binding.nativeAd.isVisible = true
+            adView.setNativeAd(nativeAd)
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

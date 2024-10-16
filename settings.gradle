@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Sabelotodo"
 include ':app'
+include ':nativetemplates'

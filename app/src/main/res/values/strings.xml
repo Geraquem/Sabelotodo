@@ -4,9 +4,11 @@
 
     <!-- ADS -->
 <!--    <string name="banner">ca-app-pub-3940256099942544/6300978111</string>-->
-            <string name="banner">ca-app-pub-4515698012373396/2351444900</string>
+        <string name="banner">ca-app-pub-4515698012373396/2351444900</string>
 <!--    <string name="interstitial">ca-app-pub-3940256099942544/1033173712</string>-->
-            <string name="interstitial">ca-app-pub-4515698012373396/9980090620</string>
+        <string name="interstitial">ca-app-pub-4515698012373396/9980090620</string>
+<!--    <string name="nativo">ca-app-pub-3940256099942544/2247696110</string>-->
+        <string name="nativo">ca-app-pub-4515698012373396/6212143065</string>
 
     <!-- IDs -->
     <string name="id_cartoon_creations">cartoon-creations</string>

@@ -49,30 +49,6 @@ class CategoryBSheet(private val id: String, private val listener: ICategoryList
             tvGuesser.text = texts?.first
             tvTemporary.text = texts?.second
         }
-//        binding.apply {
-//            when (category.id) {
-//                getString(R.string.id_spanish_age),
-//                getString(R.string.id_global_age) -> {
-//                    btnGuesserText.text = getString(R.string.category_dialog_guess_age)
-//                    btnTemporaryText.text = getString(R.string.category_dialog_temporary_age)
-//                }
-//
-//                getString(R.string.id_films_series),
-//                getString(R.string.id_cartoon_creations),
-//                getString(R.string.id_videogames) -> {
-//                    btnGuesserText.text = getString(R.string.category_dialog_guess_date)
-//                    btnTemporaryText.text = getString(R.string.category_dialog_temporary_date)
-//                }
-//
-//                getString(R.string.id_important_dates) -> {
-//                    btnGuesserText.text = getString(R.string.category_dialog_guess_date)
-//                    btnTemporaryText.text =
-//                        getString(R.string.category_dialog_temporary_important_dates)
-//                }
-//
-//                else -> {}
-//            }
-//        }
     }
 
     override fun setListeners() {
