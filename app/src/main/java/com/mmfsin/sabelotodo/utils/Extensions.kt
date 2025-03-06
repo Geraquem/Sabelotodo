@@ -2,9 +2,12 @@ package com.mmfsin.sabelotodo.utils
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.os.CountDownTimer
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.DialogFragment
@@ -89,4 +92,42 @@ fun View.animateX(pos: Float, duration: Long) =
 
 fun <T1 : Any, T2 : Any, R : Any> checkNotNulls(p1: T1?, p2: T2?, block: (T1, T2) -> R): R? {
     return if (p1 != null && p2 != null) block(p1, p2) else null
+}
+
+@SuppressLint("ClickableViewAccessibility")
+fun View.swipeListener(
+    context: Context,
+    onSwipeLeft: () -> Unit = {},
+    onSwipeRight: () -> Unit = {},
+    onSwipeUp: () -> Unit = {},
+    onSwipeDown: () -> Unit = {}
+) {
+    val gestureDetector =
+        GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onFling(
+                e1: MotionEvent?,
+                e2: MotionEvent,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                if (e1 != null) {
+                    val deltaX = e2.x - e1.x
+                    val deltaY = e2.y - e1.y
+                    val threshold = 100
+
+                    if (deltaY < -threshold) onSwipeUp()
+                    else if (deltaY > threshold) onSwipeDown()
+
+                    if (deltaX < -threshold) onSwipeLeft()
+                    else if (deltaX > threshold) onSwipeRight()
+                    return true
+                }
+                return false
+            }
+        })
+
+    this.setOnTouchListener { _, event ->
+        gestureDetector.onTouchEvent(event)
+        true
+    }
 }

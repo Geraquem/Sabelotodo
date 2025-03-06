@@ -36,6 +36,7 @@ import com.mmfsin.sabelotodo.utils.countDown
 import com.mmfsin.sabelotodo.utils.getCategoryText
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import com.mmfsin.sabelotodo.utils.showFragmentDialog
+import com.mmfsin.sabelotodo.utils.swipeListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
@@ -48,6 +49,7 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
 
     private var categoryId: String? = null
     private var adapter: ImageAdapter? = null
+    private var currentPos: Int = 0
 
     private lateinit var mContext: Context
 
@@ -65,10 +67,11 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
 
     override fun setUI() {
         binding.apply {
+            loading.root.isVisible
             setUpToolbar()
             setItemsVisible(visible = false)
             bottomSheet.root.isVisible = false
-            loading.root.isVisible
+            checkCurrentPos()
         }
     }
 
@@ -82,11 +85,25 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
     override fun setListeners() {
         binding.apply {
             ivDuck.setOnClickListener { activity?.showFragmentDialog(CuackDialog()) }
-            clBottom.setOnClickListener { categoryId?.let { id -> onCategoryClick(id) } }
-            bottomSheet.apply {
-                btnGuesser.setOnClickListener { categoryId?.let { id -> startGuesserGame(id) } }
-                btnTemporary.setOnClickListener { categoryId?.let { id -> startTemporaryGame(id) } }
-            }
+
+//            clBottom.setOnClickListener { categoryId?.let { id -> onCategoryClick(id) } }
+            clBottom.swipeListener(
+                mContext,
+                onSwipeLeft = {
+                    viewpager.currentItem = currentPos + 1
+                },
+                onSwipeRight = {
+                    viewpager.currentItem = currentPos - 1
+                }
+            )
+
+            btnPrev.setOnClickListener { viewpager.currentItem = currentPos - 1 }
+            btnNext.setOnClickListener { viewpager.currentItem = currentPos + 1 }
+
+//            bottomSheet.apply {
+//                btnGuesser.setOnClickListener { categoryId?.let { id -> startGuesserGame(id) } }
+//                btnTemporary.setOnClickListener { categoryId?.let { id -> startTemporaryGame(id) } }
+//            }
         }
     }
 
@@ -165,6 +182,9 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
 
     override fun onCategoryScrolled(category: Category) {
         categoryId = category.id
+        currentPos = category.order.toInt() - 1
+        checkCurrentPos()
+
         binding.apply {
             tvTop.text = category.title
             tvBottom.text = category.examples
@@ -216,6 +236,27 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
 //                if (this.state == STATE_COLLAPSED) bottomSheetAction(STATE_EXPANDED)
 //                else bottomSheetAction(STATE_COLLAPSED)
 //            }
+        }
+    }
+
+    private fun checkCurrentPos() {
+        binding.apply {
+            when (currentPos) {
+                0 -> {
+                    btnPrev.visibility = View.INVISIBLE
+                    btnNext.visibility = View.VISIBLE
+                }
+
+                6 -> {
+                    btnPrev.visibility = View.VISIBLE
+                    btnNext.visibility = View.INVISIBLE
+                }
+
+                else -> {
+                    btnPrev.visibility = View.VISIBLE
+                    btnNext.visibility = View.VISIBLE
+                }
+            }
         }
     }
 
