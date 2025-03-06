@@ -59,17 +59,17 @@
                 android:text="@string/loading_two"
                 android:textAllCaps="true" />
 
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/gif"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:src="@drawable/duck_gif"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gif"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:src="@drawable/duck_gif"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

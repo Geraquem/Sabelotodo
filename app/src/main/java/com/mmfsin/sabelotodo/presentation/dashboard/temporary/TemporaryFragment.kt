@@ -212,7 +212,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                         setImage(d.second.image, imageTwo, fromLeft = false)
                         loadingCountDown {
                             loading.root.isVisible = false
-//                            showBanner(show = true)
+                            showBanner(show = true)
                         }
                     }
                 } catch (e: java.lang.Exception) {

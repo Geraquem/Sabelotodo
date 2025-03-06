@@ -116,10 +116,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showInterstitial() {
-//        mInterstitialAd?.let {
-//            it.show(this)
-//            loadInterstitial(AdRequest.Builder().build())
-//        }
+        mInterstitialAd?.let {
+            it.show(this)
+            loadInterstitial(AdRequest.Builder().build())
+        }
     }
 
     fun showBanner(visible: Boolean, bannerBgColor: Int? = null) {

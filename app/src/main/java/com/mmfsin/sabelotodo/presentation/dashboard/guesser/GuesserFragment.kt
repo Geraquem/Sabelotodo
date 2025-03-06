@@ -233,7 +233,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                         firstAccess = false
                         loadingCountDown {
                             loading.root.isVisible = false
-//                            showBanner(show = true)
+                            showBanner(show = true)
                         }
                     } else loading.root.isVisible = false
                 } catch (e: java.lang.Exception) {
