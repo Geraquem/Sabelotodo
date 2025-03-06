@@ -1,11 +1,8 @@
 package com.mmfsin.sabelotodo.presentation.categories
 
-import android.animation.ArgbEvaluator
-import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +16,6 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
-import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import com.google.android.material.bottomsheet.BottomSheetBehavior.from
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mmfsin.sabelotodo.R
@@ -30,11 +26,16 @@ import com.mmfsin.sabelotodo.presentation.MainActivity
 import com.mmfsin.sabelotodo.presentation.categories.CategoryImagesFragmentDirections.Companion.actionCategoriesToGuesser
 import com.mmfsin.sabelotodo.presentation.categories.CategoryImagesFragmentDirections.Companion.actionCategoriesToTemporary
 import com.mmfsin.sabelotodo.presentation.categories.adapter.ImageAdapter
+import com.mmfsin.sabelotodo.presentation.categories.dialogs.CuackDialog
+import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.CategoryBSheet
+import com.mmfsin.sabelotodo.presentation.categories.dialogs.category.MusicDialog
 import com.mmfsin.sabelotodo.presentation.categories.interfaces.ICategoryListener
 import com.mmfsin.sabelotodo.utils.animateX
 import com.mmfsin.sabelotodo.utils.animateY
 import com.mmfsin.sabelotodo.utils.countDown
+import com.mmfsin.sabelotodo.utils.getCategoryText
 import com.mmfsin.sabelotodo.utils.showErrorDialog
+import com.mmfsin.sabelotodo.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
@@ -47,8 +48,6 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
 
     private var categoryId: String? = null
     private var adapter: ImageAdapter? = null
-    private lateinit var previousColor: String
-    private var firstColorTime = true
 
     private lateinit var mContext: Context
 
@@ -68,6 +67,7 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
         binding.apply {
             setUpToolbar()
             setItemsVisible(visible = false)
+            bottomSheet.root.isVisible = false
             loading.root.isVisible
         }
     }
@@ -81,6 +81,7 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
 
     override fun setListeners() {
         binding.apply {
+            ivDuck.setOnClickListener { activity?.showFragmentDialog(CuackDialog()) }
             clBottom.setOnClickListener { categoryId?.let { id -> onCategoryClick(id) } }
             bottomSheet.apply {
                 btnGuesser.setOnClickListener { categoryId?.let { id -> startGuesserGame(id) } }
@@ -109,7 +110,7 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
                 viewpager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
                 setUpTransformer()
 
-                TabLayoutMediator(bottomSheet.tabLayout, viewpager) { _, _ -> }.attach()
+                TabLayoutMediator(tabLayout, viewpager) { _, _ -> }.attach()
 
                 adapter?.updateTexts(0)
                 viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -164,46 +165,31 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
 
     override fun onCategoryScrolled(category: Category) {
         categoryId = category.id
-        binding.bottomSheet.apply {
+        binding.apply {
             tvTop.text = category.title
-            tvBottom.text = category.description
-            setBottomSheetTextButtons(category.id)
-            tvGuesserRecord.text = category.guesserRecord.toString()
-            tvTemporaryRecord.text = category.temporaryRecord.toString()
+            tvBottom.text = category.examples
 
-            (activity as MainActivity).apply {
-                if (!bsHeightSetted) {
-                    bsCollapsedHeight = tvTop.height * 2 + tvBottom.height + tabLayout.height
-                    bsHeightSetted = true
-                }
+            bottomSheet.apply {
+                tvDescription.text = category.description
+                setBottomSheetTextButtons(category.id)
+                tvGuesserRecord.text = category.guesserRecord.toString()
+                tvTemporaryRecord.text = category.temporaryRecord.toString()
+
+//            (activity as MainActivity).apply {
+//                if (!bsHeightSetted) {
+//                    bsCollapsedHeight = tvTop.height * 2 + tvBottom.height + tabLayout.height
+//                    bsHeightSetted = true
+//                }
             }
-            bottomSheetAction(STATE_COLLAPSED)
+//            bottomSheetAction(STATE_COLLAPSED)
         }
     }
 
     private fun setBottomSheetTextButtons(id: String) {
         binding.bottomSheet.apply {
-            when (id) {
-                getString(R.string.id_spanish_age), getString(R.string.id_global_age) -> {
-                    btnGuesserText.text = getString(R.string.category_dialog_guess_age)
-                    btnTemporaryText.text = getString(R.string.category_dialog_temporary_age)
-                }
-
-                getString(R.string.id_films_series), getString(R.string.id_cartoon_creations), getString(
-                    R.string.id_videogames
-                ) -> {
-                    btnGuesserText.text = getString(R.string.category_dialog_guess_date)
-                    btnTemporaryText.text = getString(R.string.category_dialog_temporary_date)
-                }
-
-                getString(R.string.id_important_dates) -> {
-                    btnGuesserText.text = getString(R.string.category_dialog_guess_date)
-                    btnTemporaryText.text =
-                        getString(R.string.category_dialog_temporary_important_dates)
-                }
-
-                else -> {}
-            }
+            val texts = activity?.applicationContext?.getCategoryText(id)
+            tvGuesser.text = texts?.first
+            tvTemporary.text = texts?.second
         }
     }
 
@@ -218,31 +204,19 @@ class CategoryImagesFragment : BaseFragment<FragmentCategoriesImagesBinding, Cat
         }
     }
 
-    private fun changeColor(color: String) {
-        if (firstColorTime) {
-            previousColor = color
-            firstColorTime = false
-        }
-        val colorFrom = Color.parseColor(previousColor)
-        val colorTo = Color.parseColor(color)
-        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
-        colorAnimation.duration = 750
-        colorAnimation.addUpdateListener { animator ->
-            binding.clMain.setBackgroundColor(animator.animatedValue as Int)
-        }
-        colorAnimation.start()
-        previousColor = color
-    }
-
-
     override fun onCategoryClick(id: String) {
-//        val dialog = if (id == getString(R.string.id_music)) {
-//            MusicDialog.newInstance(id, this@CategoryImagesFragment)
-//        } else {
-//            CategoryDialog(id, this@CategoryImagesFragment)
-//        }
-//        activity?.showFragmentDialog(dialog)
-        bottomSheetAction(STATE_EXPANDED)
+        binding.apply {
+            val dialog = if (id == getString(R.string.id_music)) {
+                MusicDialog.newInstance(id, this@CategoryImagesFragment)
+            } else CategoryBSheet(id, this@CategoryImagesFragment)
+
+            activity?.showFragmentDialog(dialog)
+
+//            from(bottomSheet.sheet).apply {
+//                if (this.state == STATE_COLLAPSED) bottomSheetAction(STATE_EXPANDED)
+//                else bottomSheetAction(STATE_COLLAPSED)
+//            }
+        }
     }
 
     override fun startGuesserGame(categoryId: String) =

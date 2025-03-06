@@ -10,56 +10,53 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_top"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.16" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_top"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="@id/gl_top"
+        android:gravity="center"
+        android:paddingVertical="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl1_right"
+            android:id="@+id/gl_right"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.95" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl1_left"
+            android:id="@+id/gl_left"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
+            app:layout_constraintGuide_percent="0.1" />
+
+        <ImageView
+            android:id="@+id/iv_duck"
+            android:layout_width="46dp"
+            android:layout_height="58dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/content_description"
+            android:src="@drawable/ic_pato"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/gl_left"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
             android:text="@string/app_name"
             android:textAllCaps="true"
-            android:textSize="42sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/gl1_left"
-            app:layout_constraintRight_toRightOf="@id/gl1_right"
+            app:layout_constraintLeft_toRightOf="@id/iv_duck"
+            app:layout_constraintRight_toRightOf="@id/gl_right"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -67,17 +64,21 @@
                 style="@style/BigTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:fontFamily="@font/x_typewriter"
                 android:gravity="center"
+                android:maxLines="1"
                 android:text="@string/app_name"
                 android:textAllCaps="true"
-                android:textSize="48sp" />
+                android:textSize="38sp" />
 
             <TextView
                 style="@style/SmallTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:fontFamily="@font/crazy_regular"
+                android:maxLines="1"
                 android:text="@string/category_title_description"
                 android:textAllCaps="true" />
 
@@ -89,7 +90,8 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingHorizontal="48dp"
+        android:paddingHorizontal="42dp"
+        android:paddingVertical="8dp"
         app:layout_constraintBottom_toTopOf="@id/cl_bottom"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -97,31 +99,30 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_bottom"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:elevation="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/gl_bottom">
+        app:layout_constraintRight_toRightOf="parent">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl2_right"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.95" />
+            app:layout_constraintGuide_percent="0.9" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl2_left"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
+            app:layout_constraintGuide_percent="0.1" />
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -131,14 +132,14 @@
 
             <TextView
                 android:id="@+id/tv_top"
-                style="@style/BigTextView"
+                style="@style/MediumTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/crazy_regular"
                 android:gravity="center"
                 android:textAllCaps="true"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 tools:text="Dibujos y animación" />
 
@@ -147,7 +148,7 @@
                 style="@style/SmallTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
+                android:layout_marginBottom="12dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
@@ -157,10 +158,9 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                app:layout_constraintBottom_toTopOf="@id/cl_bottom"
                 app:tabBackground="@drawable/tab_selector"
                 app:tabGravity="center"
                 app:tabIndicator="@drawable/tab_dot_selected"
@@ -175,7 +175,8 @@
 
     <include
         android:id="@+id/bottom_sheet"
-        layout="@layout/include_bottom_sheet" />
+        layout="@layout/include_bottom_sheet"
+        android:visibility="gone" />
 
     <include
         android:id="@+id/loading"
