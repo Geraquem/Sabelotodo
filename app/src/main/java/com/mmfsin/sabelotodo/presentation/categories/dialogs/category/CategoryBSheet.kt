@@ -1,10 +1,17 @@
 package com.mmfsin.sabelotodo.presentation.categories.dialogs.category
 
+import android.app.Dialog
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.mmfsin.sabelotodo.R
 import com.mmfsin.sabelotodo.base.BaseBottomSheet
 import com.mmfsin.sabelotodo.databinding.DialogCategoryBinding
 import com.mmfsin.sabelotodo.domain.models.Category
@@ -27,6 +34,30 @@ class CategoryBSheet(private val id: String, private val listener: ICategoryList
         super.onCreate(savedInstanceState)
         observe()
         viewModel.getCategory(id)
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+
+        dialog.setOnShowListener { dialogInterface ->
+            val bottomSheetDialog = dialogInterface as BottomSheetDialog
+            val bottomSheet =
+                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+
+            bottomSheet?.let {
+                val behavior = BottomSheetBehavior.from(it)
+
+                val metrics = Resources.getSystem().displayMetrics
+                val maxHeight = (metrics.heightPixels * 0.8).toInt()
+                it.layoutParams.height = maxHeight
+                behavior.peekHeight = maxHeight
+                it.requestLayout()
+
+                it.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.bg_header_dialog)
+            }
+        }
+        return dialog
     }
 
     override fun setUI() {

@@ -37,7 +37,6 @@ import com.mmfsin.sabelotodo.utils.showErrorDialog
 import com.mmfsin.sabelotodo.utils.showFragmentDialog
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoriesViewModel>(),
     ICategoryListener {
