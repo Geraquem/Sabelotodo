@@ -1,10 +1,10 @@
 package com.mmfsin.sabelotodo.data.models
 
-import io.realm.RealmObject
-import io.realm.annotations.PrimaryKey
+import io.realm.kotlin.types.RealmObject
+import io.realm.kotlin.types.annotations.PrimaryKey
 
-open class LoserImagesDTO(
+open class LoserImagesDTO : RealmObject {
     @PrimaryKey
-    var id: String = "",
+    var id: String = ""
     var image: String = ""
-) : RealmObject()
+}

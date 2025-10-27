@@ -59,14 +59,12 @@
                 android:text="@string/loading_two"
                 android:textAllCaps="true" />
 
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/gif"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:src="@drawable/duck_gif"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/lottie_loading" />
 
         </LinearLayout>
 

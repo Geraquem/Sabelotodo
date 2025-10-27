@@ -6,6 +6,6 @@ import com.mmfsin.sabelotodo.domain.models.LoserImages
 interface IDashboardRepository {
     suspend fun getDashboardData(categoryId: String): List<Data>
     fun updateGuesserRecord(categoryId: String, record: Int)
-    fun updateTemporaryRecord(categoryId: String, record: Int)
+    suspend fun updateTemporaryRecord(categoryId: String, record: Int)
     fun getLoserImages(): List<LoserImages>
 }

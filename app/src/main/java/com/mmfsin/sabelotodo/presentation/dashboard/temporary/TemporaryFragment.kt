@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.view.isVisible
@@ -54,6 +55,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
     private var dataList: List<Data> = emptyList()
 
     private var position: Int = 0
+    private var adCount: Int = 0
     private var points: Int = 0
     private var record: Int = 0
 
@@ -78,6 +80,10 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         binding.apply {
             setUpToolbar()
             showBanner(show = false)
+
+            ivErrorImageOne.isVisible = false
+            ivErrorImageTwo.isVisible = false
+
             loading.root.isVisible = true
             scoreLayout.tvPoints.text = points.toString()
             imageOne.hideImage()
@@ -201,7 +207,13 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                         tvOne.text = textOne
 
                         solution1 = d.first.solution
-                        setImage(d.first.image, imageOne)
+                        setImage(
+                            d.first.image,
+                            imageOne,
+                            fromLeft = true,
+                            ivErrorImageOne,
+                            pbImageOne
+                        )
 
                         val textTwo = d.second.auxText?.let {
                             it + " " + d.second.secondText
@@ -209,7 +221,13 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                         tvTwo.text = textTwo
 
                         solution2 = d.second.solution
-                        setImage(d.second.image, imageTwo, fromLeft = false)
+                        setImage(
+                            d.second.image,
+                            imageTwo,
+                            fromLeft = false,
+                            ivErrorImageTwo,
+                            pbImageTwo
+                        )
                         loadingCountDown {
                             loading.root.isVisible = false
                             showBanner(show = true)
@@ -239,12 +257,23 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
         }
     }
 
-    private fun setImage(image: String, view: ImageView, fromLeft: Boolean = true) {
+    private fun setImage(
+        image: String,
+        view: ImageView,
+        fromLeft: Boolean = true,
+        error: ImageView,
+        loading: ProgressBar
+    ) {
+        error.isVisible = false
+        loading.isVisible = true
+
         view.hideImage()
         Glide.with(this).load(image).listener(object : RequestListener<Drawable> {
             override fun onLoadFailed(
                 e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean
             ): Boolean {
+                error.isVisible = true
+                loading.isVisible = false
                 return false
             }
 
@@ -255,6 +284,8 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                 dataSource: DataSource?,
                 isFirstResource: Boolean
             ): Boolean {
+                error.isVisible = false
+                loading.isVisible = false
                 animateImage(view, fromLeft)
                 return false
             }
@@ -331,13 +362,14 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                 enableImages()
                 restartBackgrounds()
 
+                adCount++
                 position++
                 if (position < dataList.size) setData()
                 else {
                     (activity as MainActivity).inDashboard = false
                     activity?.let { NoMoreQuestionsDialog().show(it.supportFragmentManager, "") }
                 }
-                if (position % 20 == 0) (activity as MainActivity).showInterstitial()
+                if (adCount % 15 == 0) (activity as MainActivity).showInterstitial()
             }
         }
     }
@@ -359,6 +391,7 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
 
     override fun rematch() {
         category?.let {
+            adCount = 0
             position = 0
             points = 0
             binding.scoreLayout.tvPoints.text = points.toString()

@@ -110,6 +110,7 @@
                         android:layout_height="wrap_content">
 
                         <ProgressBar
+                            android:id="@+id/pb_image_one"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:indeterminateTint="@color/black"
@@ -121,7 +122,7 @@
                         <ImageView
                             android:id="@+id/image_one"
                             android:layout_width="0dp"
-                            android:layout_height="180dp"
+                            android:layout_height="200dp"
                             android:layout_gravity="center"
                             android:contentDescription="@string/content_description"
                             android:elevation="12dp"
@@ -131,6 +132,17 @@
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:src="@color/black" />
+
+                        <ImageView
+                            android:id="@+id/iv_error_image_one"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:contentDescription="@string/content_description"
+                            android:src="@drawable/ic_warning"
+                            app:layout_constraintBottom_toBottomOf="@id/image_one"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/image_one" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -175,6 +187,7 @@
                         android:layout_height="wrap_content">
 
                         <ProgressBar
+                            android:id="@+id/pb_image_two"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:indeterminateTint="@color/black"
@@ -186,7 +199,7 @@
                         <ImageView
                             android:id="@+id/image_two"
                             android:layout_width="0dp"
-                            android:layout_height="180dp"
+                            android:layout_height="200dp"
                             android:layout_gravity="center"
                             android:contentDescription="@string/content_description"
                             android:elevation="12dp"
@@ -198,6 +211,17 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.0"
                             tools:src="@color/black" />
+
+                        <ImageView
+                            android:id="@+id/iv_error_image_two"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:contentDescription="@string/content_description"
+                            android:src="@drawable/ic_warning"
+                            app:layout_constraintBottom_toBottomOf="@id/image_two"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/image_two" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

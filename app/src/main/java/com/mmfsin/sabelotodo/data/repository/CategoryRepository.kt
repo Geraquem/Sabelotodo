@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.mmfsin.sabelotodo.data.mappers.createLoserImageDTO
 import com.mmfsin.sabelotodo.data.mappers.toCategory
 import com.mmfsin.sabelotodo.data.mappers.toUserRecord
 import com.mmfsin.sabelotodo.data.models.CategoryDTO
@@ -21,7 +22,7 @@ import com.mmfsin.sabelotodo.utils.MY_SHARED_PREFS
 import com.mmfsin.sabelotodo.utils.SAVED_VERSION
 import com.mmfsin.sabelotodo.utils.VERSION
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.realm.kotlin.where
+import io.realm.kotlin.ext.query
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.concurrent.CountDownLatch
@@ -34,15 +35,16 @@ class CategoryRepository @Inject constructor(
     private val reference = Firebase.database.reference
 
     override fun getCategory(id: String): Category? {
-        val categories =
-            realmDatabase.getObjectsFromRealm { where<CategoryDTO>().equalTo("id", id).findAll() }
+        val categories = realmDatabase.getObjectsFromRealm {
+            query<CategoryDTO>("id == $0", id).find()
+        }
         val records = getRecordsFromCategoryId(id)
         return if (categories.isEmpty()) null else categories.first()
             .toCategory(records.guesserRecord, records.temporaryRecord)
     }
 
     override fun getCategoriesFromRealm(): List<Category> {
-        val totalCategories = realmDatabase.getObjectsFromRealm { where<CategoryDTO>().findAll() }
+        val totalCategories = realmDatabase.getObjectsFromRealm { query<CategoryDTO>().find() }
         val result = mutableListOf<Category>()
         totalCategories.forEach { category ->
             val aux = getCategory(category.id)
@@ -70,9 +72,11 @@ class CategoryRepository @Inject constructor(
 
                 val loserImages = it.child(LOSER_IMAGES)
                 for (image in loserImages.children) {
-                    saveLoserImages(
-                        LoserImagesDTO(id = image.key.toString(), image = image.value.toString())
+                    val loserImage = createLoserImageDTO(
+                        newId = image.key.toString(),
+                        newImage = image.value.toString()
                     )
+                    saveLoserImages(loserImage)
                 }
 
                 val fbCategories = it.child(CATEGORIES)
@@ -120,7 +124,7 @@ class CategoryRepository @Inject constructor(
 
     private fun getRecordsFromCategoryId(categoryId: String): UserRecord {
         val records = realmDatabase.getObjectsFromRealm {
-            where<UserRecordDTO>().equalTo("id", categoryId).findAll()
+            query<UserRecordDTO>("id == $0", categoryId).find()
         }
         return if (records.isEmpty()) return UserRecord(0, 0)
         else records.first().toUserRecord()

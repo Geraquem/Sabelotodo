@@ -12,12 +12,11 @@ import com.mmfsin.sabelotodo.domain.interfaces.IRealmDatabase
 import com.mmfsin.sabelotodo.domain.models.Data
 import com.mmfsin.sabelotodo.domain.models.LoserImages
 import com.mmfsin.sabelotodo.utils.QUESTIONS
-import io.realm.kotlin.where
+import io.realm.kotlin.ext.query
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.concurrent.CountDownLatch
 import javax.inject.Inject
-
 
 class DashboardRepository @Inject constructor(
     private val realmDatabase: IRealmDatabase
@@ -44,11 +43,15 @@ class DashboardRepository @Inject constructor(
 
     override fun updateGuesserRecord(categoryId: String, record: Int) {
         val userRecords = realmDatabase.getObjectsFromRealm {
-            where<UserRecordDTO>().equalTo("id", categoryId).findAll()
+            query<UserRecordDTO>("id == $0", categoryId).find()
         }
         /** Si empty significa que es la primera vez que guardo */
         if (userRecords.isEmpty()) {
-            val userRecord = UserRecordDTO(categoryId, record, 0)
+            val userRecord = UserRecordDTO().apply {
+                id = categoryId
+                guesserRecord = record
+                temporaryRecord = 0
+            }
             realmDatabase.addObject { userRecord }
 
         } else {
@@ -58,13 +61,18 @@ class DashboardRepository @Inject constructor(
         }
     }
 
-    override fun updateTemporaryRecord(categoryId: String, record: Int) {
+    override suspend fun updateTemporaryRecord(categoryId: String, record: Int) {
         val userRecords = realmDatabase.getObjectsFromRealm {
-            where<UserRecordDTO>().equalTo("id", categoryId).findAll()
+            query<UserRecordDTO>("id == $0", categoryId).find()
         }
+
         /** Si empty significa que es la primera vez que guardo */
         if (userRecords.isEmpty()) {
-            val userRecord = UserRecordDTO(categoryId, 0, record)
+            val userRecord = UserRecordDTO().apply {
+                id = categoryId
+                guesserRecord = 0
+                temporaryRecord = record
+            }
             realmDatabase.addObject { userRecord }
 
         } else {
@@ -75,9 +83,7 @@ class DashboardRepository @Inject constructor(
     }
 
     override fun getLoserImages(): List<LoserImages> {
-        val loserImages = realmDatabase.getObjectsFromRealm {
-            where<LoserImagesDTO>().findAll()
-        }
+        val loserImages = realmDatabase.getObjectsFromRealm { query<LoserImagesDTO>().find() }
         return loserImages.toLoserImagesList()
     }
 }

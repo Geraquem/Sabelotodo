@@ -9,26 +9,6 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:contentDescription="@string/content_description"
-        android:src="@drawable/giphy"
-        app:layout_constraintBottom_toTopOf="@id/bg_bottom"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/bg_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/content_description"
-        android:src="@drawable/giphy"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -71,6 +51,7 @@
                 app:layout_constraintGuide_percent="0.95" />
 
             <ProgressBar
+                android:id="@+id/pb_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:indeterminateTint="@color/black"
@@ -91,6 +72,17 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@color/black" />
+
+            <ImageView
+                android:id="@+id/iv_error_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/ic_warning"
+                app:layout_constraintBottom_toBottomOf="@id/image"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/image" />
 
             <LinearLayout
                 android:id="@+id/ll_title"

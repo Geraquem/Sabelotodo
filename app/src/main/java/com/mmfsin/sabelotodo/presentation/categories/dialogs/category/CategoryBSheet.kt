@@ -39,7 +39,7 @@ class CategoryBSheet(private val id: String, private val listener: ICategoryList
                 setTexts(it)
                 tvGuesserRecord.text = it.guesserRecord.toString()
                 tvTemporaryRecord.text = it.temporaryRecord.toString()
-                background.setBackgroundColor(Color.parseColor(it.colorEnd))
+//                background.setBackgroundColor(Color.parseColor(it.colorEnd))
             }
         }
     }

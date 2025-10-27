@@ -36,6 +36,7 @@ import com.mmfsin.sabelotodo.presentation.models.SolutionType.DATES
 import com.mmfsin.sabelotodo.utils.CATEGORY_ID
 import com.mmfsin.sabelotodo.utils.countDown
 import com.mmfsin.sabelotodo.utils.loadingCountDown
+import com.mmfsin.sabelotodo.utils.setGlideImage
 import com.mmfsin.sabelotodo.utils.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -77,6 +78,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
         binding.apply {
             setUpToolbar()
             showBanner(show = false)
+            ivErrorImage.isVisible = false
             loading.root.isVisible
             llSolutions.isVisible = false
             restartAnimations()
@@ -109,7 +111,7 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     (activity as MainActivity).inDashboard = false
                     activity?.let { NoMoreQuestionsDialog().show(it.supportFragmentManager, "") }
                 }
-                if (position % 20 == 0) (activity as MainActivity).showInterstitial()
+                if (position % 15 == 0) (activity as MainActivity).showInterstitial()
             }
         }
     }
@@ -223,6 +225,9 @@ class GuesserFragment : BaseFragment<FragmentDashboardGuesserBinding, GuesserVie
                     setBirth(data.birth)
                     currentSolution = data.solution
                     Glide.with(mContext).load(data.image).into(image)
+
+                    mContext.setGlideImage(data.image, image, ivErrorImage, pbLoading)
+
                     pvResponse.text = null
                     pvResponse.isEnabled = true
                     btnCheck.isEnabled = true
