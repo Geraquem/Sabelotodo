@@ -18,6 +18,9 @@ class CheckTemporaryRecordUseCase @Inject constructor(private val repository: ID
             } else false
             Record(isRecord, points)
         } catch (e: Exception) {
+            println("-*************************************************************************")
+            println("${e.message}")
+            println("-*************************************************************************")
             null
         }
     }

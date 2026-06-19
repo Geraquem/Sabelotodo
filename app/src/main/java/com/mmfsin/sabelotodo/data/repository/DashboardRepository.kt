@@ -62,23 +62,20 @@ class DashboardRepository @Inject constructor(
     }
 
     override suspend fun updateTemporaryRecord(categoryId: String, record: Int) {
-        val userRecords = realmDatabase.getObjectsFromRealm {
-            query<UserRecordDTO>("id == $0", categoryId).find()
-        }
+        realmDatabase.writeBlocking {
+            val userRecord = query<UserRecordDTO>("id == $0", categoryId)
+                .first()
+                .find()
 
-        /** Si empty significa que es la primera vez que guardo */
-        if (userRecords.isEmpty()) {
-            val userRecord = UserRecordDTO().apply {
-                id = categoryId
-                guesserRecord = 0
-                temporaryRecord = record
+            if (userRecord == null) {
+                copyToRealm(UserRecordDTO().apply {
+                    id = categoryId
+                    guesserRecord = 0
+                    temporaryRecord = record
+                })
+            } else {
+                userRecord.temporaryRecord = record
             }
-            realmDatabase.addObject { userRecord }
-
-        } else {
-            val userRecord = userRecords.first()
-            userRecord.temporaryRecord = record
-            realmDatabase.addObject { userRecord }
         }
     }
 

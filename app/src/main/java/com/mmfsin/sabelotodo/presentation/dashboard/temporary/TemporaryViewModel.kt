@@ -24,8 +24,7 @@ class TemporaryViewModel @Inject constructor(
         executeUseCase(
             { getImagesMeasuresUseCase.execute(GetImagesMeasuresUseCase.Params(TEMPORARY)) },
             { result -> _event.value = TemporaryEvent.ImageHeight(result) },
-            { _event.value = TemporaryEvent.SomethingWentWrong }
-        )
+            { _event.value = TemporaryEvent.SomethingWentWrong })
     }
 
     fun getCategory(id: String) {
@@ -35,16 +34,14 @@ class TemporaryViewModel @Inject constructor(
                 _event.value = result?.let { TemporaryEvent.GetCategory(it) }
                     ?: run { TemporaryEvent.SomethingWentWrong }
             },
-            { _event.value = TemporaryEvent.SomethingWentWrong }
-        )
+            { _event.value = TemporaryEvent.SomethingWentWrong })
     }
 
     fun getDashboardData(categoryId: String) {
         executeUseCase(
             { getDashboardDataUseCase.execute(GetDashboardDataUseCase.Params(categoryId)) },
             { result -> _event.value = TemporaryEvent.GuesserData(result) },
-            { _event.value = TemporaryEvent.SomethingWentWrong }
-        )
+            { _event.value = TemporaryEvent.SomethingWentWrong })
     }
 
     fun checkSolutions(answer: TempSelectionType, sol1: String, sol2: String) {
@@ -61,19 +58,13 @@ class TemporaryViewModel @Inject constructor(
     fun checkRecord(points: String, record: String, categoryId: String) {
         executeUseCase(
             {
-                checkTemporaryRecordUseCase.execute(
-                    CheckTemporaryRecordUseCase.Params(
-                        points,
-                        record,
-                        categoryId
-                    )
+            checkTemporaryRecordUseCase.execute(
+                CheckTemporaryRecordUseCase.Params(
+                    points, record, categoryId
                 )
-            },
-            { result ->
-                _event.value = result?.let { TemporaryEvent.IsRecord(it) }
-                    ?: run { TemporaryEvent.SomethingWentWrong }
-            },
-            { _event.value = TemporaryEvent.SomethingWentWrong }
-        )
+            )
+        },
+            { result -> _event.value = result?.let { TemporaryEvent.IsRecord(it) } },
+            { _event.value = TemporaryEvent.SomethingWentWrong })
     }
 }

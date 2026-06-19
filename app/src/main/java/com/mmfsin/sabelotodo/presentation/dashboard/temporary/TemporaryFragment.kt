@@ -130,7 +130,9 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             when (event) {
                 is TemporaryEvent.ImageHeight -> {
                     setHeights(event.height)
-                    categoryId?.let { viewModel.getCategory(it) } ?: run { error() }
+                    categoryId?.let { viewModel.getCategory(it) } ?: run {
+                        error()
+                    }
                 }
 
                 is TemporaryEvent.GetCategory -> {
@@ -154,7 +156,9 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                     }
                 }
 
-                is TemporaryEvent.SomethingWentWrong -> error()
+                is TemporaryEvent.SomethingWentWrong -> {
+                    error()
+                }
             }
         }
     }
@@ -237,7 +241,9 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
                     error()
                 }
             }
-        } else error()
+        } else {
+            error()
+        }
     }
 
     private fun getData(): Pair<Data, Data>? {
@@ -398,7 +404,9 @@ class TemporaryFragment : BaseFragment<FragmentDashboardTemporaryBinding, Tempor
             viewModel.getDashboardData(it.id)
             enableImages()
             restartBackgrounds()
-        } ?: run { error() }
+        } ?: run {
+            error()
+        }
     }
 
     override fun exitGame() {

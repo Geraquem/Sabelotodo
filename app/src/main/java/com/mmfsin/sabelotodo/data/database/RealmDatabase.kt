@@ -3,6 +3,7 @@ package com.mmfsin.sabelotodo.data.database
 import com.mmfsin.sabelotodo.domain.interfaces.IRealmDatabase
 import io.realm.kotlin.MutableRealm
 import io.realm.kotlin.Realm
+import io.realm.kotlin.UpdatePolicy
 import io.realm.kotlin.query.RealmResults
 import io.realm.kotlin.types.RealmObject
 import kotlin.reflect.KClass
@@ -20,7 +21,7 @@ class RealmDatabase(private val realm: Realm) : IRealmDatabase {
 
     override fun <T : RealmObject> addObject(action: () -> T) {
         val obj = action()
-        realm.writeBlocking { copyToRealm(obj) }
+        realm.writeBlocking { copyToRealm(obj, UpdatePolicy.ALL) }
     }
 
     override fun <T : RealmObject> getObjectFromRealm(

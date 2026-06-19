@@ -27,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.concurrent.CountDownLatch
 import javax.inject.Inject
+import androidx.core.content.edit
 
 class CategoryRepository @Inject constructor(
     @ApplicationContext val context: Context, private val realmDatabase: IRealmDatabase
@@ -62,7 +63,7 @@ class CategoryRepository @Inject constructor(
         val latch = CountDownLatch(1)
         reference.get().addOnSuccessListener {
             val version = it.child(VERSION).value as Long
-            if (version == savedVersion) {
+            if (version != savedVersion) {
                 latch.countDown()
             } else {
                 saveVersion(newVersion = version)
@@ -98,17 +99,17 @@ class CategoryRepository @Inject constructor(
     }
 
     private fun saveVersion(newVersion: Long) {
-        val editor = getSharedPreferences().edit()
-        editor.putLong(SAVED_VERSION, newVersion)
-        editor.apply()
+        getSharedPreferences().edit {
+            putLong(SAVED_VERSION, newVersion)
+        }
     }
 
     private fun getSavedVersion(): Long = getSharedPreferences().getLong(SAVED_VERSION, -1)
 
     private fun updateAvailableMM(available: Boolean) {
-        val editor = getSharedPreferences().edit()
-        editor.putBoolean(AVAILABLE_MUSICMASTER, available)
-        editor.apply()
+        getSharedPreferences().edit {
+            putBoolean(AVAILABLE_MUSICMASTER, available)
+        }
     }
 
     override fun getAvailableMusicMaster(): Boolean {
@@ -120,7 +121,9 @@ class CategoryRepository @Inject constructor(
 
     private fun saveCategory(category: CategoryDTO) = realmDatabase.addObject { category }
 
-    private fun saveLoserImages(image: LoserImagesDTO) = realmDatabase.addObject { image }
+    private fun saveLoserImages(image: LoserImagesDTO) {
+        realmDatabase.addObject { image }
+    }
 
     private fun getRecordsFromCategoryId(categoryId: String): UserRecord {
         val records = realmDatabase.getObjectsFromRealm {
